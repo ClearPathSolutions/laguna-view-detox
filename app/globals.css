@@ -1,0 +1,143 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --header-h: 76px;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-white text-ink font-sans antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-serif;
+    text-wrap: balance;
+  }
+
+  ::selection {
+    @apply bg-gold/30 text-navy-900;
+  }
+
+  /* Consistent, comfortable focus ring for accessibility */
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    @apply outline-none ring-2 ring-gold ring-offset-2 ring-offset-white;
+  }
+}
+
+@layer components {
+  /* The single source of truth for horizontal rhythm — no page ever touches
+     the viewport edge, and content is always centered with equal gutters. */
+  .container-x {
+    @apply mx-auto w-full max-w-container px-5 sm:px-8 lg:px-10;
+  }
+
+  /* Vertical section rhythm — uniform so nothing feels uneven or crammed. */
+  .section {
+    @apply py-16 sm:py-20 lg:py-28;
+  }
+  .section-sm {
+    @apply py-12 sm:py-16 lg:py-20;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-eyebrow text-gold-700;
+  }
+
+  .h-display {
+    @apply font-serif font-medium leading-[1.05] text-navy-900;
+    font-size: clamp(2.35rem, 5.5vw, 4.25rem);
+  }
+  .h-section {
+    @apply font-serif font-medium leading-[1.1] text-navy-900;
+    font-size: clamp(1.9rem, 3.4vw, 3rem);
+  }
+  .h-card {
+    @apply font-serif text-2xl font-medium leading-tight text-navy-900;
+  }
+
+  .lead {
+    @apply text-lg leading-relaxed text-navy-800/80 sm:text-xl;
+  }
+
+  .prose-body p {
+    @apply mb-5 leading-[1.75] text-navy-900/75;
+  }
+  .prose-body p:last-child {
+    @apply mb-0;
+  }
+
+  /* Buttons */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold tracking-wide transition-all duration-300 focus-visible:ring-2 focus-visible:ring-offset-2;
+  }
+  .btn-gold {
+    @apply btn bg-gold text-navy-900 shadow-soft hover:bg-gold-400 hover:-translate-y-0.5 hover:shadow-lift;
+  }
+  .btn-navy {
+    @apply btn bg-navy text-white hover:bg-navy-700 hover:-translate-y-0.5;
+  }
+  .btn-outline {
+    @apply btn border border-white/40 bg-white/5 text-white backdrop-blur hover:border-white hover:bg-white/10;
+  }
+  .btn-outline-navy {
+    @apply btn border border-navy/25 text-navy hover:border-navy hover:bg-navy hover:text-white;
+  }
+
+  .card {
+    @apply relative overflow-hidden rounded-2xl bg-white shadow-soft ring-1 ring-navy-900/5 transition-all duration-300;
+  }
+
+  .link-underline {
+    @apply relative inline-flex items-center gap-1.5 font-semibold text-gold-700 transition-colors hover:text-gold-600;
+  }
+}
+
+@layer utilities {
+  .text-shadow-hero {
+    text-shadow: 0 2px 24px rgba(4, 18, 27, 0.45);
+  }
+  .bg-grid-navy {
+    background-image: radial-gradient(rgba(14, 62, 90, 0.06) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+  /* Reveal-on-scroll — progressive enhancement.
+     Safe default is VISIBLE. Only when JS is confirmed (html.js) do we hide
+     and animate in, so no-JS users and crawlers always see the content. */
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+  html.js .reveal {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+  html.js .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html.js .reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}

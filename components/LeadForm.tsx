@@ -7,6 +7,24 @@ import { CheckIcon, PhoneIcon } from "./icons";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
+// window.ClarionForms is provided by forms-capture.v1.js (loaded in <Clarion/>).
+declare global {
+  interface Window {
+    ClarionForms?: {
+      submit: (args: {
+        form_key: string;
+        data: Record<string, unknown>;
+      }) => Promise<void>;
+    };
+  }
+}
+
+// The two forms are distinct in the Clarion dashboard, each with its own key.
+const CLARION_FORM_KEY: Record<"contact" | "insurance", string> = {
+  insurance: "insurance_verification",
+  contact: "contact",
+};
+
 const CONSENT_TEXT =
   "I consent to be contacted by Laguna View Detox by phone, text, or email about treatment, including via automated technology. Consent is not a condition of care. Message/data rates may apply. My information is kept strictly confidential.";
 
@@ -36,8 +54,10 @@ export default function LeadForm({
       phone: fd.get("phone"),
       email: fd.get("email"),
       message: fd.get("message") || undefined,
-      provider: fd.get("provider") || undefined,
-      memberId: fd.get("memberId") || undefined,
+      // Insurance-verification-only fields.
+      dob: fd.get("dob") || undefined,
+      insurer: fd.get("insurer") || undefined,
+      who: fd.get("who") || undefined,
       company: fd.get("company") || undefined, // honeypot
       variant,
       consent: fd.get("consent") === "on",
@@ -47,6 +67,15 @@ export default function LeadForm({
     setStatus("submitting");
     setError("");
     try {
+      // Best-effort telemetry to Clarion. Wrapped in its own try/catch so a
+      // Clarion outage can never block the lead from reaching /api/lead.
+      try {
+        await window.ClarionForms?.submit({
+          form_key: CLARION_FORM_KEY[variant],
+          data: { ...payload, variant },
+        });
+      } catch {}
+
       const res = await fetch("/api/lead", {
         method: "POST",
         headers: { "content-type": "application/json" },
@@ -122,13 +151,45 @@ export default function LeadForm({
 
       {variant === "insurance" ? (
         <>
-          <Field
-            label="Insurance provider"
-            name="provider"
-            autoComplete="off"
-            placeholder="e.g. Anthem, Aetna, Cigna…"
-          />
-          <Field label="Member ID (optional)" name="memberId" autoComplete="off" />
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Field label="Date of birth" name="dob" type="date" autoComplete="bday" required />
+            <Field
+              label="Insurance provider"
+              name="insurer"
+              autoComplete="off"
+              placeholder="e.g. Anthem, Aetna, Cigna…"
+            />
+          </div>
+          <div>
+            <label className="mb-1.5 block text-sm font-medium text-navy-900" htmlFor="who">
+              Who needs help?
+            </label>
+            <select
+              id="who"
+              name="who"
+              defaultValue=""
+              className="w-full rounded-xl border border-navy-900/15 bg-white px-4 py-3 text-navy-900 transition-colors focus:border-gold"
+            >
+              <option value="" disabled>
+                Select one…
+              </option>
+              <option value="Myself">Myself</option>
+              <option value="A loved one">A loved one</option>
+              <option value="A client / patient">A client / patient</option>
+            </select>
+          </div>
+          <div>
+            <label className="mb-1.5 block text-sm font-medium text-navy-900" htmlFor="message">
+              Anything else? (optional)
+            </label>
+            <textarea
+              id="message"
+              name="message"
+              rows={3}
+              className="w-full rounded-xl border border-navy-900/15 bg-white px-4 py-3 text-navy-900 transition-colors placeholder:text-navy-900/50 focus:border-gold"
+              placeholder="Tell us a little about your situation…"
+            />
+          </div>
         </>
       ) : (
         <div>
@@ -173,7 +234,7 @@ export default function LeadForm({
         {submitting
           ? "Sending…"
           : variant === "insurance"
-            ? "Verify My Insurance"
+            ? "Verify My Benefits"
             : "Request a Confidential Callback"}
       </button>
       <p className="text-center text-xs text-navy-900/60">

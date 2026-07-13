@@ -9,8 +9,9 @@ type LeadPayload = {
   phone?: string;
   email?: string;
   message?: string;
-  provider?: string;
-  memberId?: string;
+  dob?: string;
+  insurer?: string;
+  who?: string;
   variant?: string;
   consent?: boolean;
   consentText?: string;
@@ -56,8 +57,9 @@ export async function POST(req: Request) {
     phone: clean(data.phone, 40),
     email: clean(data.email, 160),
     message: clean(data.message, 2000),
-    provider: clean(data.provider, 120),
-    memberId: clean(data.memberId, 80),
+    dob: clean(data.dob, 40),
+    insurer: clean(data.insurer, 120),
+    who: clean(data.who, 80),
     variant: clean(data.variant, 40) || "contact",
     consent: data.consent === true,
     consentText: clean(data.consentText, 500),

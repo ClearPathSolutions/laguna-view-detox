@@ -4,6 +4,7 @@ import Image from "next/image";
 import PageHero from "@/components/PageHero";
 import { CtaBand } from "@/components/sections";
 import BlogArchive from "@/components/BlogArchive";
+import ClarionBlog from "@/components/ClarionBlog";
 import { allPosts, categories } from "@/lib/blog";
 import { ArrowRightIcon } from "@/components/icons";
 
@@ -64,6 +65,22 @@ export default function BlogIndex() {
 
           <div className="mt-14">
             <BlogArchive posts={rest} categories={categories} />
+          </div>
+        </div>
+      </section>
+
+      {/* Clarion's incoming posts render here only — an isolated section below
+          the site's own curated posts, which stay exactly as they are above. */}
+      <section className="bg-sand-50">
+        <div className="container-x py-16 md:py-24">
+          <div className="max-w-2xl">
+            <span className="eyebrow">Fresh off the press</span>
+            <h2 className="mt-2 font-serif text-2xl font-medium text-navy-900 md:text-3xl">
+              More from our team
+            </h2>
+          </div>
+          <div className="mt-10">
+            <ClarionBlog />
           </div>
         </div>
       </section>

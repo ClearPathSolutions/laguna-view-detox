@@ -5,6 +5,7 @@ import { site } from "@/lib/site";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
+import Clarion from "@/components/Clarion";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -113,6 +114,12 @@ export default function RootLayout({
 
   return (
     <html lang="en" className={`${cormorant.variable} ${inter.variable}`}>
+      <head>
+        {/* Call-tracking pixel (tctm.co) — swaps/tracks phone numbers for
+            attribution. Loads early in <head>. The account ID is per-site. */}
+        {/* eslint-disable-next-line @next/next/no-sync-scripts */}
+        <script async src={`//${site.widgets.callTracking.accountId}.tctm.co/t.js`} />
+      </head>
       <body>
         {/* Mark JS as available before paint so scroll-reveal can hide/animate
             content; without JS the content stays visible (see globals.css). */}
@@ -135,6 +142,8 @@ export default function RootLayout({
         <main id="main">{children}</main>
         <Footer />
         <Reveal />
+        {/* Clarion chat widget + form-capture script, loaded once. */}
+        <Clarion />
       </body>
     </html>
   );

@@ -24,6 +24,21 @@ export const site = {
     yelp: "https://www.yelp.com/biz/laguna-view-detox-laguna-beach",
     youtube: "https://www.youtube.com/channel/UC4PpcbTW5reQ61dQyHXDTYg",
   },
+  // Third-party widget config. The Clarion site key is the only per-site value
+  // that changes when this stack is cloned to another property.
+  widgets: {
+    clarion: {
+      siteKey: "cpx_T4KttBQTpAKWUWFZlFiNGOCnMr0pxPER",
+      api: "https://api.clarionlabs.ai",
+      widget: "https://www.clarionlabs.ai/widget.v1.js",
+      formsCapture: "https://www.clarionlabs.ai/forms-capture.v1.js",
+      blogEmbed: "https://www.clarionlabs.ai/blog-embed.v1.js",
+    },
+    // Call-tracking pixel (tctm.co). The account ID lives in the script URL.
+    callTracking: {
+      accountId: "264810",
+    },
+  },
 } as const;
 
 export type NavColumn = {

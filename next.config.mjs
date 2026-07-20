@@ -6,18 +6,20 @@
 // site is statically generated, so per-request nonces aren't available.
 //
 // Third-party widgets that must be allowlisted (see lib/site.ts widgets):
-//   • Clarion chat, form-capture, and blog embed — scripts served from
-//     www.clarionlabs.ai; both hit api.clarionlabs.ai via fetch; the blog
-//     embed pulls Google Fonts (fonts.googleapis.com / fonts.gstatic.com).
+//   • Clarion chat + form-capture — scripts served from www.clarionlabs.ai,
+//     both call api.clarionlabs.ai via fetch from the browser.
 //   • Call tracking — script + beacons from *.tctm.co.
+//   • Clarion blog posts are fetched server-side (no browser origin needed),
+//     but their cover/body images come from arbitrary CMS hosts (e.g.
+//     images.unsplash.com), so img-src must permit any https image.
 const csp = [
   "default-src 'self'",
   "script-src 'self' 'unsafe-inline' https://www.clarionlabs.ai https://*.tctm.co",
-  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-  "img-src 'self' data: blob: https://maps.gstatic.com https://maps.googleapis.com https://www.clarionlabs.ai https://*.clarionlabs.ai",
-  "font-src 'self' data: https://fonts.gstatic.com",
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self' data: blob: https:",
+  "font-src 'self' data:",
   "frame-src https://www.google.com https://maps.google.com",
-  "connect-src 'self' https://api.clarionlabs.ai https://www.clarionlabs.ai https://*.tctm.co",
+  "connect-src 'self' https://api.clarionlabs.ai https://*.tctm.co",
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",

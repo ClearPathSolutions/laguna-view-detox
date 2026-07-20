@@ -78,6 +78,40 @@
     @apply mb-0;
   }
 
+  /* Typography for CMS-authored HTML (Clarion blog posts rendered via
+     dangerouslySetInnerHTML). Mirrors .prose-body but also styles the
+     headings, lists, links, images, and quotes the editor can emit. */
+  .blog-html {
+    @apply text-navy-900/80;
+  }
+  .blog-html > :first-child {
+    @apply mt-0;
+  }
+  .blog-html p {
+    @apply mb-5 leading-[1.75];
+  }
+  .blog-html h2 {
+    @apply mb-3 mt-10 font-serif text-2xl font-medium text-navy-900;
+  }
+  .blog-html h3 {
+    @apply mb-2 mt-8 font-serif text-xl font-medium text-navy-900;
+  }
+  .blog-html ul {
+    @apply my-4 list-disc space-y-2 pl-6;
+  }
+  .blog-html ol {
+    @apply my-4 list-decimal space-y-2 pl-6;
+  }
+  .blog-html a {
+    @apply font-medium text-gold-700 underline;
+  }
+  .blog-html img {
+    @apply my-6 rounded-2xl;
+  }
+  .blog-html blockquote {
+    @apply my-6 border-l border-navy-900/15 pl-5 italic text-navy-900/70;
+  }
+
   /* Buttons */
   .btn {
     @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold tracking-wide transition-all duration-300 focus-visible:ring-2 focus-visible:ring-offset-2;

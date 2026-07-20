@@ -2,19 +2,27 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { getPost, allPosts } from "@/lib/blog";
+import { getMergedPost, getAllPosts } from "@/lib/blog";
 import { pageMeta } from "@/lib/seo";
 import { paragraphs } from "@/lib/content";
 import { CtaBand } from "@/components/sections";
 import { site } from "@/lib/site";
 import { PhoneIcon, ChevronRightIcon, ArrowRightIcon, ShieldIcon } from "@/components/icons";
 
-export function generateStaticParams() {
-  return allPosts.map((p) => ({ slug: p.slug }));
+// Re-generate hourly so Clarion post edits/new posts flow through.
+export const revalidate = 3600;
+
+export async function generateStaticParams() {
+  const posts = await getAllPosts();
+  return posts.map((p) => ({ slug: p.slug }));
 }
 
-export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
-  const post = getPost(params.slug);
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
+  const post = await getMergedPost(params.slug);
   if (!post) return {};
   return pageMeta({
     title: post.title,
@@ -24,18 +32,19 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   });
 }
 
-export default function BlogPost({ params }: { params: { slug: string } }) {
-  const post = getPost(params.slug);
+export default async function BlogPost({ params }: { params: { slug: string } }) {
+  const post = await getMergedPost(params.slug);
   if (!post) notFound();
 
-  const more = allPosts.filter((p) => p.slug !== post.slug && p.category === post.category);
-  const related = (more.length >= 3 ? more : allPosts.filter((p) => p.slug !== post.slug)).slice(0, 3);
+  const all = await getAllPosts();
+  const more = all.filter((p) => p.slug !== post.slug && p.category === post.category);
+  const related = (more.length >= 3 ? more : all.filter((p) => p.slug !== post.slug)).slice(0, 3);
 
   return (
     <>
       {/* Header */}
       <section className="relative isolate overflow-hidden bg-navy-950 text-white">
-        <Image src={post.image} alt="" fill sizes="100vw" className="object-cover opacity-25" priority />
+        <Image src={post.image} alt="" fill sizes="100vw" className="object-cover opacity-25" priority unoptimized={post.external} />
         <div className="absolute inset-0 bg-gradient-to-b from-navy-950/80 to-navy-950/95" />
         <div className="container-x relative py-14 lg:py-20">
           <nav className="flex items-center gap-1.5 text-xs text-white/60" aria-label="Breadcrumb">
@@ -60,10 +69,18 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
           <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-16">
             <article className="reveal max-w-prose">
               <div className="relative mb-10 aspect-[16/9] overflow-hidden rounded-2xl shadow-soft">
-                <Image src={post.image} alt={post.title} fill sizes="(min-width:1024px) 60vw, 100vw" className="object-cover" />
+                <Image src={post.image} alt={post.title} fill sizes="(min-width:1024px) 60vw, 100vw" className="object-cover" unoptimized={post.external} />
               </div>
 
-              {post.sections && post.sections.length > 0 ? (
+              {post.external && post.bodyHtml ? (
+                // Clarion post — render the CMS-authored HTML. This is the site
+                // owner's own content (authored in Clarion), the same trust model
+                // as the vendor's official embed, which also injects it as HTML.
+                <div
+                  className="blog-html"
+                  dangerouslySetInnerHTML={{ __html: post.bodyHtml }}
+                />
+              ) : post.sections && post.sections.length > 0 ? (
                 post.sections.map((s, i) => (
                   <div key={i} className={i === 0 ? "" : "mt-9"}>
                     {s.heading?.trim() && s.heading.toLowerCase() !== "introduction" && (
@@ -119,7 +136,7 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
             {related.map((p) => (
               <Link key={p.slug} href={`/blog/${p.slug}`} className="group flex flex-col">
                 <div className="relative aspect-[16/10] overflow-hidden rounded-2xl shadow-soft">
-                  <Image src={p.image} alt={p.title} fill sizes="30vw" className="object-cover transition-transform duration-500 group-hover:scale-105" />
+                  <Image src={p.image} alt={p.title} fill sizes="30vw" className="object-cover transition-transform duration-500 group-hover:scale-105" unoptimized={p.external} />
                 </div>
                 <h3 className="mt-4 font-serif text-lg font-medium leading-snug text-navy-900 group-hover:text-gold-700">
                   {p.title}

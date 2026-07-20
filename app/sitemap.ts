@@ -1,9 +1,9 @@
 import type { MetadataRoute } from "next";
 import { site } from "@/lib/site";
 import { detoxTypes, whoWeTreat, locations, carriers, team } from "@/lib/data";
-import { allPosts } from "@/lib/blog";
+import { getAllPosts } from "@/lib/blog";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = site.url;
   const now = new Date();
 
@@ -46,7 +46,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })
   );
 
-  // Blog posts carry their own publish date so search engines see real freshness.
+  // Blog posts (local + Clarion) carry their own publish date so search engines
+  // see real freshness.
+  const allPosts = await getAllPosts();
   const posts: MetadataRoute.Sitemap = allPosts.map((p) => ({
     url: `${base}/blog/${p.slug}`,
     lastModified: p.ts ? new Date(p.ts) : now,

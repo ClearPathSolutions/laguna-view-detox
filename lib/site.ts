@@ -32,7 +32,8 @@ export const site = {
       api: "https://api.clarionlabs.ai",
       widget: "https://www.clarionlabs.ai/widget.v1.js",
       formsCapture: "https://www.clarionlabs.ai/forms-capture.v1.js",
-      blogEmbed: "https://www.clarionlabs.ai/blog-embed.v1.js",
+      // Blog posts are fetched server-side (see lib/blog.ts) rather than via the
+      // client blog-embed script, so posts merge into the site's own blog list.
     },
     // Call-tracking pixel (tctm.co). The account ID lives in the script URL.
     callTracking: {

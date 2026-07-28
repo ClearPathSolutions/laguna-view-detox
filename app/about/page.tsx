@@ -8,6 +8,7 @@ import { getPage } from "@/lib/content";
 import { team } from "@/lib/data";
 import { HeartIcon, SparkleIcon, UsersIcon, LeafIcon, ArrowRightIcon } from "@/components/icons";
 import { pageMeta } from "@/lib/seo";
+import { extraStaff } from "@/lib/staff-feed";
 
 const page = getPage("about-us");
 export const metadata = pageMeta({
@@ -39,7 +40,37 @@ const pillars = [
   },
 ];
 
-export default function AboutPage() {
+/**
+ * Team cards link to a per-person bio page. Staff pulled from the support
+ * portal have no such page, so they render as a plain card instead of a link
+ * pointing at /about/undefined.
+ */
+function CardShell({
+  slug,
+  delay,
+  children,
+}: {
+  slug: string;
+  delay: number;
+  children: React.ReactNode;
+}) {
+  if (!slug) {
+    return (
+      <div className="text-center reveal" data-delay={delay}>
+        {children}
+      </div>
+    );
+  }
+  return (
+    <Link href={`/about/${slug}`} className="group text-center reveal" data-delay={delay}>
+      {children}
+    </Link>
+  );
+}
+
+export default async function AboutPage() {
+  // Local entries win; the portal only contributes people not listed in lib/data.
+  const roster = [...team, ...(await extraStaff("laguna-view-detox", team))];
   return (
     <>
       <PageHero
@@ -128,12 +159,11 @@ export default function AboutPage() {
             align="center"
           />
           <div className="mx-auto mt-14 grid max-w-4xl gap-8 sm:grid-cols-3">
-            {team.map((m, i) => (
-              <Link
-                key={m.slug}
-                href={`/about/${m.slug}`}
-                className="group text-center reveal"
-                data-delay={i * 90}
+            {roster.map((m, i) => (
+              <CardShell
+                key={m.slug || m.name}
+                slug={m.slug}
+                delay={i * 90}
               >
                 <div className="relative mx-auto aspect-[3/4] w-full overflow-hidden rounded-2xl bg-sand-100 shadow-soft">
                   {m.image ? (
@@ -154,11 +184,14 @@ export default function AboutPage() {
                   {m.name}
                 </h3>
                 <p className="mt-1 text-sm text-navy-900/60">{m.role}</p>
-                <span className="mt-2 inline-flex items-center gap-1 text-sm font-semibold text-gold-700">
+                <span
+                  className="mt-2 inline-flex items-center gap-1 text-sm font-semibold text-gold-700"
+                  hidden={!m.slug}
+                >
                   Read bio
                   <ArrowRightIcon className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
                 </span>
-              </Link>
+              </CardShell>
             ))}
           </div>
         </div>

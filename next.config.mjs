@@ -1,4 +1,19 @@
 /** @type {import('next').NextConfig} */
+import { buildRedirects } from "./lib/redirects.mjs";
+
+/**
+ * ⚠️ CUTOVER DECISION — BLOCKED ON QHG (sheet V0102, portfolio-wide).
+ *
+ * Production (`lagunaviewdetox.com`) is slash-canonical: it 301s the slashless
+ * form of every URL. This build serves slashless. Until this matches
+ * production, every canonical this site emits points at a URL that redirects,
+ * which discounts it — measured live 2026-08-07: of 9 sampled routes, 8 either
+ * 301 or 404 and only `/` resolves cleanly.
+ *
+ * Set this to `true` the moment QHG confirms the convention, and ship it in the
+ * SAME deploy as the redirect map below. Two passes produce chains.
+ */
+const TRAILING_SLASH = false;
 
 // Content-Security-Policy: locks the site to its own origin, allows the
 // Google Maps embed (contact page) and next/image's data: URIs. Inline
@@ -37,6 +52,12 @@ const securityHeaders = [
 const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  trailingSlash: TRAILING_SLASH,
+  // 185 pairs: every URL live on production today -> its address here.
+  // Enumerated from production's sitemaps; see lib/redirects.mjs.
+  async redirects() {
+    return buildRedirects();
+  },
   images: {
     // AVIF/WebP + responsive srcset. This was previously `unoptimized: true`,
     // which made every `sizes` prop in the codebase inert and shipped the same

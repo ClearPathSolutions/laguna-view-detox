@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { site } from "@/lib/site";
+import { track } from "@/lib/analytics";
 import { CheckIcon, PhoneIcon } from "./icons";
 
 type Status = "idle" | "submitting" | "success" | "error";
@@ -13,8 +14,15 @@ const CONSENT_TEXT =
 export default function LeadForm({
   variant = "contact",
 }: {
-  variant?: "contact" | "insurance";
+  /**
+   * `callback` is the compact sidebar form used on programme, location and
+   * population pages — name and phone only. Fewer fields is the point: it sits
+   * beside body copy rather than being the page's purpose, and the admissions
+   * team only needs a way to call back.
+   */
+  variant?: "contact" | "insurance" | "callback";
 }) {
+  const compact = variant === "callback";
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState<string>("");
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
@@ -67,13 +75,17 @@ export default function LeadForm({
         );
       }
       setStatus("success");
+      track("lead_submit", { variant });
     } catch (err) {
       setStatus("error");
-      setError(
+      const message =
         err instanceof Error
           ? err.message
-          : "Something went wrong. Please call us at " + site.phone + "."
-      );
+          : "Something went wrong. Please call us at " + site.phone + ".";
+      setError(message);
+      // Deliberately tracked: a spike here means leads are being lost, which
+      // is invisible from the server side if the request never arrived.
+      track("lead_error", { variant, message });
     }
   }
 
@@ -115,16 +127,25 @@ export default function LeadForm({
         <input id="company" name="company" type="text" tabIndex={-1} autoComplete="off" />
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2">
-        <Field label="First name" name="firstName" autoComplete="given-name" required error={fieldErrors.firstName} />
-        <Field label="Last name" name="lastName" autoComplete="family-name" required error={fieldErrors.lastName} />
-      </div>
-      <div className="grid gap-4 sm:grid-cols-2">
-        <Field label="Phone" name="phone" type="tel" autoComplete="tel" required error={fieldErrors.phone} />
-        <Field label="Email" name="email" type="email" autoComplete="email" required error={fieldErrors.email} />
-      </div>
+      {compact ? (
+        <>
+          <Field label="Your name" name="firstName" autoComplete="given-name" required error={fieldErrors.firstName} />
+          <Field label="Phone" name="phone" type="tel" autoComplete="tel" required error={fieldErrors.phone} />
+        </>
+      ) : (
+        <>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Field label="First name" name="firstName" autoComplete="given-name" required error={fieldErrors.firstName} />
+            <Field label="Last name" name="lastName" autoComplete="family-name" required error={fieldErrors.lastName} />
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Field label="Phone" name="phone" type="tel" autoComplete="tel" required error={fieldErrors.phone} />
+            <Field label="Email" name="email" type="email" autoComplete="email" required error={fieldErrors.email} />
+          </div>
+        </>
+      )}
 
-      {variant === "insurance" ? (
+      {compact ? null : variant === "insurance" ? (
         <>
           <Field
             label="Insurance provider"
@@ -173,12 +194,18 @@ export default function LeadForm({
         </p>
       )}
 
-      <button type="submit" disabled={submitting} className="btn-gold w-full text-base disabled:opacity-70">
+      <button
+        type="submit"
+        disabled={submitting}
+        className={`btn-gold w-full disabled:opacity-70 ${compact ? "text-sm" : "text-base"}`}
+      >
         {submitting
           ? "Sending…"
           : variant === "insurance"
             ? "Verify My Insurance"
-            : "Request a Confidential Callback"}
+            : compact
+              ? "Request a Callback"
+              : "Request a Confidential Callback"}
       </button>
       <p className="text-center text-xs text-navy-900/60">
         100% confidential · No cost or obligation · Available 24/7

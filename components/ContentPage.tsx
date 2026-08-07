@@ -7,6 +7,7 @@ import { CtaBand } from "./sections";
 import { Bullet } from "./ui";
 import TableOfContents, { headingId } from "./TableOfContents";
 import ProgramCards from "./ProgramCards";
+import LeadForm from "./LeadForm";
 import {
   PhoneIcon,
   ShieldIcon,
@@ -79,6 +80,21 @@ function Sidebar({
           <ShieldIcon className="h-4 w-4" />
           Verify Insurance
         </Link>
+      </div>
+
+      {/* Inline capture. Previously the only forms on the site were on
+          /contact and /insurance, so every programme, detox, location and
+          population page asked the reader to navigate away to convert. */}
+      <div className="rounded-2xl bg-sand-50 p-6 ring-1 ring-navy-900/5">
+        <h3 className="font-serif text-lg font-medium text-navy-900">
+          Prefer we call you?
+        </h3>
+        <p className="mt-1.5 text-sm text-navy-900/70">
+          Leave your name and number — we&apos;ll reach out discreetly.
+        </p>
+        <div className="mt-4">
+          <LeadForm variant="callback" />
+        </div>
       </div>
 
       {/* Related links */}

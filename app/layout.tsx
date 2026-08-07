@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
 import { site } from "@/lib/site";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
+import Analytics from "@/components/Analytics";
+import StickyCallBar from "@/components/StickyCallBar";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -136,6 +139,12 @@ export default function RootLayout({
         <main id="main">{children}</main>
         <Footer />
         <Reveal />
+        <StickyCallBar />
+        {/* useSearchParams needs a Suspense boundary or it opts the whole
+            route out of static generation. */}
+        <Suspense fallback={null}>
+          <Analytics />
+        </Suspense>
       </body>
     </html>
   );

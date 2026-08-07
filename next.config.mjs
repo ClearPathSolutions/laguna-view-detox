@@ -19,14 +19,21 @@ const TRAILING_SLASH = false;
 // Google Maps embed (contact page) and next/image's data: URIs. Inline
 // scripts (the framework runtime + JSON-LD) require 'unsafe-inline'; the
 // site is statically generated, so per-request nonces aren't available.
+// Analytics hosts. Enumerated explicitly rather than wildcarded — a
+// `*.google.com` allowance would re-open most of what this policy closes.
+// These are inert unless NEXT_PUBLIC_GA_ID is set (see components/Analytics).
+const GA_SCRIPT = "https://www.googletagmanager.com";
+const GA_CONNECT =
+  "https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com";
+
 const csp = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline'",
+  `script-src 'self' 'unsafe-inline' ${GA_SCRIPT}`,
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob: https://maps.gstatic.com https://maps.googleapis.com",
+  `img-src 'self' data: blob: https://maps.gstatic.com https://maps.googleapis.com ${GA_SCRIPT} https://www.google-analytics.com`,
   "font-src 'self' data:",
   "frame-src https://www.google.com https://maps.google.com",
-  "connect-src 'self'",
+  `connect-src 'self' ${GA_CONNECT} ${GA_SCRIPT}`,
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",

@@ -187,6 +187,22 @@ export async function POST(req: Request) {
   );
 
   const webhook = process.env.LEAD_WEBHOOK_URL;
+
+  if (!webhook) {
+    // No delivery destination is configured, so this lead exists only in the
+    // platform log — which nobody in admissions is watching. The submitter is
+    // about to be told "a member of our admissions team will contact you
+    // shortly", so make the gap impossible to miss in the logs rather than
+    // failing quietly.
+    //
+    // In production this is a launch blocker: set LEAD_WEBHOOK_URL to a
+    // HIPAA-appropriate destination under a signed BAA. See issues.md T-48.
+    console.error(
+      "[lead] CRITICAL: LEAD_WEBHOOK_URL is not set — this inquiry was NOT delivered to admissions and exists only in this log.",
+      { submittedAt: payload.submittedAt, variant: payload.variant }
+    );
+  }
+
   if (webhook) {
     try {
       const res = await fetch(webhook, {

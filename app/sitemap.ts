@@ -23,7 +23,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/admissions",
     "/insurance",
     "/contact",
-    "/faq",
     "/editorial-policy",
     "/blog",
     "/faq",

@@ -53,6 +53,7 @@ const columns = [
       { label: "The Luxury Experience", href: "/luxury-rehab" },
       { label: "Luxury Amenities", href: "/luxury-addiction-treatment" },
       { label: "Recovery Blog", href: "/blog" },
+      { label: "FAQ", href: "/faq" },
     ],
   },
 ];

@@ -18,6 +18,7 @@ export default function AdmissionsPage() {
   return (
     <>
       <PageHero
+        path="/admissions"
         eyebrow="We Make Getting Help Easy"
         title={page?.h1 || "Admissions"}
         subtitle={page?.heroSubtitle}

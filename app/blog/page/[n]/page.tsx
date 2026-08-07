@@ -43,6 +43,7 @@ export default function BlogPageN({ params }: { params: { n: string } }) {
   return (
     <>
       <PageHero
+        path={`/blog/page/${page}`}
         eyebrow="Stay Informed"
         title="Addiction Recovery Blog"
         subtitle={`Page ${page} of ${totalPages} — ${allPosts.length} articles from the Laguna View Detox clinical team.`}

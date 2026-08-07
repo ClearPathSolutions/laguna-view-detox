@@ -34,6 +34,7 @@ export default function CarrierPage({ params }: { params: { carrier: string } })
 
   return (
     <ContentPage
+      path={`/insurance/${params.carrier}`}
       page={page}
       eyebrow="Insurance Coverage"
       heroImage="/images/20230113-03-31305ceanothusdr-lagunabeach-ca-021-Small.jpg"

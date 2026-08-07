@@ -68,6 +68,7 @@ export default function PrivacyPage() {
   return (
     <>
       <PageHero
+        path="/privacy-policy"
         eyebrow="Legal"
         title="Privacy Policy"
         subtitle="Your privacy and confidentiality are foundational to the care we provide."

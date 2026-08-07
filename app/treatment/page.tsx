@@ -22,6 +22,7 @@ export default function TreatmentHub() {
   return (
     <>
       <PageHero
+        path="/treatment"
         eyebrow="Comprehensive Care"
         title={page?.h1 || "Our Treatment Programs"}
         subtitle={intro}

@@ -15,6 +15,7 @@ export default function Page() {
   if (!page) notFound();
   return (
     <ContentPage
+      path={"/drug-addiction-treatment"}
       page={page}
       eyebrow="Addiction Treatment"
       heroImage="/images/shutterstock_1379119298-scaled.jpg"

@@ -24,6 +24,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/insurance",
     "/contact",
     "/blog",
+    "/faq",
     "/drug-addiction-treatment",
     "/alcohol-detox-and-treatment-programs",
     "/luxury-addiction-treatment",

@@ -1,6 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { site } from "@/lib/site";
+import { breadcrumbSchema } from "@/lib/schema";
+import JsonLd from "./JsonLd";
 import { PhoneIcon, ChevronRightIcon } from "./icons";
 
 export type Crumb = { label: string; href?: string };
@@ -12,6 +14,7 @@ export default function PageHero({
   image = "/images/NIK_5883-hero.jpg",
   crumbs = [],
   align = "center",
+  path,
 }: {
   eyebrow?: string;
   title: string;
@@ -19,9 +22,15 @@ export default function PageHero({
   image?: string;
   crumbs?: Crumb[];
   align?: "center" | "left";
+  /** Current route, used for the BreadcrumbList's final item. */
+  path?: string;
 }) {
   return (
     <section className="relative isolate overflow-hidden bg-navy-950">
+      {/* BreadcrumbList mirroring the visible trail below. */}
+      {crumbs.length > 0 && (
+        <JsonLd data={breadcrumbSchema(crumbs, path ?? "/")} />
+      )}
       <Image
         src={image}
         alt=""

@@ -41,6 +41,7 @@ export default function LocationPage({ params }: { params: { slug: string } }) {
 
   return (
     <ContentPage
+      path={`/locations/${params.slug}`}
       page={page}
       eyebrow="Areas We Serve"
       heroImage={locationImages[params.slug]}

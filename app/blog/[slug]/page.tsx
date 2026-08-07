@@ -6,6 +6,8 @@ import { getPost, allPosts, categorySlug } from "@/lib/blog";
 import { pageMeta } from "@/lib/seo";
 import { paragraphs } from "@/lib/content";
 import { CtaBand } from "@/components/sections";
+import { blogPostingSchema, breadcrumbSchema } from "@/lib/schema";
+import JsonLd from "@/components/JsonLd";
 import { site } from "@/lib/site";
 import { PhoneIcon, ChevronRightIcon, ArrowRightIcon, ShieldIcon } from "@/components/icons";
 
@@ -33,6 +35,18 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
 
   return (
     <>
+      <JsonLd data={blogPostingSchema(post, `/blog/${post.slug}`)} />
+      <JsonLd
+        data={breadcrumbSchema(
+          [
+            { label: "Blog", href: "/blog" },
+            { label: post.category, href: `/blog/category/${categorySlug(post.category)}` },
+            { label: post.title },
+          ],
+          `/blog/${post.slug}`
+        )}
+      />
+
       {/* Header */}
       <section className="relative isolate overflow-hidden bg-navy-950 text-white">
         <Image src={post.image} alt="" fill sizes="100vw" className="object-cover opacity-25" priority />

@@ -43,6 +43,7 @@ export default function AboutPage() {
   return (
     <>
       <PageHero
+        path="/about"
         eyebrow="About Laguna View Detox"
         title="Who We Are"
         subtitle={page?.heroSubtitle}

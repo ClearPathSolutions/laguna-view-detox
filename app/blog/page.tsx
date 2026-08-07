@@ -24,6 +24,7 @@ export default function BlogIndex() {
   return (
     <>
       <PageHero
+        path="/blog"
         eyebrow="Stay Informed"
         title="Addiction Recovery Blog"
         subtitle="Guidance, education, and encouragement from the Laguna View Detox clinical team."

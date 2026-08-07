@@ -16,6 +16,7 @@ export default function DetoxPage() {
   if (!page) notFound();
   return (
     <ContentPage
+      path={"/treatment/detoxification"}
       page={page}
       eyebrow="Levels of Care"
       heroImage="/images/lvd-tour-25.jpg"

@@ -15,6 +15,7 @@ export default function Page() {
   if (!page) notFound();
   return (
     <ContentPage
+      path={"/treatment/dual-diagnosis"}
       page={page}
       eyebrow="Levels of Care"
       heroImage="/images/20230113-03-31305ceanothusdr-lagunabeach-ca-004-Small.jpg"

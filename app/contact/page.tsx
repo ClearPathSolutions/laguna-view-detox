@@ -35,6 +35,7 @@ export default function ContactPage() {
   return (
     <>
       <PageHero
+        path="/contact"
         eyebrow="We're Here to Help"
         title="Contact Laguna View Detox"
         subtitle="Our caring, compassionate team is available around the clock, eager to help you begin your path to freedom from addiction — on your terms."

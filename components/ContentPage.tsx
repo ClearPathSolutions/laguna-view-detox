@@ -124,6 +124,7 @@ export default function ContentPage({
   related,
   relatedTitle,
   intro,
+  path,
 }: {
   page: PageContent;
   eyebrow?: string;
@@ -132,6 +133,8 @@ export default function ContentPage({
   related?: RelatedLink[];
   relatedTitle?: string;
   intro?: React.ReactNode;
+  /** Current route — feeds the BreadcrumbList's final item. */
+  path?: string;
 }) {
   const shortBullets = (page.bullets || []).filter(
     (b) => b.length <= 95 && !b.includes(":")
@@ -146,6 +149,7 @@ export default function ContentPage({
         subtitle={page.heroSubtitle}
         image={heroImage}
         crumbs={crumbs}
+        path={path}
       />
 
       <section className="section bg-white">

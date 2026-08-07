@@ -32,6 +32,7 @@ export default function CategoryArchive({ params }: { params: { slug: string } }
   return (
     <>
       <PageHero
+        path={`/blog/category/${cat.slug}`}
         eyebrow="Recovery Blog"
         title={`${cat.label} Articles`}
         subtitle={`${cat.count} article${cat.count === 1 ? "" : "s"} on ${cat.label.toLowerCase()} from our clinical team.`}

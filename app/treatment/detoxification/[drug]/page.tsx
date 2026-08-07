@@ -42,6 +42,7 @@ export default function DetoxDrugPage({ params }: { params: { drug: string } }) 
 
   return (
     <ContentPage
+      path={`/treatment/detoxification/${params.drug}`}
       page={page}
       eyebrow="Medical Detox"
       heroImage={drugImages[params.drug]}

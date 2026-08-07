@@ -103,11 +103,11 @@ The sheet audited a deployed build that **contains content this repo does not ha
 
 | Priority | Count | Theme |
 |---|---|---|
-| **P0 — ship blockers** | 10 | Baseline drift, **182-pair cutover redirect map**, **broken canonical targets**, **`/insurance` URL structure**, **missing production post**, blog crawlability, `/blog` metadata, homepage title, analytics, mobile keyboard trap |
+| **P0 — ship blockers** | 11 | Baseline drift, **dead lead delivery**, **182-pair cutover redirect map**, **broken canonical targets**, **`/insurance` URL structure**, **missing production post**, blog crawlability, `/blog` metadata, homepage title, analytics, mobile keyboard trap |
 | **P1 — high** | 16 | **Outdated staff roster**, **medical-review program**, **est-year conflict**, **brand-photo migration**, **unused GMB profile**, **scope-of-care verification**, image delivery, carrier graphic accuracy, meta descriptions, footer link integrity, E-E-A-T bylines, content restoration, schema, stale blog slugs, stray root-level post, no `/faq` page |
 | **P2 — medium** | 9 | H1s, competing luxury pages, form placement, thin pages, TOC, at-a-glance, layout patterns |
 | **P3 — low** | 13 | Lint, rate limiting, copyright year, casing, robots, FAQ a11y, misc polish |
-| **Portfolio** | 9 | Owned outside this repo — slug standards, trailing slash, cutover, **inbound equity**, **phone contamination** |
+| **Portfolio** | 11 | Owned outside this repo — slug standards, trailing slash, cutover, **inbound equity**, **phone contamination** |
 | **Closed** | 2 | By design / no action |
 
 ---
@@ -126,6 +126,23 @@ The sheet audited a deployed build that **contains content this repo does not ha
 4. Related: sheet row **V0124** (`CRITICAL`) warns the Vercel builds were generated from a ~15–16 July 2026 content snapshot and production has kept publishing since — 15 pages across the portfolio exist on production but not in the builds. Re-run that diff for LVD before cutover.
 
 **Acceptance:** A written statement of which build is authoritative, and Appendix A re-scoped against it.
+
+---
+
+### T-48 · `LEAD_WEBHOOK_URL` is unset — every lead lives only in server logs
+**Priority:** P0 — launch blocker · **Source:** code audit; carried over from the July 2026 remediation and never closed · **Files:** `app/api/lead/route.ts:189`, Vercel project env vars
+
+**Problem:** The lead endpoint forwards to a CRM/inbox webhook only when `process.env.LEAD_WEBHOOK_URL` is set. It is not set. The route degrades safely — it validates, records TCPA consent, `console.log`s the lead and returns success — but **there is no delivery**. Every admissions inquiry exists solely in Vercel function logs, which are retention-limited and not monitored by an admissions team.
+
+This is the same unresolved dependency flagged in the July remediation. The form looks and behaves correctly, which is precisely what makes it dangerous: a person in crisis submits and is told "a member of our admissions team will contact you shortly."
+
+**Fix:**
+1. Stand up the destination (CRM endpoint, or an inbox relay) **under a signed BAA** — this carries PHI.
+2. Set `LEAD_WEBHOOK_URL` in Vercel for Production and Preview.
+3. Submit an end-to-end test lead and confirm it arrives in the destination, not just the log.
+4. Add alerting on webhook delivery failure — the route already returns 502 and logs `[lead] delivery failed`, but nothing watches it.
+
+**Acceptance:** A test submission arrives in the live destination. Deliberately breaking the webhook produces a visible alert, not a silent log line.
 
 ---
 
@@ -758,7 +775,11 @@ Root cause is visible in the code: `ContentPage.tsx:136` filters `page.bullets` 
 ### T-19 · Create named intro sections (16 rows)
 **Priority:** P2 · **Source:** sheet rows 1156, 1164 + 14 others · **Files:** `content/pages.raw.json`
 
-**Problem:** 16 rows ask for a new first section with a specific `<h2>` — e.g. 1156 "Heroin Addiction Treatment", 1164 "Cocaine Addiction Treatment", 1101 "Luxury Dual Diagnosis Program in Orange County" — populated from paragraphs currently missing (overlaps T-12). **Acceptance:** all 16 pages open with the named section.
+**Problem:** 16 rows ask for a new first section with a specific `<h2>` — e.g. 1156 "Heroin Addiction Treatment", 1164 "Cocaine Addiction Treatment", 1101 "Luxury Dual Diagnosis Program in Orange County" — populated from paragraphs currently missing (overlaps T-12).
+
+**Fix:** For each of the 16 pages, add a new first entry to `sections[]` in `content/pages.raw.json` using the exact heading named in its Appendix A row, populated from the paragraphs restored in T-12. Do T-12 first — the source text for most of these is the content the scraper dropped.
+
+**Acceptance:** all 16 pages open with the named section.
 
 ---
 
@@ -777,6 +798,8 @@ Root cause is visible in the code: `ContentPage.tsx:136` filters `page.bullets` 
 **Problem:** 8 rows request a "They Trusted Us With Their Recovery" Google-reviews slide. Absent from this repo. The 6 testimonials in `lib/data.ts:159-190` are unattributed on-site quotes, not verified Google reviews.
 
 ✅ **Unblocked by T-45** — the facility master record supplies the GMB profile (`g.page/r/CUMi-UYjQ10wEAI`), which is the real review source this task was missing.
+
+**Fix:** Build a `<Reviews>` component fed by real Google review data from the GMB profile added in T-45 (`site.social.google`). Render it on the 8 pages named in the Appendix A rows above, headed "They Trusted Us With Their Recovery". Keep the existing `testimonials` block separate and labelled as on-site testimonials, or retire it once real reviews are in.
 
 ⚠️ Do not present on-site testimonials as Google reviews. Either embed genuine Google review data or label the existing block accurately. **Acceptance:** reviews shown are real and correctly sourced.
 
@@ -816,6 +839,8 @@ These are `ALL SITES` rows from the sheet that touch LVD. Coordinate with QHG; d
 | **V0065** | — | Karen Pettit's bio is published on both LVD and the Quadrant parent domain (55.5% similarity). | ⚠️ **Re-scope before actioning.** The row assumes she is current staff and proposes canonicalising the parent copy to the facility copy. **Karen Pettit is absent from the current QHG staff roster** (source 7) — if she has departed, the correct action is to remove *both* copies, not canonicalise one. Resolve via T-42 first. |
 | **V0100** | `COMPLIANCE` | Privacy-policy standard portfolio-wide. | LVD is compliant; listed only as a noindex exclusion, not a defect. |
 | **V0095** | — | Aftercare slug standard. | LVD `/treatment/aftercare` is the **reference build**. No change. |
+| **V0094** | — | Treatment hub slug standard: `/treatment` (8 sites), `/treatment-services` (Dallas), `/programs` (Des Moines), `/what-we-offer` (Marina Harbor). | LVD is already on `/treatment` — the proposed standard. **No change.** Listed for completeness. |
+| **V0098** | — | Contact slug standard: `/contact` (8 sites), `/contact-us` (Dallas, Fort Worth), `/contact-location` (Marina Harbor), absent on Greater Texas. | LVD is already on `/contact` — the standard. Production 301s only to add the trailing slash, not to a different slug. **No change.** |
 | **V0048** | `BLOCKED` | **Marina Harbor's homepage uses LVD's phone number.** Verification enumerated all 9 `tel:` links on the Marina Harbor preview: 7 use their own 866-525-3026; one CTA uses **866-932-3206**. Portfolio scan confirms only LVD and Marina Harbor carry that number, and LVD uses it exclusively. | **Leads intended for Marina Harbor are ringing LVD's line.** Corrupts LVD's call attribution — fix before T-04 analytics, or the baseline is already polluted. Sheet caution: confirm with admissions it is not a deliberate shared/overflow line before anyone deletes it. |
 | **V0091** | — | The QHG parent's `/locations` page has **no outbound links to any facility website** — social links only. | **LVD receives zero link equity from its parent domain.** Paired with visual row **1074**: the parent's `/locations/laguna-view-detox` page "needs a button link to the website" next to its call and verify-insurance buttons. Cheapest authority win available; requires only a parent-side change. |
 | **V0128** | `HIGH` | QHG parent cutover redirect map, 16 URL pairs — includes `/locations/laguna` → `/locations/laguna-view-detox`. | LVD's parent-site entry is being renamed. Without the redirect, whatever equity V0091 adds is lost at cutover. Sequence: V0128 then V0091. |

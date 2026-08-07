@@ -182,7 +182,16 @@ export default function Footer() {
           </div>
           <p className="mt-4 text-xs leading-relaxed text-white/50">
             Accredited by The Joint Commission. Licensed by the State of California Department of
-            Health Care Services. {site.license} · Expires {site.licenseExpiry}.
+            Health Care Services.{" "}
+            <a
+              href={site.licenseVerifyUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline decoration-white/30 underline-offset-2 transition-colors hover:text-white"
+            >
+              {site.license}
+            </a>{" "}
+            · Expires {site.licenseExpiry}.
           </p>
         </div>
       </div>
@@ -196,6 +205,9 @@ export default function Footer() {
           <div className="flex gap-5">
             <Link href="/privacy-policy" className="transition-colors hover:text-white">
               Privacy Policy
+            </Link>
+            <Link href="/editorial-policy" className="transition-colors hover:text-white">
+              Editorial Policy
             </Link>
             <Link href="/contact" className="transition-colors hover:text-white">
               Contact

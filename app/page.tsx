@@ -5,9 +5,9 @@ import {
   LevelsOfCare,
   FacilityFeature,
   WhoWeTreatGrid,
-  Testimonials,
 } from "@/components/home";
 import BlogPreview from "@/components/BlogPreview";
+import Reviews from "@/components/Reviews";
 import { pageMeta } from "@/lib/seo";
 import { site } from "@/lib/site";
 
@@ -27,7 +27,7 @@ export default function HomePage() {
       <LevelsOfCare />
       <FacilityFeature />
       <WhoWeTreatGrid />
-      <Testimonials />
+      <Reviews />
       <AdmissionsSteps />
       <InsuranceBand />
       <BlogPreview />

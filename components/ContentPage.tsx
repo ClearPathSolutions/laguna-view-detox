@@ -8,6 +8,7 @@ import { Bullet } from "./ui";
 import TableOfContents, { headingId } from "./TableOfContents";
 import ProgramCards from "./ProgramCards";
 import LeadForm from "./LeadForm";
+import Reviews from "./Reviews";
 import {
   PhoneIcon,
   ShieldIcon,
@@ -209,6 +210,11 @@ export default function ContentPage({
       </section>
 
       {page.faqs && page.faqs.length > 0 && <FaqSection faqs={page.faqs} />}
+
+      {/* Social proof above the closing CTA — QA rows 1097, 1103, 1244, 1277,
+          1286 asked for this on detox, dual diagnosis, Orange County and the
+          carrier pages, all of which render through here. */}
+      <Reviews bg="bg-sand-50" />
 
       <CtaBand />
     </>

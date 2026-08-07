@@ -30,7 +30,7 @@ const socials = [
 export default function ContactPage() {
   const mapSrc = `https://maps.google.com/maps?q=${encodeURIComponent(
     site.address.full
-  )}&t=&z=14&ie=UTF8&iwloc=&output=embed`;
+  )}&t=k&z=17&ie=UTF8&iwloc=&output=embed`;
 
   return (
     <>

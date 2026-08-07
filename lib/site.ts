@@ -18,6 +18,13 @@ export const site = {
   },
   license: "DHCS License #300024AP",
   licenseExpiry: "01/31/2028",
+  /**
+   * California DHCS public licence record. QA row 1090 asked for the footer
+   * licence number to link to the state's register so the claim is verifiable
+   * rather than asserted.
+   */
+  licenseVerifyUrl:
+    "https://geohub-cadhcs.hub.arcgis.com/datasets/63459617d2604decab840bd2ca047ee2_11/explore",
   social: {
     facebook: "https://www.facebook.com/lagunaViewDetox/",
     instagram: "https://www.instagram.com/lagunaviewdetox/",

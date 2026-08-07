@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import PageHero from "@/components/PageHero";
-import { Testimonials } from "@/components/home";
+import Reviews from "@/components/Reviews";
 import { AdmissionsSteps, CtaBand } from "@/components/sections";
 import { SectionHeading } from "@/components/ui";
 import { getPage } from "@/lib/content";
@@ -165,7 +165,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <Testimonials />
+      <Reviews />
       <AdmissionsSteps withBg />
       <CtaBand />
     </>

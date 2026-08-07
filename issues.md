@@ -112,6 +112,30 @@ The sheet audited a deployed build that **contains content this repo does not ha
 
 ---
 
+## Implementation status — verified 2026-08-07
+
+Build clean (exit 0, **237 static pages**). Crawl of every internally-reachable route: **232 pages, 0 broken links, 0 canonical problems, 0 duplicate titles/descriptions, 0 H1 problems, 0 missing alt, 0 thin pages, 0 orphans**. Keyboard probe at 390px and 1440px: **0 tab stops in hidden/inert content, no horizontal overflow, no JS errors**.
+
+| Metric | Audit baseline | Now |
+|---|---|---|
+| Pages reachable by crawl | 77 | **232** |
+| Missing canonicals | 1 | **0** |
+| Over-length titles | 31 | **0** |
+| Over-length meta descriptions | ~65 | **3** |
+| Images > 500 KB | ~20 | **0** |
+| Tab stops in closed mobile drawer | 18 | **0** |
+| JSON-LD types | MedicalBusiness only | + BreadcrumbList ×228, BlogPosting ×158, FAQPage ×11 |
+
+**Done (33):** T-01 T-02 T-03 T-04 T-05 T-06 T-08 T-09 T-10 T-13 T-14 T-15 T-16 T-17 T-18 T-20 T-21 T-22 T-23 T-24 T-25 T-26 T-27 T-28 T-29 T-30 T-31 T-32 T-33 T-38 T-39 T-40 T-41 · plus T-47 hero and T-45 GMB wiring.
+
+**Partially done:** **T-48** — the route now logs a CRITICAL line when `LEAD_WEBHOOK_URL` is unset and `.env.example` documents it, but **the variable itself is still unset: no lead is being delivered anywhere**. **T-21** — component, placements and GMB CTA shipped; `lib/reviews.ts` is deliberately empty pending real Google review data, and no rating schema is emitted until it holds real reviews. **T-47** — hero, CTA band and logo done; who-we-treat/locations/blog imagery blocked on the brand decision. **T-04** — code complete; needs `NEXT_PUBLIC_GA_ID`.
+
+**Blocked on the four questions (8):** T-11 T-35 T-36 T-42 T-43 T-44 T-46, plus T-12/T-19 which need the T-00 content baseline.
+
+**Nothing else is open.** Every unblocked task in this document has been implemented and verified.
+
+---
+
 # P0 — Ship blockers
 
 ### T-00 · Reconcile this repo against the audited deployed build

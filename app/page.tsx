@@ -15,6 +15,7 @@ export const metadata = pageMeta({
   title: "Luxury Drug Rehab in Laguna Beach",
   description: site.description,
   path: "",
+  absoluteTitle: true,
 });
 
 export default function HomePage() {

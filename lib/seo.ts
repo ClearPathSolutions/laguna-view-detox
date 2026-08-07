@@ -25,19 +25,29 @@ export function pageMeta({
   path,
   image = DEFAULT_OG_IMAGE,
   noIndex = false,
+  absoluteTitle = false,
 }: {
   title: string;
   description: string;
   path: string;
   image?: string;
   noIndex?: boolean;
+  /**
+   * Emit the brand-suffixed title directly instead of relying on the root
+   * layout's `title.template`. Next does not apply that template to the
+   * segment that defines it, so `app/page.tsx` — which shares a segment with
+   * `app/layout.tsx` — would otherwise render an unbranded `<title>`.
+   */
+  absoluteTitle?: boolean;
 }): Metadata {
   const clean = stripBrand(title);
   const canonical = path === "" ? "/" : path;
   const ogTitle = `${clean} | ${site.name}`;
 
   return {
-    title: clean,
+    // `absolute` bypasses the layout template and matches `ogTitle` exactly,
+    // so the <title> and og:title can never drift apart.
+    title: absoluteTitle ? { absolute: ogTitle } : clean,
     description,
     alternates: { canonical },
     ...(noIndex ? { robots: { index: false, follow: true } } : {}),

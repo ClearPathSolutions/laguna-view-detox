@@ -8,19 +8,26 @@ import {
   InstagramIcon,
   YoutubeIcon,
   YelpIcon,
+  GoogleIcon,
 } from "./icons";
+import CurrentYear from "./CurrentYear";
 
+// Link priority is deliberate: the substantial service pages under /treatment
+// come first, and the broader root-level landing pages sit last. They overlap
+// only ~24-27% by word count, so both stay live — but the service pages are
+// the ones that should carry the internal link equity.
 const columns = [
   {
     title: "Programs",
     links: [
       { label: "Medical Detox", href: "/treatment/detoxification" },
+      { label: "Alcohol Detox", href: "/treatment/detoxification/alcohol" },
       { label: "Residential Inpatient", href: "/treatment/residential-inpatient" },
       { label: "Dual Diagnosis", href: "/treatment/dual-diagnosis" },
       { label: "Addiction Therapies", href: "/treatment/addiction-therapies" },
       { label: "Aftercare & Alumni", href: "/treatment/aftercare" },
       { label: "Drug Addiction Treatment", href: "/drug-addiction-treatment" },
-      { label: "Alcohol Detox & Rehab", href: "/alcohol-detox-and-treatment-programs" },
+      { label: "Alcohol Treatment Programs", href: "/alcohol-detox-and-treatment-programs" },
     ],
   },
   {
@@ -29,6 +36,8 @@ const columns = [
       { label: "Women", href: "/who-we-treat/women" },
       { label: "Men", href: "/who-we-treat/men" },
       { label: "Professionals", href: "/who-we-treat/professionals" },
+      { label: "Young Adults", href: "/who-we-treat/young-adults" },
+      { label: "College Students", href: "/who-we-treat/college-students" },
       { label: "Veterans", href: "/who-we-treat/veterans" },
       { label: "First Responders", href: "/who-we-treat/first-responders" },
     ],
@@ -40,13 +49,16 @@ const columns = [
       { label: "Tour the Facility", href: "/tour" },
       { label: "Admissions", href: "/admissions" },
       { label: "Verify Insurance", href: "/insurance" },
-      { label: "The Luxury Experience", href: "/luxury-addiction-treatment" },
+      // Primary luxury page — must match the header nav (lib/site.ts).
+      { label: "The Luxury Experience", href: "/luxury-rehab" },
+      { label: "Luxury Amenities", href: "/luxury-addiction-treatment" },
       { label: "Recovery Blog", href: "/blog" },
     ],
   },
 ];
 
 const socials = [
+  { label: "Google Business Profile", href: site.social.google, Icon: GoogleIcon },
   { label: "Facebook", href: site.social.facebook, Icon: FacebookIcon },
   { label: "Instagram", href: site.social.instagram, Icon: InstagramIcon },
   { label: "YouTube", href: site.social.youtube, Icon: YoutubeIcon },
@@ -177,7 +189,9 @@ export default function Footer() {
       {/* Legal bar */}
       <div className="border-t border-white/10">
         <div className="container-x flex flex-col items-center justify-between gap-3 py-6 text-xs text-white/50 sm:flex-row">
-          <p>© {new Date().getFullYear()} Laguna View Detox. All Rights Reserved.</p>
+          <p>
+            © <CurrentYear /> Laguna View Detox. All Rights Reserved.
+          </p>
           <div className="flex gap-5">
             <Link href="/privacy-policy" className="transition-colors hover:text-white">
               Privacy Policy

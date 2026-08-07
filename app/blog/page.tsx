@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import PageHero from "@/components/PageHero";
@@ -6,12 +5,14 @@ import { CtaBand } from "@/components/sections";
 import BlogArchive from "@/components/BlogArchive";
 import { allPosts, categories } from "@/lib/blog";
 import { ArrowRightIcon } from "@/components/icons";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = pageMeta({
   title: "Addiction Recovery Blog",
   description:
     "Guidance, education, and encouragement on detox, treatment, and lasting recovery from the Laguna View Detox clinical team.",
-};
+  path: "/blog",
+});
 
 export default function BlogIndex() {
   const featured = allPosts[0];

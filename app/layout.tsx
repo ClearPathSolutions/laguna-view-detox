@@ -80,6 +80,7 @@ export default function RootLayout({
     medicalSpecialty: "Addiction Medicine",
     priceRange: "$$$",
     sameAs: [
+      site.social.google,
       site.social.facebook,
       site.social.instagram,
       site.social.youtube,

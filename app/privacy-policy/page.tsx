@@ -9,6 +9,15 @@ export const metadata = pageMeta({
   noIndex: true,
 });
 
+/**
+ * Editorial date — the last time this policy's text actually changed. Bump it
+ * by hand when the policy is revised. It must NOT be derived from the current
+ * date: an auto-incrementing "last updated" would assert a revision that never
+ * happened, which is exactly the wrong behaviour for a privacy notice.
+ * TODO(legal): confirm the true last-revision date and correct if needed.
+ */
+const LAST_UPDATED = "July 2026";
+
 const sections = [
   {
     h: "Our Commitment to Your Privacy",
@@ -77,8 +86,8 @@ export default function PrivacyPage() {
               </div>
             </div>
           ))}
-          <p className="mt-4 text-sm text-navy-900/50">
-            This policy may be updated from time to time. Last updated {new Date().getFullYear()}.
+          <p className="mt-4 text-sm text-navy-900/60">
+            This policy may be updated from time to time. Last updated {LAST_UPDATED}.
           </p>
         </div>
       </section>

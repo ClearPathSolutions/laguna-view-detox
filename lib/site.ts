@@ -23,7 +23,15 @@ export const site = {
     instagram: "https://www.instagram.com/lagunaviewdetox/",
     yelp: "https://www.yelp.com/biz/laguna-view-detox-laguna-beach",
     youtube: "https://www.youtube.com/channel/UC4PpcbTW5reQ61dQyHXDTYg",
+    google: "https://g.page/r/CUMi-UYjQ10wEAI",
   },
+  /**
+   * Google Business Profile *review request* URL from the facility master
+   * record. Distinct from `social.google` (the profile): this deep-links
+   * straight into the review composer, so it belongs on "leave us a review"
+   * CTAs, not in navigation or `sameAs`.
+   */
+  googleReviewUrl: "https://g.page/r/CUMi-UYjQ10wEAI/review",
 } as const;
 
 export type NavColumn = {

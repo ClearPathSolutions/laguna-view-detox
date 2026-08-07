@@ -5,6 +5,8 @@ import PageHero from "./PageHero";
 import FaqSection from "./Faq";
 import { CtaBand } from "./sections";
 import { Bullet } from "./ui";
+import TableOfContents, { headingId } from "./TableOfContents";
+import ProgramCards from "./ProgramCards";
 import {
   PhoneIcon,
   ShieldIcon,
@@ -21,7 +23,11 @@ function Prose({ page }: { page: PageContent }) {
       {page.sections.map((section, si) => {
         const ps = paragraphs(section.body);
         return (
-          <section key={si} className={si === 0 ? "" : "mt-12"}>
+          <section
+            key={si}
+            id={section.heading?.trim() ? headingId(section.heading, si) : undefined}
+            className={si === 0 ? "scroll-mt-28" : "mt-12 scroll-mt-28"}
+          >
             {section.heading?.trim() && (
               <h2 className="h-card !text-2xl sm:!text-[1.75rem]">{section.heading}</h2>
             )}
@@ -125,6 +131,7 @@ export default function ContentPage({
   relatedTitle,
   intro,
   path,
+  showPrograms = true,
 }: {
   page: PageContent;
   eyebrow?: string;
@@ -135,11 +142,16 @@ export default function ContentPage({
   intro?: React.ReactNode;
   /** Current route — feeds the BreadcrumbList's final item. */
   path?: string;
+  /** Show the program-link widget (T-20). Defaults on for programme pages. */
+  showPrograms?: boolean;
 }) {
-  const shortBullets = (page.bullets || []).filter(
-    (b) => b.length <= 95 && !b.includes(":")
-  );
-  const showBullets = shortBullets.length >= 3;
+  // T-17: "At a Glance" used to be inferred — any page whose `bullets` had 3+
+  // entries under 95 chars and free of colons got the block, which is why the
+  // sheet described it as "randomly populated". It is now opt-in per page via
+  // an explicit `atAGlance` array in pages.raw.json, so it appears only where
+  // someone curated it.
+  const atAGlance = page.atAGlance ?? [];
+  const showBullets = atAGlance.length >= 3;
 
   return (
     <>
@@ -157,18 +169,22 @@ export default function ContentPage({
           {intro}
           <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_340px] lg:gap-16">
             <div className="reveal">
+              <TableOfContents sections={page.sections} />
+
               <Prose page={page} />
 
               {showBullets && (
                 <div className="mt-12 rounded-2xl bg-sand-50 p-7 ring-1 ring-navy-900/5">
                   <h3 className="h-card !text-xl">At a Glance</h3>
                   <ul className="mt-5 grid gap-3 sm:grid-cols-2">
-                    {shortBullets.slice(0, 10).map((b, i) => (
+                    {atAGlance.slice(0, 10).map((b, i) => (
                       <Bullet key={i}>{b}</Bullet>
                     ))}
                   </ul>
                 </div>
               )}
+
+              {showPrograms && <ProgramCards exclude={path} />}
             </div>
 
             <Sidebar related={related} relatedTitle={relatedTitle} />

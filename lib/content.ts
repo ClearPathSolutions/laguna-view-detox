@@ -11,6 +11,8 @@ export type PageContent = {
   heroSubtitle: string;
   sections: Section[];
   bullets?: string[];
+  /** Curated 'At a Glance' items. Explicit per page — see T-17. */
+  atAGlance?: string[];
   faqs?: Faq[];
   teamRole?: string;
 };

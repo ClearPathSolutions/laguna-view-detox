@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { site } from "@/lib/site";
 import { detoxTypes, whoWeTreat, locations, carriers, team } from "@/lib/data";
-import { allPosts } from "@/lib/blog";
+import { allPosts, totalPages, categoryList } from "@/lib/blog";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = site.url;
@@ -54,5 +54,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.5,
   }));
 
-  return [...pages, ...posts];
+  // Paginated archives (page 1 is /blog, already in staticPaths) and one
+  // archive per category — the routes that give the post library its
+  // internal link equity.
+  const archives: MetadataRoute.Sitemap = [
+    ...Array.from({ length: Math.max(0, totalPages - 1) }, (_, i) => `/blog/page/${i + 2}`),
+    ...categoryList.map((c) => `/blog/category/${c.slug}`),
+  ].map((path) => ({
+    url: `${base}${path}`,
+    lastModified: now,
+    changeFrequency: "weekly",
+    priority: 0.4,
+  }));
+
+  return [...pages, ...posts, ...archives];
 }

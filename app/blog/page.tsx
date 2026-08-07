@@ -3,9 +3,10 @@ import Image from "next/image";
 import PageHero from "@/components/PageHero";
 import { CtaBand } from "@/components/sections";
 import BlogArchive from "@/components/BlogArchive";
-import { allPosts, categories } from "@/lib/blog";
+import { allPosts, categories, categoryList, totalPages } from "@/lib/blog";
 import { ArrowRightIcon } from "@/components/icons";
 import { pageMeta } from "@/lib/seo";
+import BlogPagination, { CategoryNav } from "@/components/BlogPagination";
 
 export const metadata = pageMeta({
   title: "Addiction Recovery Blog",
@@ -63,9 +64,18 @@ export default function BlogIndex() {
             </div>
           </Link>
 
+          {/* Real category links. The client filter inside BlogArchive is a
+              convenience; these are what a crawler can actually follow. */}
           <div className="mt-14">
+            <CategoryNav categories={categoryList} />
+          </div>
+
+          <div className="mt-10">
             <BlogArchive posts={rest} categories={categories} />
           </div>
+
+          {/* Crawlable path to the remaining 145 posts. */}
+          <BlogPagination current={1} total={totalPages} />
         </div>
       </section>
 

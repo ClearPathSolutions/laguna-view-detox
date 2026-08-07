@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { getPost, allPosts } from "@/lib/blog";
+import { getPost, allPosts, categorySlug } from "@/lib/blog";
 import { pageMeta } from "@/lib/seo";
 import { paragraphs } from "@/lib/content";
 import { CtaBand } from "@/components/sections";
@@ -45,7 +45,12 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
           </nav>
           <div className="mt-6 max-w-3xl">
             <div className="flex items-center gap-3 text-xs font-semibold uppercase tracking-wider text-gold-300">
-              <span className="rounded-full bg-white/10 px-3 py-1">{post.category}</span>
+              <Link
+                href={`/blog/category/${categorySlug(post.category)}`}
+                className="rounded-full bg-white/10 px-3 py-1 transition-colors hover:bg-white/20"
+              >
+                {post.category}
+              </Link>
               {post.date && <span className="text-white/60">{post.date}</span>}
             </div>
             <h1 className="h-display mt-4 !text-white !text-[clamp(2rem,4.2vw,3.25rem)]">{post.title}</h1>

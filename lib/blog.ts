@@ -68,3 +68,55 @@ const bySlug: Record<string, BlogPost> = Object.fromEntries(
 export function getPost(slug: string): BlogPost | undefined {
   return bySlug[slug];
 }
+
+/* ------------------------------------------------------------------ */
+/* Crawlable archives                                                  */
+/*                                                                     */
+/* The client-side "Load More" and category filter render only the      */
+/* first 12 posts into the HTML, so 144 of 157 posts had no internal    */
+/* link pointing at them. Sitemap inclusion is discovery, not link      */
+/* equity. These helpers back real server-rendered routes:              */
+/*   /blog            page 1                                           */
+/*   /blog/page/2..N  the rest, 12 per page                            */
+/*   /blog/category/<slug>  one archive per category                    */
+/* ------------------------------------------------------------------ */
+
+export const PAGE_SIZE = 12;
+
+export const totalPages: number = Math.max(1, Math.ceil(allPosts.length / PAGE_SIZE));
+
+/** 1-indexed. Page 1 is served by /blog itself. */
+export function postsForPage(page: number): BlogPost[] {
+  const start = (page - 1) * PAGE_SIZE;
+  return allPosts.slice(start, start + PAGE_SIZE);
+}
+
+export function categorySlug(category: string): string {
+  return category
+    .toLowerCase()
+    .replace(/&/g, " ")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+export type CategoryInfo = { label: string; slug: string; count: number };
+
+export const categoryList: CategoryInfo[] = categories
+  .map((label) => ({
+    label,
+    slug: categorySlug(label),
+    count: allPosts.filter((p) => p.category === label).length,
+  }))
+  .sort((a, b) => b.count - a.count);
+
+const categoryBySlug: Record<string, CategoryInfo> = Object.fromEntries(
+  categoryList.map((c) => [c.slug, c])
+);
+
+export function getCategory(slug: string): CategoryInfo | undefined {
+  return categoryBySlug[slug];
+}
+
+export function postsInCategory(label: string): BlogPost[] {
+  return allPosts.filter((p) => p.category === label);
+}

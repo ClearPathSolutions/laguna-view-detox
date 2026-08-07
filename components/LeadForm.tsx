@@ -17,6 +17,7 @@ export default function LeadForm({
 }) {
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState<string>("");
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const successRef = useRef<HTMLHeadingElement>(null);
 
   // Move focus to the confirmation so screen-reader users hear it.
@@ -46,6 +47,7 @@ export default function LeadForm({
 
     setStatus("submitting");
     setError("");
+    setFieldErrors({});
     try {
       const res = await fetch("/api/lead", {
         method: "POST",
@@ -55,8 +57,10 @@ export default function LeadForm({
       const json = (await res.json().catch(() => ({}))) as {
         ok?: boolean;
         error?: string;
+        fields?: Record<string, string>;
       };
       if (!res.ok || !json.ok) {
+        if (json.fields) setFieldErrors(json.fields);
         throw new Error(
           json.error ||
             "Something went wrong submitting your request. Please try again."
@@ -112,12 +116,12 @@ export default function LeadForm({
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">
-        <Field label="First name" name="firstName" autoComplete="given-name" required />
-        <Field label="Last name" name="lastName" autoComplete="family-name" required />
+        <Field label="First name" name="firstName" autoComplete="given-name" required error={fieldErrors.firstName} />
+        <Field label="Last name" name="lastName" autoComplete="family-name" required error={fieldErrors.lastName} />
       </div>
       <div className="grid gap-4 sm:grid-cols-2">
-        <Field label="Phone" name="phone" type="tel" autoComplete="tel" required />
-        <Field label="Email" name="email" type="email" autoComplete="email" required />
+        <Field label="Phone" name="phone" type="tel" autoComplete="tel" required error={fieldErrors.phone} />
+        <Field label="Email" name="email" type="email" autoComplete="email" required error={fieldErrors.email} />
       </div>
 
       {variant === "insurance" ? (
@@ -139,7 +143,7 @@ export default function LeadForm({
             id="message"
             name="message"
             rows={4}
-            className="w-full rounded-xl border border-navy-900/15 bg-white px-4 py-3 text-navy-900 transition-colors placeholder:text-navy-900/50 focus:border-gold"
+            className="w-full rounded-xl border border-navy-900/15 bg-white px-4 py-3 text-navy-900 transition-colors placeholder:text-navy-900/60 focus:border-gold"
             placeholder="Tell us a little about your situation…"
           />
         </div>
@@ -190,6 +194,7 @@ function Field({
   required,
   placeholder,
   autoComplete,
+  error,
 }: {
   label: string;
   name: string;
@@ -197,6 +202,7 @@ function Field({
   required?: boolean;
   placeholder?: string;
   autoComplete?: string;
+  error?: string;
 }) {
   return (
     <div>
@@ -211,8 +217,17 @@ function Field({
         required={required}
         placeholder={placeholder}
         autoComplete={autoComplete}
-        className="w-full rounded-xl border border-navy-900/15 bg-white px-4 py-3 text-navy-900 transition-colors placeholder:text-navy-900/50 focus:border-gold"
+        aria-invalid={error ? true : undefined}
+        aria-describedby={error ? `${name}-error` : undefined}
+        className={`w-full rounded-xl border bg-white px-4 py-3 text-navy-900 transition-colors placeholder:text-navy-900/60 focus:border-gold ${
+          error ? "border-red-500" : "border-navy-900/15"
+        }`}
       />
+      {error && (
+        <p id={`${name}-error`} className="mt-1.5 text-sm text-red-700">
+          {error}
+        </p>
+      )}
     </div>
   );
 }

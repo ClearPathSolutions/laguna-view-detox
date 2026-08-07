@@ -25,7 +25,7 @@ function Prose({ page }: { page: PageContent }) {
             {section.heading?.trim() && (
               <h2 className="h-card !text-2xl sm:!text-[1.75rem]">{section.heading}</h2>
             )}
-            <div className="mt-4 space-y-4">
+            <div className="mt-5 space-y-6">
               {ps.map((p, pi) => {
                 const { label, text } = splitLabel(p);
                 return (

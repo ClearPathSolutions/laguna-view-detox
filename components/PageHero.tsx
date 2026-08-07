@@ -9,7 +9,7 @@ export default function PageHero({
   eyebrow,
   title,
   subtitle,
-  image = "/images/lvd-hp-bk-.jpg",
+  image = "/images/NIK_5883-hero.jpg",
   crumbs = [],
   align = "center",
 }: {

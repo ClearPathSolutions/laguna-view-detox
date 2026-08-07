@@ -15,6 +15,7 @@ export default function Header() {
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const isTouch = useRef(false);
   const navRef = useRef<HTMLElement>(null);
+  const hamburgerRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -248,9 +249,12 @@ export default function Header() {
               Call
             </a>
             <button
+              ref={hamburgerRef}
               onClick={() => setMobileOpen(true)}
               className="flex h-11 w-11 items-center justify-center rounded-full border border-navy-900/15 text-navy-900"
               aria-label="Open menu"
+              aria-expanded={mobileOpen}
+              aria-haspopup="dialog"
             >
               <MenuIcon className="h-5 w-5" />
             </button>
@@ -258,17 +262,110 @@ export default function Header() {
         </div>
       </div>
 
-      <MobileDrawer open={mobileOpen} onClose={() => setMobileOpen(false)} />
+      <MobileDrawer
+        open={mobileOpen}
+        onClose={() => setMobileOpen(false)}
+        returnFocusRef={hamburgerRef}
+      />
     </header>
   );
 }
 
-function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void }) {
+const FOCUSABLE =
+  'a[href], button:not([disabled]), input:not([disabled]), select, textarea, [tabindex]:not([tabindex="-1"])';
+
+function MobileDrawer({
+  open,
+  onClose,
+  returnFocusRef,
+}: {
+  open: boolean;
+  onClose: () => void;
+  returnFocusRef: React.RefObject<HTMLButtonElement>;
+}) {
   const [expanded, setExpanded] = useState<string | null>(null);
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
+  const closeBtnRef = useRef<HTMLButtonElement>(null);
+
+  // Whether the drawer occupies the tab order at all. Driven by state rather
+  // than a CSS `transition-[visibility]` because a transitioned visibility
+  // flips asynchronously, which races focus management. On close we hold it
+  // visible for the slide-out duration, then remove it.
+  const [rendered, setRendered] = useState(false);
+  useEffect(() => {
+    if (open) {
+      setRendered(true);
+      return;
+    }
+    const t = setTimeout(() => setRendered(false), 300);
+    return () => clearTimeout(t);
+  }, [open]);
+
+  // `inert` is the load-bearing fix: it removes the drawer's 48 links and
+  // buttons from the tab order and the accessibility tree in one step, with no
+  // transition semantics to race against. Toggling it imperatively lets us
+  // order it against focus movement — clearing it *before* focusing in, and
+  // moving focus out *before* setting it.
+  // Depends on `rendered` as well as `open`: focus cannot land on an element
+  // inside a visibility:hidden subtree, so we wait for the drawer to actually
+  // be visible before moving focus into it.
+  useEffect(() => {
+    const wrap = wrapRef.current;
+    if (!wrap) return;
+    if (open && rendered) {
+      wrap.removeAttribute("inert");
+      closeBtnRef.current?.focus();
+    } else if (!open) {
+      // Only reclaim focus if it is still inside the drawer, so a route change
+      // or an outside click does not yank focus unexpectedly.
+      if (wrap.contains(document.activeElement)) {
+        returnFocusRef.current?.focus();
+      }
+      wrap.setAttribute("inert", "");
+    }
+  }, [open, rendered, returnFocusRef]);
+
+  // Escape closes; Tab is trapped inside the panel while it is open.
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        onClose();
+        return;
+      }
+      if (e.key !== "Tab") return;
+      const panel = panelRef.current;
+      if (!panel) return;
+      const items = Array.from(panel.querySelectorAll<HTMLElement>(FOCUSABLE)).filter(
+        (el) => el.offsetParent !== null
+      );
+      if (!items.length) return;
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [open, onClose]);
 
   return (
+    // Rendered inert so that even before hydration a keyboard user cannot tab
+    // into the closed drawer. `pointer-events-none` alone left all 48 controls
+    // focusable inside an aria-hidden subtree — a WCAG 2.1 SC 4.1.2 violation.
+    // The effect above takes over the attribute once React is running.
     <div
-      className={`fixed inset-0 z-[60] lg:hidden ${open ? "" : "pointer-events-none"}`}
+      ref={wrapRef}
+      className={`fixed inset-0 z-[60] lg:hidden ${
+        open ? "" : "pointer-events-none"
+      } ${rendered ? "visible" : "invisible"}`}
       aria-hidden={!open}
     >
       {/* Backdrop */}
@@ -280,6 +377,10 @@ function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void })
       />
       {/* Panel */}
       <div
+        ref={panelRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Site menu"
         className={`absolute right-0 top-0 flex h-full w-[min(90vw,400px)] flex-col bg-white shadow-lift transition-transform duration-300 ${
           open ? "translate-x-0" : "translate-x-full"
         }`}
@@ -287,6 +388,7 @@ function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void })
         <div className="flex items-center justify-between border-b border-navy-900/10 px-5 py-4">
           <Image src="/logos/logo-color.png" alt="Laguna View Detox" width={44} height={42} className="h-10 w-auto" />
           <button
+            ref={closeBtnRef}
             onClick={onClose}
             className="flex h-10 w-10 items-center justify-center rounded-full border border-navy-900/15 text-navy-900"
             aria-label="Close menu"

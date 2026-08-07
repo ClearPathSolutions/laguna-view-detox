@@ -38,19 +38,41 @@ const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   images: {
-    formats: ['image/avif', 'image/webp'],
-    // Source images are already downscaled to web-appropriate sizes (<=2000px),
-    // so we serve them directly for instant loads. Flip to `false` to re-enable
-    // Next's on-demand optimization (responsive srcset + AVIF/WebP) if desired.
-    unoptimized: true,
+    // AVIF/WebP + responsive srcset. This was previously `unoptimized: true`,
+    // which made every `sizes` prop in the codebase inert and shipped the same
+    // full-resolution JPEG to a 390px phone as to a 1440px desktop — the
+    // homepage alone carried ~5.5 MB of images and /blog ~7.2 MB.
+    formats: ["image/avif", "image/webp"],
+    // Widths the optimizer will generate. Trimmed to the breakpoints this
+    // design actually uses so we don't build derivatives nobody requests.
+    deviceSizes: [390, 640, 750, 828, 1080, 1200, 1920],
+    minimumCacheTTL: 31536000,
   },
   async headers() {
+    // Static assets under /public are content-addressed by filename here, so
+    // they can be cached hard. This applies in dev too — it is not a security
+    // header and dev reloads bust it via the query string Next adds.
+    const assetCache = [
+      {
+        source: "/images/:path*",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+        ],
+      },
+      {
+        source: "/logos/:path*",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+        ],
+      },
+    ];
+
     // Apply the strict security headers only to production builds. Next.js dev
     // mode relies on eval + a websocket for hot reload, which this CSP would
     // block (leaving client JS — and the scroll-reveal — dead). The headers are
     // what matters for the deployed site, which is what Vercel serves.
-    if (process.env.NODE_ENV !== "production") return [];
-    return [{ source: "/:path*", headers: securityHeaders }];
+    if (process.env.NODE_ENV !== "production") return assetCache;
+    return [...assetCache, { source: "/:path*", headers: securityHeaders }];
   },
 };
 

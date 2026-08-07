@@ -11,7 +11,7 @@ export function stripBrand(title: string): string {
     .trim();
 }
 
-const DEFAULT_OG_IMAGE = "/images/lvd-hp-bk-.jpg";
+const DEFAULT_OG_IMAGE = "/images/NIK_5883-hero.jpg";
 
 /**
  * Build page metadata with a self-referential canonical plus per-page

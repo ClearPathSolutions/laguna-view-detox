@@ -7,8 +7,8 @@ export default function Hero() {
   return (
     <section className="relative isolate flex min-h-[calc(100svh-108px)] items-center overflow-hidden bg-navy-950 lg:min-h-[720px]">
       <Image
-        src="/images/lvd-hp-bk-.jpg"
-        alt="Aerial view of the turquoise Pacific surf along the Laguna Beach coastline"
+        src="/images/NIK_5883-hero.jpg"
+        alt="The Laguna View Detox estate — pool deck and terrace overlooking the Pacific in Laguna Beach"
         fill
         priority
         sizes="100vw"

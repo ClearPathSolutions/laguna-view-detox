@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     description: site.description,
     url: site.url,
     siteName: site.name,
-    images: [{ url: "/images/lvd-hp-bk-.jpg", width: 1920, height: 1418 }],
+    images: [{ url: "/images/NIK_5883-hero.jpg", width: 1920, height: 1281 }],
   },
   twitter: {
     card: "summary_large_image",

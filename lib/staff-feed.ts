@@ -7,6 +7,8 @@
  * appearing in both places. Fails soft — a portal outage yields an empty list.
  */
 
+import { headshotFor } from "./staff-headshots";
+
 const FEED_ORIGIN =
   process.env.STAFF_FEED_ORIGIN ?? "https://support.quadranthealthgroup.com";
 
@@ -59,7 +61,10 @@ export async function extraStaff(
         slug: "",
         name: p.credentials ? `${p.name}, ${p.credentials}` : p.name,
         role: p.title,
-        image: p.photoUrl ?? undefined,
+        // The portal wins when it has a photo; otherwise fall back to the
+        // locally-processed headshot. Without this, portal staff rendered as an
+        // initial-letter tile while their headshot sat unused in public/.
+        image: p.photoUrl ?? headshotFor(nameKey(p.name)),
       }));
   } catch {
     return [];

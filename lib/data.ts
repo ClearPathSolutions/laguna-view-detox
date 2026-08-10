@@ -215,7 +215,13 @@ export const team: TeamMember[] = [
   {
     slug: "nicole-burson",
     name: "Nicole Burson",
-    role: "Clinical Team",
+    // Was "Clinical Team", which contradicted this site's own bio for her.
+    // content/pages.raw.json carries teamRole "Digital Marketing Professional
+    // specializing in substance abuse and behavioral healthcare", and her page
+    // body says the same. Presenting a marketing contributor as clinical staff
+    // on a YMYL healthcare site is a straightforward accuracy problem, and the
+    // correct value was already in the content.
+    role: "Digital Marketing & Content",
     contentSlug: "nicole-burson",
   },
 ];

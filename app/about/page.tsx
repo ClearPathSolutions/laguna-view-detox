@@ -185,13 +185,18 @@ export default async function AboutPage() {
                   {m.name}
                 </h3>
                 <p className="mt-1 text-sm text-navy-900/60">{m.role}</p>
-                <span
-                  className="mt-2 inline-flex items-center gap-1 text-sm font-semibold text-gold-700"
-                  hidden={!m.slug}
-                >
-                  Read bio
-                  <ArrowRightIcon className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
-                </span>
+                {/* Rendered conditionally, not with the `hidden` attribute: the
+                    UA's [hidden]{display:none} loses to the `inline-flex`
+                    class, so `hidden` did nothing and portal-managed staff —
+                    who have no bio page — showed a "Read bio" affordance that
+                    was not even a link, since CardShell renders a plain div
+                    when there is no slug. */}
+                {m.slug ? (
+                  <span className="mt-2 inline-flex items-center gap-1 text-sm font-semibold text-gold-700">
+                    Read bio
+                    <ArrowRightIcon className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+                  </span>
+                ) : null}
               </CardShell>
             ))}
           </div>

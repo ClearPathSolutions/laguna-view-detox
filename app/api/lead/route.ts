@@ -180,7 +180,7 @@ export async function POST(req: Request) {
       lastName: lead.lastName,
       phone: normalisedPhone,
       email: lead.email,
-      provider: lead.provider,
+      insurer: lead.insurer,
       variant: lead.variant,
       consent: lead.consent,
       messageLength: lead.message.length,

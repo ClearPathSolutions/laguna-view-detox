@@ -4,41 +4,60 @@ import PageHero from "@/components/PageHero";
 import { CtaBand } from "@/components/sections";
 import PostGrid from "@/components/PostGrid";
 import BlogPagination, { CategoryNav } from "@/components/BlogPagination";
-import { postsForPage, totalPages, categoryList, allPosts } from "@/lib/blog";
+import {
+  getAllPosts,
+  postsForPage,
+  totalPagesFor,
+  categoryListFor,
+} from "@/lib/blog";
 import { pageMeta } from "@/lib/seo";
+
+// Matches the blog index: pick up newly published Clarion posts hourly
+// without a redeploy. Pagination is computed from the merged list, so a new
+// post can shift page boundaries.
+export const revalidate = 3600;
 
 /**
  * Pages 2..N. Page 1 is /blog itself, so it is deliberately not generated
  * here — /blog/page/1 would duplicate /blog.
  */
-export function generateStaticParams() {
-  return Array.from({ length: Math.max(0, totalPages - 1) }, (_, i) => ({
+export async function generateStaticParams() {
+  const posts = await getAllPosts();
+  return Array.from({ length: Math.max(0, totalPagesFor(posts) - 1) }, (_, i) => ({
     n: String(i + 2),
   }));
 }
 
-function parsePage(n: string): number | null {
+function parsePage(n: string, total: number): number | null {
   if (!/^\d+$/.test(n)) return null;
   const page = Number(n);
-  if (page < 2 || page > totalPages) return null;
+  if (page < 2 || page > total) return null;
   return page;
 }
 
-export function generateMetadata({ params }: { params: { n: string } }): Metadata {
-  const page = parsePage(params.n);
+export async function generateMetadata({
+  params,
+}: {
+  params: { n: string };
+}): Promise<Metadata> {
+  const posts = await getAllPosts();
+  const total = totalPagesFor(posts);
+  const page = parsePage(params.n, total);
   if (!page) return {};
   return pageMeta({
     title: `Addiction Recovery Blog — Page ${page}`,
-    description: `Page ${page} of ${totalPages} from the Laguna View Detox recovery blog: guidance on detox, treatment, insurance, and lasting sobriety.`,
+    description: `Page ${page} of ${total} from the Laguna View Detox recovery blog: guidance on detox, treatment, insurance, and lasting sobriety.`,
     path: `/blog/page/${page}`,
   });
 }
 
-export default function BlogPageN({ params }: { params: { n: string } }) {
-  const page = parsePage(params.n);
+export default async function BlogPageN({ params }: { params: { n: string } }) {
+  const all = await getAllPosts();
+  const total = totalPagesFor(all);
+  const page = parsePage(params.n, total);
   if (!page) notFound();
 
-  const posts = postsForPage(page);
+  const posts = postsForPage(all, page);
 
   return (
     <>
@@ -46,21 +65,21 @@ export default function BlogPageN({ params }: { params: { n: string } }) {
         path={`/blog/page/${page}`}
         eyebrow="Stay Informed"
         title="Addiction Recovery Blog"
-        subtitle={`Page ${page} of ${totalPages} — ${allPosts.length} articles from the Laguna View Detox clinical team.`}
+        subtitle={`Page ${page} of ${total} — ${all.length} articles from the Laguna View Detox clinical team.`}
         image="/images/shutterstock_1122712238.jpg"
         crumbs={[{ label: "Blog", href: "/blog" }, { label: `Page ${page}` }]}
       />
 
       <section className="section bg-white">
         <div className="container-x">
-          <CategoryNav categories={categoryList} />
+          <CategoryNav categories={categoryListFor(all)} />
           <p className="mt-6 text-sm text-navy-900/60">
-            Showing {posts.length} of {allPosts.length} articles
+            Showing {posts.length} of {all.length} articles
           </p>
           <div className="mt-8">
             <PostGrid posts={posts} />
           </div>
-          <BlogPagination current={page} total={totalPages} />
+          <BlogPagination current={page} total={total} />
         </div>
       </section>
 

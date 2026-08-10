@@ -21,9 +21,13 @@ declare global {
 }
 
 // The two forms are distinct in the Clarion dashboard, each with its own key.
-const CLARION_FORM_KEY: Record<"contact" | "insurance", string> = {
+const CLARION_FORM_KEY: Record<"contact" | "insurance" | "callback", string> = {
   insurance: "insurance_verification",
   contact: "contact",
+  // The sidebar callback form is the same intent as the contact form and
+  // feeds the same queue, so it reuses that key rather than needing a new
+  // one provisioned in the Clarion dashboard.
+  callback: "contact",
 };
 
 const CONSENT_TEXT =

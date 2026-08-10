@@ -4,15 +4,24 @@ import PageHero from "@/components/PageHero";
 import { CtaBand } from "@/components/sections";
 import PostGrid from "@/components/PostGrid";
 import { CategoryNav } from "@/components/BlogPagination";
-import { categoryList, getCategory, postsInCategory } from "@/lib/blog";
+import { getAllPosts, categoryListFor, getCategoryFrom, postsInCategoryFrom } from "@/lib/blog";
 import { pageMeta } from "@/lib/seo";
 
-export function generateStaticParams() {
-  return categoryList.map((c) => ({ slug: c.slug }));
+// Category membership includes Clarion posts, which are fetched hourly.
+export const revalidate = 3600;
+
+export async function generateStaticParams() {
+  const posts = await getAllPosts();
+  return categoryListFor(posts).map((c) => ({ slug: c.slug }));
 }
 
-export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
-  const cat = getCategory(params.slug);
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
+  const posts = await getAllPosts();
+  const cat = getCategoryFrom(posts, params.slug);
   if (!cat) return {};
   return pageMeta({
     title: `${cat.label} Articles`,
@@ -21,13 +30,14 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   });
 }
 
-export default function CategoryArchive({ params }: { params: { slug: string } }) {
-  const cat = getCategory(params.slug);
+export default async function CategoryArchive({ params }: { params: { slug: string } }) {
+  const all = await getAllPosts();
+  const cat = getCategoryFrom(all, params.slug);
   if (!cat) notFound();
 
   // The largest category holds 33 posts, so a single page is fine here; if a
   // category ever outgrows that, reuse postsForPage()/BlogPagination.
-  const posts = postsInCategory(cat.label);
+  const posts = postsInCategoryFrom(all, cat.label);
 
   return (
     <>
@@ -42,7 +52,7 @@ export default function CategoryArchive({ params }: { params: { slug: string } }
 
       <section className="section bg-white">
         <div className="container-x">
-          <CategoryNav categories={categoryList} activeSlug={cat.slug} />
+          <CategoryNav categories={categoryListFor(all)} activeSlug={cat.slug} />
           <div className="mt-10">
             <PostGrid posts={posts} />
           </div>

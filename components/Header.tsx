@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -16,6 +16,62 @@ export default function Header() {
   const isTouch = useRef(false);
   const navRef = useRef<HTMLElement>(null);
   const hamburgerRef = useRef<HTMLButtonElement>(null);
+
+  /* ---------------------------------------------------------------- */
+  /* Mega-menu horizontal placement                                    */
+  /*                                                                   */
+  /* The panel used to be centred on its trigger with a static         */
+  /* `left-1/2 -translate-x-1/2`, which has no idea where the viewport */
+  /* edge is. At >=1280px the `xl` feature image appears and the panel  */
+  /* grows from 242px to 466px, so "About" — the left-most item —      */
+  /* hung 37px off the left edge and its links were clipped. It only   */
+  /* broke between roughly 1280 and 1400px, i.e. on the most common     */
+  /* laptop widths.                                                    */
+  /*                                                                   */
+  /* So the offset is measured instead: centre on the trigger, then     */
+  /* clamp inside the viewport with a gutter. Recomputed on open and on */
+  /* resize, because the panel's own width is breakpoint-dependent.     */
+  /* ---------------------------------------------------------------- */
+  const panelRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const triggerRefs = useRef<Record<string, HTMLButtonElement | null>>({});
+  const [panelLeft, setPanelLeft] = useState<Record<string, number>>({});
+
+  const positionPanel = useCallback((label: string | null) => {
+    if (!label) return;
+    const panel = panelRefs.current[label];
+    const trigger = triggerRefs.current[label];
+    const parent = trigger?.parentElement;
+    if (!panel || !trigger || !parent) return;
+
+    const GUTTER = 16;
+    // Measure the CARD, not the wrapper. The wrapper is absolutely positioned
+    // without an explicit width, so it shrink-to-fits against its tiny
+    // containing block and can end up narrower than the card inside it —
+    // which underestimated the width and let the right edge spill by 8px.
+    const card = (panel.firstElementChild as HTMLElement | null) ?? panel;
+    const width = Math.ceil(card.getBoundingClientRect().width);
+    const vw = document.documentElement.clientWidth;
+    const tRect = trigger.getBoundingClientRect();
+
+    let left = tRect.left + tRect.width / 2 - width / 2; // centred on trigger
+    left = Math.min(left, vw - GUTTER - width); // never spill off the right
+    left = Math.max(GUTTER, left); // never spill off the left
+
+    // Store parent-relative, since the panel is absolutely positioned.
+    const next = left - parent.getBoundingClientRect().left;
+    setPanelLeft((prev) => (prev[label] === next ? prev : { ...prev, [label]: next }));
+  }, []);
+
+  useLayoutEffect(() => {
+    positionPanel(open);
+  }, [open, positionPanel]);
+
+  useEffect(() => {
+    if (!open) return;
+    const onResize = () => positionPanel(open);
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, [open, positionPanel]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -135,6 +191,9 @@ export default function Header() {
                   onMouseLeave={handleLeave}
                 >
                   <button
+                    ref={(el) => {
+                      triggerRefs.current[item.label] = el;
+                    }}
                     type="button"
                     onTouchStart={() => {
                       isTouch.current = true;
@@ -161,14 +220,20 @@ export default function Header() {
 
                   {/* Mega menu */}
                   <div
+                    ref={(el) => {
+                      panelRefs.current[item.label] = el;
+                    }}
                     id={`nav-menu-${item.label.replace(/\s+/g, "-").toLowerCase()}`}
-                    className={`absolute left-1/2 top-full -translate-x-1/2 pt-3 transition-all duration-200 ${
+                    // `left` is measured and viewport-clamped in positionPanel;
+                    // 0 is a safe pre-measurement default (trigger-aligned).
+                    style={{ left: `${panelLeft[item.label] ?? 0}px` }}
+                    className={`absolute top-full w-max pt-3 transition-all duration-200 ${
                       open === item.label
                         ? "visible pointer-events-auto translate-y-0 opacity-100"
                         : "invisible pointer-events-none translate-y-1 opacity-0"
                     }`}
                   >
-                    <div className="w-max overflow-hidden rounded-2xl border border-navy-900/10 bg-white shadow-lift">
+                    <div className="w-max max-w-[calc(100vw-2rem)] overflow-hidden rounded-2xl border border-navy-900/10 bg-white shadow-lift">
                       <div className="flex">
                         <div className="flex gap-2 p-4">
                           {item.columns.map((col, ci) => (

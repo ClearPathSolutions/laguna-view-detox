@@ -31,7 +31,23 @@ export default function StickyCallBar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  if (SUPPRESS_ON.includes(pathname)) return null;
+  const suppressed = SUPPRESS_ON.includes(pathname);
+
+  /**
+   * Tell the page when this bar is occupying the bottom edge.
+   *
+   * The Clarion chat bubble is fixed bottom-right at z-index 2147483000, so it
+   * sat directly on top of the "Verify" button and swallowed most of its tap
+   * target. globals.css uses this class to lift the bubble above the bar, which
+   * keeps both CTAs at full width instead of shrinking them to dodge it.
+   */
+  useEffect(() => {
+    const active = show && !suppressed;
+    document.body.classList.toggle("has-sticky-bar", active);
+    return () => document.body.classList.remove("has-sticky-bar");
+  }, [show, suppressed]);
+
+  if (suppressed) return null;
 
   return (
     <div

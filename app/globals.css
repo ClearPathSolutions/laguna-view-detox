@@ -139,6 +139,17 @@
 }
 
 @layer utilities {
+  /* The Clarion chat bubble is fixed bottom-right at z-index 2147483000, so on
+     mobile it landed on top of the sticky admissions bar and covered most of
+     the "Verify" tap target. StickyCallBar adds .has-sticky-bar to <body> while
+     the bar is on screen; lift the bubble clear of it. `!important` is needed
+     to beat the widget's own positioning. */
+  @media (max-width: 1023px) {
+    body.has-sticky-bar .clarion-chat {
+      bottom: 5.75rem !important;
+    }
+  }
+
   .text-shadow-hero {
     text-shadow: 0 2px 24px rgba(4, 18, 27, 0.45);
   }

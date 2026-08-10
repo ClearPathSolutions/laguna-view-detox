@@ -7,18 +7,6 @@
     "heroSubtitle": "If you need any help, we are here 24/7.",
     "sections": [
       {
-        "heading": "Address",
-        "body": "31305 Ceanothus Dr. Laguna Beach CA 92651"
-      },
-      {
-        "heading": "Phone",
-        "body": "1-866-932-3206"
-      },
-      {
-        "heading": "Email",
-        "body": "info@lagunaviewdetox.com"
-      },
-      {
         "heading": "Insurance",
         "body": "Laguna View Detox works with most PPO & POS insurance carriers. Find out now if your insurance will help cover the cost of our treatment program."
       },
@@ -107,10 +95,6 @@
     "h1": "Admissions",
     "heroSubtitle": "Three straightforward steps, a caring team, and no cost or obligation to find out where you stand.",
     "sections": [
-      {
-        "heading": "Insurance can help pay for treatment",
-        "body": "Insurance can help pay for treatment"
-      },
       {
         "heading": "Find Your Path to Recovery",
         "body": "Did you know that most major insurance providers will help cover the cost of treatment at Laguna View Detox? Begin your journey of recovery now by filling out the form below. Our caring treatment coordinators will work with you to make sure you have the lowest out of pocket costs when seeking treatment."
@@ -1682,46 +1666,6 @@
     ],
     "faqs": []
   },
-  "karen-pettit": {
-    "slug": "karen-pettit",
-    "title": "Karen Pettit, CADII - Program Director | Laguna View Detox",
-    "metaDescription": "Meet Karen Pettit, Program Director at Laguna View Detox, a dedicated advocate for mental health and substance abuse treatment with an SUDCC II credential.",
-    "h1": "Karen Pettit, CADII",
-    "teamRole": "Program Director",
-    "heroSubtitle": "Program Director at Laguna View Detox.",
-    "sections": [
-      {
-        "heading": "About Karen Pettit",
-        "body": "As a passionate advocate for mental health and substance abuse treatment, I have dedicated my career to helping those in need. My journey began with personal experiences of loss and witnessing the struggles of loved ones who faced mental health challenges and substance abuse. This profound understanding ignited a desire within me to make a meaningful impact in the lives of others."
-      },
-      {
-        "heading": "Education & Credentials",
-        "body": "I hold an Associate's degree in Alcohol and Drug Studies from Saddleback College, which I completed in 2024, and I am proud to have passed the state exam for my Substance Use Disorder Certified Counselor (SUDCC II) credential. Currently, I am pursuing a bachelor's degree in Psychology to deepen my understanding and enhance my ability to support those on their journey to recovery."
-      },
-      {
-        "heading": "Professional Philosophy",
-        "body": "\"A little consideration, a little thought for others, makes all the difference.\" – Eeyore. I embody this belief in my work, committed to providing the care and guidance that individuals and families need, drawing from both my professional training and my personal experiences."
-      }
-    ],
-    "bullets": [],
-    "faqs": []
-  },
-  "david-goodgame": {
-    "slug": "david-goodgame",
-    "title": "David Goodgame, LVN | Client Care Supervisor | Laguna View Detox",
-    "metaDescription": "Meet David Goodgame, LVN, Client Care Supervisor at Laguna View Detox. Over 5 1/2 years sober, David shares his journey from homelessness and incarceration to a life of purpose, service, and helping others in recovery.",
-    "h1": "David Goodgame, LVN",
-    "teamRole": "Client Care Supervisor",
-    "heroSubtitle": "Just a few years ago, my life looked drastically different—I was homeless, broken, and incarcerated, consumed by addiction and separated from everything and everyone I loved. Today, I am little over 5 1/2 years sober and surrounded by a team that feels like family, dedicated to living with purpose and helping others rise from the depths I once knew too well.",
-    "sections": [
-      {
-        "heading": "David's Story",
-        "body": "I went from having nothing—no support, no trust, no vision—to being surrounded by people who believe in me, and more importantly, who I can now show up for every single day. Recovery didn't just help me get clean; it helped me become the man I was always meant to be.\nMy journey wasn't easy. I've slept on cold concrete. I've sat in a prison cell wondering if there was anything left for me outside those walls. I lost not only my freedom, but my identity. Addiction took everything—but recovery gave me more than I ever imagined possible. Through relentless self-work, community support, and spiritual growth, I found a new path—one built on accountability, service, and hope.\nNow, my mission is to give back what was so freely given to me. Whether I'm mentoring others in recovery or struggling teens, working in treatment, or simply sharing my story, I do it to prove that no one is too far gone. That rock bottom can be a solid foundation if you're willing to rebuild."
-      }
-    ],
-    "bullets": [],
-    "faqs": []
-  },
   "nyship": {
     "slug": "nyship",
     "title": "NYSHIP Rehab Coverage | Laguna View Detox",
@@ -1834,20 +1778,6 @@
       "Trauma-related disorders"
     ],
     "faqs": []
-  },
-  "nicole-burson": {
-    "slug": "nicole-burson",
-    "title": "Nicole Burson - Laguna View Detox",
-    "metaDescription": "Nicole Burson is a digital marketing professional specializing in substance abuse and behavioral healthcare who has contributed numerous topics for Laguna View Detox.",
-    "h1": "Nicole Burson",
-    "heroSubtitle": "Part of the Laguna View Detox team.",
-    "teamRole": "Digital Marketing Professional specializing in substance abuse and behavioral healthcare",
-    "sections": [
-      {
-        "heading": "About Nicole Burson",
-        "body": "Nicole Burson is a digital marketing professional who specializes in substance abuse and behavioral healthcare. With years of experience, Nicole has contributed numerous topics for Laguna View Detox."
-      }
-    ]
   },
   "connecticare": {
     "slug": "connecticare",
@@ -2013,5 +1943,168 @@
       "Family Support: We understand that addiction is a family disease. We work directly with the families of all patients to ensure that we offer the support, care, and direction that is so pivotal to a life-long recovery."
     ],
     "faqs": []
+  },
+  "shawn-young": {
+    "slug": "shawn-young",
+    "title": "Shawn Young — Executive Director",
+    "metaDescription": "Meet Shawn Young, Executive Director at Laguna View Detox in Laguna Beach, CA. As the Executive Director of Southern California, I have the privilege of leading a team of dedicated professionals across several substance abuse treatment facilities — but at.",
+    "h1": "Shawn Young",
+    "teamRole": "Executive Director",
+    "heroSubtitle": "As the Executive Director of Southern California, I have the privilege of leading a team of dedicated professionals across several substance abuse treatment facilities — but at.",
+    "sections": [
+      {
+        "heading": "About Shawn",
+        "body": "As the Executive Director of Southern California, I have the privilege of leading a team of dedicated professionals across several substance abuse treatment facilities — but at the heart of what I do is people. Whether it’s helping a client take their first step toward recovery or supporting a staff member as they grow into leadership, my passion lies in developing others and building environments where people can thrive.\nI didn’t get here by accident. I worked my way up through this field — from cooking in the kitchen and working as a tech, to becoming a clinician, and now serving in executive leadership. That journey gave me a deep understanding of what this work really takes — grit, heart, and an unwavering commitment to showing up for people when they need it most.\nI believe recovery is more than just treatment — it’s a life long journey that we have the privilege of helping people build that foundation.\nAt the end of the day, I’m a husband and a father. My family is my foundation and the reason I lead with heart. The way I show up at home is how I try to show up in this work — grounded, honest, and fully present.\nThis isn’t just a job to me — it’s a calling, and I’m all in."
+      }
+    ]
+  },
+  "michael-mcarthur": {
+    "slug": "michael-mcarthur",
+    "title": "Michael McArthur — Nursing Director",
+    "metaDescription": "Meet Michael McArthur, Nursing Director at Laguna View Detox in Laguna Beach, CA. I am the Director of Nursing for California facilities, overseeing all medical staff and client care operations. My journey into nursing was inspired by a personal desire to.",
+    "h1": "Michael McArthur",
+    "teamRole": "Nursing Director",
+    "heroSubtitle": "I am the Director of Nursing for California facilities, overseeing all medical staff and client care operations. My journey into nursing was inspired by a personal desire to.",
+    "sections": [
+      {
+        "heading": "About Michael",
+        "body": "I am the Director of Nursing for California facilities, overseeing all medical staff and client care operations. My journey into nursing was inspired by a personal desire to provide hope and compassion during life’s most challenging moments. Watching nurses care for my family during a difficult time, I realized how powerful a little hope and dedicated care can be. This inspired me to pursue a career in nursing, knowing I could make a difference when people need it most.\nI love working in addiction recovery because it allows me to witness clients grow and thrive within our walls. Our staff’s client-focused approach creates a positive, motivating environment that makes coming to work truly rewarding.\nOutside of my professional life, I am a proud father of four wonderful kids. They are my greatest inspiration—teaching me patience, resilience, and the importance of hope every day. My personal recovery journey has also strengthened my understanding of overcoming adversity, and it fuels my dedication to helping others find their path to healing.\nI work in this industry because I believe that substance use disorder and behavioral health are underserved populations that deserve attention, compassion, and support. I am excited to be on the front lines helping to reduce stigma and provide clients with genuine opportunities for recovery.\nPersonally, I am passionate about my family, continuous improvement in patient care through scientific and technological advances, and my love for the Los Angeles Lakers. My goal is to make a meaningful difference, one life at a time, with hope, compassion, and unwavering dedication."
+      }
+    ]
+  },
+  "riky-hanaumi": {
+    "slug": "riky-hanaumi",
+    "title": "Riky Hanaumi, LCSW — Clinical Director",
+    "metaDescription": "Meet Riky Hanaumi, LCSW, Clinical Director at Laguna View Detox in Laguna Beach, CA. Erika “Riky” Hanaumi is a Licensed Clinical Social Worker with more than 20 years of experience in behavioral health and addiction treatment. She currently serves as Clinical.",
+    "h1": "Riky Hanaumi, LCSW",
+    "teamRole": "LCSW · Clinical Director",
+    "heroSubtitle": "Erika “Riky” Hanaumi is a Licensed Clinical Social Worker with more than 20 years of experience in behavioral health and addiction treatment. She currently serves as Clinical.",
+    "sections": [
+      {
+        "heading": "About Riky",
+        "body": "Erika “Riky” Hanaumi is a Licensed Clinical Social Worker with more than 20 years of experience in behavioral health and addiction treatment. She currently serves as Clinical Director for Quadrant Health Group’s California facilities, where she oversees clinical programming, mentors and supports therapists in developing effective treatment strategies, and ensures the delivery of compassionate, individualized, and clinically sound care. Her leadership focuses on promoting evidence-based practices, clinical excellence, and positive treatment outcomes for individuals with co-occurring mental health and substance use disorders.\nRiky began her career working with individuals experiencing homelessness, providing intensive support, advocacy, and resource coordination to help clients overcome barriers and access essential services. This experience fueled her passion for serving vulnerable populations and inspired her to pursue a Master of Social Work degree from California State University, Fullerton, which she earned in 2013.\nThroughout her career, Riky has worked in both inpatient and outpatient settings, providing therapy, crisis intervention, case management, and recovery-oriented services. She has extensive experience supporting adults with complex behavioral health needs, including co-occurring mental health and substance use disorders, while helping individuals navigate the challenges of recovery and major life transitions.\nRiky is trained in evidence-based treatment modalities, including Cognitive Behavioral Therapy (CBT) and Dialectical Behavior Therapy (DBT). She is passionate about helping clients build resilience, strengthen coping skills, improve interpersonal relationships, and achieve lasting recovery.\nAt the heart of Riky’s work is a belief in the power of human connection and personal transformation. She is committed to empowering individuals to recognize their strengths, cultivate self-worth, and build fulfilling lives grounded in purpose, integrity, and hope."
+      }
+    ]
+  },
+  "monica-olivares": {
+    "slug": "monica-olivares",
+    "title": "Monica Olivares — Clinical Supervisor",
+    "metaDescription": "Meet Monica Olivares, Clinical Supervisor at Laguna View Detox in Laguna Beach, CA. Monica Olivares serves as the Clinical Supervisor for Quadrant Health Group’s California facilities, bringing over 11 years of experience in the behavioral health field and a.",
+    "h1": "Monica Olivares",
+    "teamRole": "Clinical Supervisor",
+    "heroSubtitle": "Monica Olivares serves as the Clinical Supervisor for Quadrant Health Group’s California facilities, bringing over 11 years of experience in the behavioral health field and a.",
+    "sections": [
+      {
+        "heading": "About Monica",
+        "body": "Monica Olivares serves as the Clinical Supervisor for Quadrant Health Group’s California facilities, bringing over 11 years of experience in the behavioral health field and a deeply personal passion for recovery and healing. Throughout her career, Monica has worked across nearly every level of care — including Detox, Residential, IOP, PHP, and Outpatient programs — while holding a wide range of roles from Behavioral Health Technician and Case Manager to Program Manager and Program Director.\nMonica holds a CADC II certification and has extensive experience supporting individuals struggling with substance use disorders, co-occurring mental health conditions, and eating disorders. Her leadership style is rooted in compassion, authenticity, accountability, and connection, helping create treatment environments where clients feel genuinely supported, understood, and empowered throughout their recovery journey.\nIn addition to her professional experience, Monica brings 13 years of personal recovery experience to the work she does each day. Her lived experience allows her to connect with clients on a deeper level while helping foster hope, trust, and meaningful change. She believes recovery should be individualized, engaging, and centered around human connection, emphasizing that healing can happen while still embracing joy, humor, and community.\nKnown for her energy, heart, and dedication, Monica is passionate about helping both clients and staff grow while cultivating strong, supportive treatment teams across the California programs. Outside of work, she enjoys spending time with her family, being outdoors, attending music festivals, exploring escape rooms, traveling, and creating memorable life experiences."
+      }
+    ]
+  },
+  "jacob-cameron": {
+    "slug": "jacob-cameron",
+    "title": "Jacob Cameron — Client Care Director",
+    "metaDescription": "Meet Jacob Cameron, Client Care Director at Laguna View Detox in Laguna Beach, CA. Jacob Cameron serves as the Client Care Director at Quadrant Health Group and is a Registered Substance Use Disorder Counselor (SUDCC I). Passionate about helping individuals.",
+    "h1": "Jacob Cameron",
+    "teamRole": "Client Care Director",
+    "heroSubtitle": "Jacob Cameron serves as the Client Care Director at Quadrant Health Group and is a Registered Substance Use Disorder Counselor (SUDCC I). Passionate about helping individuals.",
+    "sections": [
+      {
+        "heading": "About Jacob",
+        "body": "Jacob Cameron serves as the Client Care Director at Quadrant Health Group and is a Registered Substance Use Disorder Counselor (SUDCC I). Passionate about helping individuals navigate the recovery process, Jacob is dedicated to creating a treatment experience that is both meaningful and engaging. He believes that lasting recovery is built through genuine connection, compassionate support, and an environment where clients feel valued every step of the way.\nIn his role, Jacob works to ensure that each client receives personalized care and experiences a sense of belonging throughout their treatment journey. His goal is to help individuals not only achieve recovery but also discover that life in recovery can be fulfilling, rewarding, and enjoyable. Through his commitment to client-centered care, Jacob strives to make a lasting positive impact on the lives of those he serves."
+      }
+    ]
+  },
+  "justin-white": {
+    "slug": "justin-white",
+    "title": "Justin White — Program Director",
+    "metaDescription": "Meet Justin White, Program Director at Laguna View Detox in Laguna Beach, CA. Justin White serves as Program Director for Quadrant Health Group's Southern California facilities, providing operational leadership and program oversight across the.",
+    "h1": "Justin White",
+    "teamRole": "Program Director",
+    "heroSubtitle": "Justin White serves as Program Director for Quadrant Health Group's Southern California facilities, providing operational leadership and program oversight across the.",
+    "sections": [
+      {
+        "heading": "About Justin",
+        "body": "Justin White serves as Program Director for Quadrant Health Group's Southern California facilities, providing operational leadership and program oversight across the organization's behavioral health treatment centers. In this role, he works closely with multidisciplinary teams to ensure each facility delivers high-quality, individualized care while maintaining excellence in clinical programming, regulatory compliance, and day-to-day operations.\nA Registered Addiction Counselor, Justin brings extensive experience in both detoxification and residential treatment settings. His leadership is rooted in the belief that recovery is never one-size-fits-all, and he is committed to fostering treatment environments where every client feels respected, supported, and empowered throughout their healing journey.\nKnown for his compassionate and collaborative leadership style, Justin is passionate about developing strong teams and creating programs that promote lasting recovery. He believes meaningful change begins with genuine human connection and is dedicated to helping both clients and staff reach their fullest potential. Through his leadership, he continues to advance Quadrant Health Group's mission of providing exceptional, evidence-based behavioral healthcare across Southern California."
+      }
+    ]
+  },
+  "elizabeth-wald": {
+    "slug": "elizabeth-wald",
+    "title": "Elizabeth Wald — Program Director",
+    "metaDescription": "Meet Elizabeth Wald, Program Director at Laguna View Detox in Laguna Beach, CA. Elizabeth Wald serves as Program Director for Quadrant Health Group's Southern California facilities, where she oversees program operations, clinical coordination, and day-to-day.",
+    "h1": "Elizabeth Wald",
+    "teamRole": "Program Director",
+    "heroSubtitle": "Elizabeth Wald serves as Program Director for Quadrant Health Group's Southern California facilities, where she oversees program operations, clinical coordination, and day-to-day.",
+    "sections": [
+      {
+        "heading": "About Elizabeth",
+        "body": "Elizabeth Wald serves as Program Director for Quadrant Health Group's Southern California facilities, where she oversees program operations, clinical coordination, and day-to-day management across the organization's behavioral health treatment centers. She works closely with multidisciplinary teams to ensure each program delivers exceptional, individualized care while maintaining the highest standards of quality, compliance, and operational excellence.\nSince entering the behavioral health field in 2021, Elizabeth has been an integral part of Quadrant Health Group's growth, beginning with the opening of one of its Northern California facilities. Her leadership has been instrumental in fostering compassionate, client-centered treatment environments where individuals receive personalized support throughout every stage of their recovery journey.\nElizabeth's passion for behavioral healthcare is deeply rooted in her own lived experience in recovery. She believes that meaningful healing begins by meeting individuals where they are, building genuine connections, and empowering them with the tools, education, and support needed to achieve lasting recovery. Her leadership is driven by empathy, authenticity, and an unwavering commitment to helping others reclaim their lives while supporting her teams in delivering the highest level of care."
+      }
+    ]
+  },
+  "jeremiah-ross": {
+    "slug": "jeremiah-ross",
+    "title": "Jeremiah Ross — Nursing Supervisor",
+    "metaDescription": "Meet Jeremiah Ross, Nursing Supervisor at Laguna View Detox in Laguna Beach, CA. Jeremiah Ross, is a dedicated healthcare professional with more than 10 years of patient care experience and a strong background in substance use disorder treatment, client care.",
+    "h1": "Jeremiah Ross",
+    "teamRole": "Nursing Supervisor",
+    "heroSubtitle": "Jeremiah Ross, is a dedicated healthcare professional with more than 10 years of patient care experience and a strong background in substance use disorder treatment, client care.",
+    "sections": [
+      {
+        "heading": "About Jeremiah",
+        "body": "Jeremiah Ross, is a dedicated healthcare professional with more than 10 years of patient care experience and a strong background in substance use disorder treatment, client care coordination, and clinical team leadership. As the Nursing Supervisor, Jeremiah plays an integral role in supporting both clients and staff, helping oversee day-to-day clinical operations, medication-assisted treatment (MAT) protocols, documentation compliance, staff development, and multidisciplinary collaboration to ensure the highest standards of care.\nPassionate about helping individuals navigate the recovery process, Jeremiah is committed to creating a safe, supportive, and structured treatment environment where clients can build stability, develop healthy coping skills, and work toward lasting recovery. His leadership style emphasizes compassion, accountability, and teamwork, helping foster positive outcomes for both clients and clinical staff."
+      }
+    ]
+  },
+  "alanna-mcmurtrey": {
+    "slug": "alanna-mcmurtrey",
+    "title": "Alanna McMurtrey — Lead Case Manager",
+    "metaDescription": "Meet Alanna McMurtrey, Lead Case Manager at Laguna View Detox in Laguna Beach, CA. Alanna McMurtrey serves as the Lead Case Manager for the Southern California facilities of Quadrant Health Group, where she oversees case management services and supports clients.",
+    "h1": "Alanna McMurtrey",
+    "teamRole": "Lead Case Manager",
+    "heroSubtitle": "Alanna McMurtrey serves as the Lead Case Manager for the Southern California facilities of Quadrant Health Group, where she oversees case management services and supports clients.",
+    "sections": [
+      {
+        "heading": "About Alanna",
+        "body": "Alanna McMurtrey serves as the Lead Case Manager for the Southern California facilities of Quadrant Health Group, where she oversees case management services and supports clients through detox and residential levels of care. In her role, she coordinates client care, provides leadership and clinical support to case management staff, and helps ensure that each individual receives consistent, structured, and personalized support throughout their treatment journey.\nWith several years of experience in behavioral health and addiction treatment, Alanna has developed a strong passion for helping individuals overcome substance use disorders and co-occurring mental health challenges. She is dedicated to fostering engagement in treatment, promoting personal growth, and supporting clients as they work toward sustainable, long-term recovery.\nAlanna takes a client-centered, strengths-based approach to care, meeting individuals where they are and helping them build upon their unique strengths. She is committed to creating a safe, respectful, and supportive environment where clients feel heard, valued, and empowered to make meaningful changes in their lives. Through collaboration, compassion, and clinical consistency, she strives to help clients develop the skills, confidence, and stability needed to achieve lasting recovery and improved well-being.\nLaguna View Detox"
+      }
+    ]
+  },
+  "lamont-damon": {
+    "slug": "lamont-damon",
+    "title": "Lamont Damon, AMFT — Therapist",
+    "metaDescription": "Meet Lamont Damon, AMFT, Therapist at Laguna View Detox in Laguna Beach, CA. Lamont Damon is an Associate Marriage and Family Therapist dedicated to helping individuals navigate substance use recovery and behavioral health challenges with compassion,.",
+    "h1": "Lamont Damon, AMFT",
+    "teamRole": "AMFT · Therapist",
+    "heroSubtitle": "Lamont Damon is an Associate Marriage and Family Therapist dedicated to helping individuals navigate substance use recovery and behavioral health challenges with compassion,.",
+    "sections": [
+      {
+        "heading": "About Lamont",
+        "body": "Lamont Damon is an Associate Marriage and Family Therapist dedicated to helping individuals navigate substance use recovery and behavioral health challenges with compassion, understanding, and evidence-based care. With experience working in detoxification and residential treatment settings, Lamont facilitates process groups, mindfulness groups, and trauma-informed therapeutic interventions designed to support healing and personal growth.\nHis clinical approach is rooted in creating a safe, supportive environment where clients can openly explore their emotions, strengthen recovery skills, develop healthy coping strategies, and build greater self-awareness. Drawing from person-centered, cognitive behavioral, mindfulness-based, and trauma-informed modalities, Lamont tailors his work to meet each individual’s unique needs and goals.\nPassionate about empowering individuals on their recovery journey, Lamont strives to help clients build resilience, foster meaningful change, and establish a strong foundation for long-term wellness and sustained recovery."
+      }
+    ]
+  },
+  "christi-llamas": {
+    "slug": "christi-llamas",
+    "title": "Christi Llamas, SUDRC — Case Manager",
+    "metaDescription": "Meet Christi Llamas, SUDRC, Case Manager at Laguna View Detox in Laguna Beach, CA. Christi Llamas is a dedicated Case Manager whose passion for helping others is rooted in both personal and professional experience. Having grown up in a family impacted by mental.",
+    "h1": "Christi Llamas, SUDRC",
+    "teamRole": "SUDRC · Case Manager",
+    "heroSubtitle": "Christi Llamas is a dedicated Case Manager whose passion for helping others is rooted in both personal and professional experience. Having grown up in a family impacted by mental.",
+    "sections": [
+      {
+        "heading": "About Christi",
+        "body": "Christi Llamas is a dedicated Case Manager whose passion for helping others is rooted in both personal and professional experience. Having grown up in a family impacted by mental health and substance use challenges, and later navigating her own recovery journey, Christi brings a unique level of empathy, understanding, and authenticity to her work.\nHer lived experience has given her firsthand insight into the complexities of addiction, recovery, and the barriers many individuals face when seeking support. Through overcoming challenges associated with substance use and involvement with the criminal justice system, Christi developed a deep commitment to helping others find hope, stability, and a path forward.\nAs a Case Manager, Christi is dedicated to building meaningful connections with clients, advocating for their needs, and helping them access the resources and support necessary for lasting recovery. She is passionate about empowering individuals to recognize their strengths and create positive change in their lives.\nChristi is currently pursuing her education with the long-term goal of becoming a Licensed Clinical Social Worker (LCSW), allowing her to further expand her knowledge and ability to support individuals and families affected by substance use and mental health disorders.\nHillside Mission Recovery"
+      }
+    ]
+  },
+  "bj-thome": {
+    "slug": "bj-thome",
+    "title": "BJ Thome — Alumni Coordinator",
+    "metaDescription": "Meet BJ Thome, Alumni Coordinator at Laguna View Detox — a luxury drug and alcohol detox centre in Laguna Beach, California.",
+    "h1": "BJ Thome",
+    "teamRole": "Alumni Coordinator",
+    "heroSubtitle": "Alumni Coordinator at Laguna View Detox.",
+    "sections": []
   }
 }

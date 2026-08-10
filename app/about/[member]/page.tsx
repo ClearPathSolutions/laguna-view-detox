@@ -2,7 +2,8 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { getPage, paragraphs } from "@/lib/content";
+import { getPage } from "@/lib/content";
+import SectionBody from "@/components/SectionBody";
 import { team } from "@/lib/data";
 import { CtaBand } from "@/components/sections";
 import { PhoneIcon, ChevronRightIcon } from "@/components/icons";
@@ -73,11 +74,7 @@ export default function TeamMemberPage({ params }: { params: { member: string } 
           {page.sections.map((s, i) => (
             <div key={i} className={i === 0 ? "" : "mt-10"}>
               {s.heading?.trim() && <h2 className="h-card !text-2xl">{s.heading}</h2>}
-              <div className="prose-body mt-4">
-                {paragraphs(s.body).map((p, pi) => (
-                  <p key={pi}>{p}</p>
-                ))}
-              </div>
+              <SectionBody body={s.body} className="mt-4" />
             </div>
           ))}
 

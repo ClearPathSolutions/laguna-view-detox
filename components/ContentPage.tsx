@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { site } from "@/lib/site";
-import { paragraphs, splitLabel, type PageContent } from "@/lib/content";
+import { type PageContent } from "@/lib/content";
+import SectionBody from "./SectionBody";
 import PageHero from "./PageHero";
 import FaqSection from "./Faq";
 import { CtaBand } from "./sections";
@@ -23,7 +24,6 @@ function Prose({ page }: { page: PageContent }) {
   return (
     <div className="max-w-none">
       {page.sections.map((section, si) => {
-        const ps = paragraphs(section.body);
         return (
           <section
             key={si}
@@ -33,17 +33,7 @@ function Prose({ page }: { page: PageContent }) {
             {section.heading?.trim() && (
               <h2 className="h-card !text-2xl sm:!text-[1.75rem]">{section.heading}</h2>
             )}
-            <div className="mt-5 space-y-6">
-              {ps.map((p, pi) => {
-                const { label, text } = splitLabel(p);
-                return (
-                  <p key={pi} className="leading-[1.8] text-navy-900/75">
-                    {label && <span className="font-semibold text-navy-900">{label}: </span>}
-                    {text}
-                  </p>
-                );
-              })}
-            </div>
+            <SectionBody body={section.body} className="mt-5" />
           </section>
         );
       })}

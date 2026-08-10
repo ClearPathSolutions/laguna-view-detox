@@ -2,7 +2,7 @@ import PageHero from "@/components/PageHero";
 import Gallery from "@/components/Gallery";
 import { CtaBand, InsuranceBand } from "@/components/sections";
 import { SectionHeading } from "@/components/ui";
-import { getPage, paragraphs } from "@/lib/content";
+import { getPage, lines } from "@/lib/content";
 import { gallery } from "@/lib/data";
 import { pageMeta } from "@/lib/seo";
 
@@ -38,7 +38,7 @@ export default function TourPage() {
               align="center"
             />
             <div className="prose-body mt-6 text-left sm:text-center">
-              {paragraphs(intro.body).slice(0, 2).map((p, i) => (
+              {lines(intro.body).slice(0, 2).map((p, i) => (
                 <p key={i}>{p}</p>
               ))}
             </div>

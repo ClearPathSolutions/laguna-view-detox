@@ -2,7 +2,8 @@ import PageHero from "@/components/PageHero";
 import { AdmissionsSteps, InsuranceBand, CtaBand } from "@/components/sections";
 import Reviews from "@/components/Reviews";
 import { SectionHeading, Bullet } from "@/components/ui";
-import { getPage, paragraphs, splitLabel } from "@/lib/content";
+import { getPage } from "@/lib/content";
+import SectionBody from "@/components/SectionBody";
 import { pageMeta } from "@/lib/seo";
 
 const page = getPage("admissions");
@@ -36,17 +37,7 @@ export default function AdmissionsPage() {
               {bodySections.map((s, i) => (
                 <div key={i} className="reveal">
                   {s.heading?.trim() && <h2 className="h-card !text-2xl">{s.heading}</h2>}
-                  <div className="mt-4 space-y-4">
-                    {paragraphs(s.body).map((p, pi) => {
-                      const { label, text } = splitLabel(p);
-                      return (
-                        <p key={pi} className="leading-[1.8] text-navy-900/75">
-                          {label && <span className="font-semibold text-navy-900">{label}: </span>}
-                          {text}
-                        </p>
-                      );
-                    })}
-                  </div>
+                  <SectionBody body={s.body} className="mt-4" />
                 </div>
               ))}
             </div>

@@ -2,7 +2,7 @@ import Image from "next/image";
 import PageHero from "@/components/PageHero";
 import { CtaBand, InsuranceBand } from "@/components/sections";
 import { SectionHeading } from "@/components/ui";
-import { getPage, paragraphs } from "@/lib/content";
+import { getPage, lines } from "@/lib/content";
 import { HeartIcon, SparkleIcon, LeafIcon, WaveIcon, UsersIcon, ShieldIcon } from "@/components/icons";
 import { pageMeta } from "@/lib/seo";
 
@@ -86,7 +86,7 @@ export default function LuxuryPage() {
                     <h2 className="h-section">{s.heading}</h2>
                   )}
                   <div className="prose-body mt-6">
-                    {paragraphs(s.body).slice(0, 3).map((p, pi) => (
+                    {lines(s.body).slice(0, 3).map((p, pi) => (
                       <p key={pi}>{p}</p>
                     ))}
                   </div>

@@ -199,30 +199,87 @@ export type TeamMember = {
 
 export const team: TeamMember[] = [
   {
-    slug: "karen-pettit",
-    name: "Karen Pettit",
-    role: "CADC II · Program Director",
-    image: "/images/team-karen-pettit.jpeg",
-    contentSlug: "karen-pettit",
+    slug: "shawn-young",
+    name: "Shawn Young",
+    role: "Executive Director",
+    image: "/images/team-shawn-young.jpg",
+    contentSlug: "shawn-young",
   },
   {
-    slug: "david-goodgame",
-    name: "David Goodgame",
+    slug: "michael-mcarthur",
+    name: "Michael McArthur",
+    role: "Nursing Director",
+    image: "/images/team-michael-mcarthur.jpg",
+    contentSlug: "michael-mcarthur",
+  },
+  {
+    slug: "riky-hanaumi",
+    name: "Riky Hanaumi, LCSW",
+    role: "LCSW · Clinical Director",
+    image: "/images/team-riky-hanaumi.jpg",
+    contentSlug: "riky-hanaumi",
+  },
+  {
+    slug: "monica-olivares",
+    name: "Monica Olivares",
+    role: "Clinical Supervisor",
+    image: "/images/team-monica-olivares.jpg",
+    contentSlug: "monica-olivares",
+  },
+  {
+    slug: "jacob-cameron",
+    name: "Jacob Cameron",
+    role: "Client Care Director",
+    image: "/images/team-jacob-cameron.jpg",
+    contentSlug: "jacob-cameron",
+  },
+  {
+    slug: "justin-white",
+    name: "Justin White",
     role: "Program Director",
-    image: "/images/team-david-goodgame.jpeg",
-    contentSlug: "david-goodgame",
+    image: "/images/team-justin-white.jpg",
+    contentSlug: "justin-white",
   },
   {
-    slug: "nicole-burson",
-    name: "Nicole Burson",
-    // Was "Clinical Team", which contradicted this site's own bio for her.
-    // content/pages.raw.json carries teamRole "Digital Marketing Professional
-    // specializing in substance abuse and behavioral healthcare", and her page
-    // body says the same. Presenting a marketing contributor as clinical staff
-    // on a YMYL healthcare site is a straightforward accuracy problem, and the
-    // correct value was already in the content.
-    role: "Digital Marketing & Content",
-    contentSlug: "nicole-burson",
+    slug: "elizabeth-wald",
+    name: "Elizabeth Wald",
+    role: "Program Director",
+    image: "/images/team-elizabeth-wald.jpg",
+    contentSlug: "elizabeth-wald",
+  },
+  {
+    slug: "jeremiah-ross",
+    name: "Jeremiah Ross",
+    role: "Nursing Supervisor",
+    image: "/images/team-jeremiah-ross.jpg",
+    contentSlug: "jeremiah-ross",
+  },
+  {
+    slug: "alanna-mcmurtrey",
+    name: "Alanna McMurtrey",
+    role: "Lead Case Manager",
+    image: "/images/team-alanna-mcmurtrey.jpg",
+    contentSlug: "alanna-mcmurtrey",
+  },
+  {
+    slug: "lamont-damon",
+    name: "Lamont Damon, AMFT",
+    role: "AMFT · Therapist",
+    image: "/images/team-lamont-damon.jpg",
+    contentSlug: "lamont-damon",
+  },
+  {
+    slug: "christi-llamas",
+    name: "Christi Llamas, SUDRC",
+    role: "SUDRC · Case Manager",
+    image: "/images/team-christi-llamas.jpg",
+    contentSlug: "christi-llamas",
+  },
+  {
+    slug: "bj-thome",
+    name: "BJ Thome",
+    role: "Alumni Coordinator",
+    contentSlug: "bj-thome",
   },
 ];
 

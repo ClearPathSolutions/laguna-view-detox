@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
-import { getPage, paragraphs } from "@/lib/content";
+import { getPage } from "@/lib/content";
+import SectionBody from "@/components/SectionBody";
 import { programs, detoxTypes } from "@/lib/data";
 import PageHero from "@/components/PageHero";
 import { CtaBand, AdmissionsSteps } from "@/components/sections";
@@ -135,11 +136,7 @@ export default function TreatmentHub() {
         <section className="section bg-white">
           <div className="container-x max-w-3xl">
             <h2 className="h-section">{overview.heading}</h2>
-            <div className="prose-body mt-6">
-              {paragraphs(overview.body).map((p, i) => (
-                <p key={i}>{p}</p>
-              ))}
-            </div>
+            <SectionBody body={overview.body} className="mt-6" />
           </div>
         </section>
       )}

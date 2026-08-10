@@ -18,11 +18,19 @@ export const site = {
   },
   license: "DHCS License #300024AP",
   licenseExpiry: "01/31/2028",
+  /**
+   * California DHCS public licence record. QA row 1090 asked for the footer
+   * licence number to link to the state's register so the claim is verifiable
+   * rather than asserted.
+   */
+  licenseVerifyUrl:
+    "https://geohub-cadhcs.hub.arcgis.com/datasets/63459617d2604decab840bd2ca047ee2_11/explore",
   social: {
     facebook: "https://www.facebook.com/lagunaViewDetox/",
     instagram: "https://www.instagram.com/lagunaviewdetox/",
     yelp: "https://www.yelp.com/biz/laguna-view-detox-laguna-beach",
     youtube: "https://www.youtube.com/channel/UC4PpcbTW5reQ61dQyHXDTYg",
+    google: "https://g.page/r/CUMi-UYjQ10wEAI",
   },
   // Third-party widget config. The Clarion site key is the only per-site value
   // that changes when this stack is cloned to another property.
@@ -40,6 +48,13 @@ export const site = {
       accountId: "264810",
     },
   },
+  /**
+   * Google Business Profile *review request* URL from the facility master
+   * record. Distinct from `social.google` (the profile): this deep-links
+   * straight into the review composer, so it belongs on "leave us a review"
+   * CTAs, not in navigation or `sameAs`.
+   */
+  googleReviewUrl: "https://g.page/r/CUMi-UYjQ10wEAI/review",
 } as const;
 
 export type NavColumn = {

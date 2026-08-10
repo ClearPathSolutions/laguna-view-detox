@@ -15,6 +15,7 @@ export default function Page() {
   if (!page) notFound();
   return (
     <ContentPage
+      path={"/treatment/aftercare"}
       page={page}
       eyebrow="Levels of Care"
       heroImage="/images/lvd-tour-22.jpg"

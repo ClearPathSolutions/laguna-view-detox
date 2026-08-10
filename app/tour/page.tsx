@@ -18,6 +18,7 @@ export default function TourPage() {
   return (
     <>
       <PageHero
+        path="/tour"
         eyebrow="Tour Our Facility"
         title="Step inside our oceanview estate"
         subtitle={

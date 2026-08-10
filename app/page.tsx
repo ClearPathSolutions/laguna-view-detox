@@ -5,9 +5,9 @@ import {
   LevelsOfCare,
   FacilityFeature,
   WhoWeTreatGrid,
-  Testimonials,
 } from "@/components/home";
 import BlogPreview from "@/components/BlogPreview";
+import Reviews from "@/components/Reviews";
 import { pageMeta } from "@/lib/seo";
 import { site } from "@/lib/site";
 
@@ -15,6 +15,7 @@ export const metadata = pageMeta({
   title: "Luxury Drug Rehab in Laguna Beach",
   description: site.description,
   path: "",
+  absoluteTitle: true,
 });
 
 export default function HomePage() {
@@ -26,7 +27,7 @@ export default function HomePage() {
       <LevelsOfCare />
       <FacilityFeature />
       <WhoWeTreatGrid />
-      <Testimonials />
+      <Reviews />
       <AdmissionsSteps />
       <InsuranceBand />
       <BlogPreview />

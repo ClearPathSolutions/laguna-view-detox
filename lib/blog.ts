@@ -177,3 +177,55 @@ export async function getMergedPost(slug: string): Promise<BlogPost | undefined>
     return undefined;
   }
 }
+
+/* ------------------------------------------------------------------ *
+ * Pagination + category archives
+ *
+ * These take an explicit `posts` array rather than closing over the static
+ * `allPosts`, because the crawlable list is the MERGED one (local + Clarion)
+ * and that is only available asynchronously via getAllPosts(). Building the
+ * archives off the static list would leave every Clarion post out of
+ * pagination and category pages — reintroducing exactly the crawlability gap
+ * these routes exist to close.
+ * ------------------------------------------------------------------ */
+
+export const PAGE_SIZE = 12;
+
+export function totalPagesFor(posts: BlogPost[]): number {
+  return Math.max(1, Math.ceil(posts.length / PAGE_SIZE));
+}
+
+/** 1-indexed. Page 1 is served by /blog itself. */
+export function postsForPage(posts: BlogPost[], page: number): BlogPost[] {
+  const start = (page - 1) * PAGE_SIZE;
+  return posts.slice(start, start + PAGE_SIZE);
+}
+
+export function categorySlug(category: string): string {
+  return category
+    .toLowerCase()
+    .replace(/&/g, " ")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+export type CategoryInfo = { label: string; slug: string; count: number };
+
+export function categoryListFor(posts: BlogPost[]): CategoryInfo[] {
+  const labels = Array.from(new Set(posts.map((p) => p.category).filter(Boolean)));
+  return labels
+    .map((label) => ({
+      label,
+      slug: categorySlug(label),
+      count: posts.filter((p) => p.category === label).length,
+    }))
+    .sort((a, b) => b.count - a.count || a.label.localeCompare(b.label));
+}
+
+export function getCategoryFrom(posts: BlogPost[], slug: string): CategoryInfo | undefined {
+  return categoryListFor(posts).find((c) => c.slug === slug);
+}
+
+export function postsInCategoryFrom(posts: BlogPost[], label: string): BlogPost[] {
+  return posts.filter((p) => p.category === label);
+}

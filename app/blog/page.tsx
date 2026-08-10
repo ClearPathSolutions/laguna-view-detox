@@ -1,20 +1,22 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import PageHero from "@/components/PageHero";
 import { CtaBand } from "@/components/sections";
 import BlogArchive from "@/components/BlogArchive";
-import { getAllPosts } from "@/lib/blog";
+import { getAllPosts, categoryListFor, totalPagesFor } from "@/lib/blog";
 import { ArrowRightIcon } from "@/components/icons";
+import { pageMeta } from "@/lib/seo";
+import BlogPagination, { CategoryNav } from "@/components/BlogPagination";
 
 // Re-generate hourly so newly published Clarion posts appear without a redeploy.
 export const revalidate = 3600;
 
-export const metadata: Metadata = {
+export const metadata = pageMeta({
   title: "Addiction Recovery Blog",
   description:
     "Guidance, education, and encouragement on detox, treatment, and lasting recovery from the Laguna View Detox clinical team.",
-};
+  path: "/blog",
+});
 
 export default async function BlogIndex() {
   // Local + Clarion posts, newest first. The most recent post — wherever it
@@ -30,6 +32,7 @@ export default async function BlogIndex() {
   return (
     <>
       <PageHero
+        path="/blog"
         eyebrow="Stay Informed"
         title="Addiction Recovery Blog"
         subtitle="Guidance, education, and encouragement from the Laguna View Detox clinical team."
@@ -73,9 +76,18 @@ export default async function BlogIndex() {
             </Link>
           )}
 
+          {/* Real category links. The client filter inside BlogArchive is a
+              convenience; these are what a crawler can actually follow. */}
           <div className="mt-14">
+            <CategoryNav categories={categoryListFor(posts)} />
+          </div>
+
+          <div className="mt-10">
             <BlogArchive posts={rest} categories={usedCategories} />
           </div>
+
+          {/* Crawlable path to the remaining 145 posts. */}
+          <BlogPagination current={1} total={totalPagesFor(posts)} />
         </div>
       </section>
 

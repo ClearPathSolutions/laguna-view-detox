@@ -6,12 +6,12 @@ import { locations } from "@/lib/data";
 import { pageMeta } from "@/lib/seo";
 
 const locationImages: Record<string, string> = {
-  "orange-county": "/images/lvd-hp-bk-.jpg",
+  "orange-county": "/images/NIK_5883-hero.jpg",
   "newport-beach": "/images/ralph-ravi-kayden-4OtlI5Oju-M-unsplash.jpg",
   "los-angeles": "/images/shutterstock_1081362986-scaled.jpg",
   "san-diego": "/images/shutterstock_1550078711-scaled.jpeg",
-  ventura: "/images/lvd-hp-bk-.jpg",
-  california: "/images/lvd-hp-bk-.jpg",
+  ventura: "/images/NIK_5883-hero.jpg",
+  california: "/images/NIK_5883-hero.jpg",
 };
 
 export function generateStaticParams() {
@@ -41,6 +41,7 @@ export default function LocationPage({ params }: { params: { slug: string } }) {
 
   return (
     <ContentPage
+      path={`/locations/${params.slug}`}
       page={page}
       eyebrow="Areas We Serve"
       heroImage={locationImages[params.slug]}

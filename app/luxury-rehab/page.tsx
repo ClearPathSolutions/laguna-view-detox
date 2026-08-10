@@ -27,6 +27,7 @@ export default function LuxuryPage() {
   return (
     <>
       <PageHero
+        path="/luxury-rehab"
         eyebrow="The Luxury Experience"
         title="Luxury drug & alcohol treatment"
         subtitle="A comfortable environment has been proven to ease early recovery. Our premier center offers high-quality care and amenities that mimic the comforts of home — overlooking the Pacific in Laguna Beach."

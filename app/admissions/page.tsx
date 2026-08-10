@@ -1,5 +1,6 @@
 import PageHero from "@/components/PageHero";
 import { AdmissionsSteps, InsuranceBand, CtaBand } from "@/components/sections";
+import Reviews from "@/components/Reviews";
 import { SectionHeading, Bullet } from "@/components/ui";
 import { getPage, paragraphs, splitLabel } from "@/lib/content";
 import { pageMeta } from "@/lib/seo";
@@ -18,6 +19,7 @@ export default function AdmissionsPage() {
   return (
     <>
       <PageHero
+        path="/admissions"
         eyebrow="We Make Getting Help Easy"
         title={page?.h1 || "Admissions"}
         subtitle={page?.heroSubtitle}
@@ -63,6 +65,7 @@ export default function AdmissionsPage() {
         </section>
       )}
 
+      <Reviews />
       <InsuranceBand />
       <CtaBand />
     </>

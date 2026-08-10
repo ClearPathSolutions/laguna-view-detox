@@ -15,6 +15,7 @@ export default function Page() {
   if (!page) notFound();
   return (
     <ContentPage
+      path={"/treatment/addiction-therapies"}
       page={page}
       eyebrow="Levels of Care"
       heroImage="/images/Women-in-Therapy-scaled.jpg"

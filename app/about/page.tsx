@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import PageHero from "@/components/PageHero";
-import { Testimonials } from "@/components/home";
+import Reviews from "@/components/Reviews";
 import { AdmissionsSteps, CtaBand } from "@/components/sections";
 import { SectionHeading } from "@/components/ui";
 import { getPage } from "@/lib/content";
@@ -74,6 +74,7 @@ export default async function AboutPage() {
   return (
     <>
       <PageHero
+        path="/about"
         eyebrow="About Laguna View Detox"
         title="Who We Are"
         subtitle={page?.heroSubtitle}
@@ -197,7 +198,7 @@ export default async function AboutPage() {
         </div>
       </section>
 
-      <Testimonials />
+      <Reviews />
       <AdmissionsSteps withBg />
       <CtaBand />
     </>

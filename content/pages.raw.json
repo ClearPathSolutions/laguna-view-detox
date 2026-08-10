@@ -37,10 +37,10 @@
     "title": "Tour Our California Luxury Treatment Center | Laguna View Detox",
     "metaDescription": "Take a tour of Laguna View Detox, a luxury drug and alcohol rehab in Laguna Beach, California offering evidence-based treatment in a peaceful setting with stunning views.",
     "h1": "Tour Our Facility",
-    "heroSubtitle": "When making the decision to get help for a drug or alcohol problem, choosing the right treatment center is key. Laguna View Detox offers evidence-based treatment in a luxury setting at our drug rehab in Laguna Beach, California. With stunning views and peaceful surroundings, our drug treatment center offers an escape from the chaos of active addiction. Explore our facility below and contact us today if you are ready to take back your life from drugs & alcohol.",
+    "heroSubtitle": "A comfortable, home-like environment overlooking the Pacific — designed so healing feels like coming home.",
     "sections": [
       {
-        "heading": "Real Treatment in a Luxury Setting",
+        "heading": "Explore Laguna View Detox",
         "body": "When making the decision to get help for a drug or alcohol problem, choosing the right treatment center is key. Laguna View Detox offers evidence-based treatment in a luxury setting at our drug rehab in Laguna Beach, California. With stunning views and peaceful surroundings, our drug treatment center offers an escape from the chaos of active addiction. Explore our facility below and contact us today if you are ready to take back your life from drugs & alcohol."
       },
       {
@@ -105,7 +105,7 @@
     "title": "Luxury Rehab Admissions in Southern California | Laguna View Detox",
     "metaDescription": "We make the admissions process simple. If you or a loved one are in need of help, contact our team 24/7 to speak to someone who understands addiction.",
     "h1": "Admissions",
-    "heroSubtitle": "Did you know that most major insurance providers will help cover the cost of treatment at Laguna View Detox? Begin your journey of recovery now by filling out the form below. Our caring treatment coordinators will work with you to make sure you have the lowest out of pocket costs when seeking treatment.",
+    "heroSubtitle": "Three straightforward steps, a caring team, and no cost or obligation to find out where you stand.",
     "sections": [
       {
         "heading": "Insurance can help pay for treatment",
@@ -194,6 +194,13 @@
         "question": "How do I start the admissions process?",
         "answer": "Admissions are available 24/7. Simply call our Laguna Beach facility to speak with an intake specialist. We can often arrange same-day admissions to ensure you or your loved one can start the recovery journey the moment you're ready."
       }
+    ],
+    "atAGlance": [
+      "Manages and minimizes potential risks and complications",
+      "Addresses severe, potentially life-threatening symptoms",
+      "Stabilizes physical condition before therapy begins",
+      "Addresses seizures, dehydration, cardiovascular issues",
+      "Dual diagnosis care"
     ]
   },
   "dual-diagnosis": {
@@ -814,7 +821,7 @@
   },
   "luxury-rehab": {
     "slug": "luxury-rehab",
-    "title": "Luxury Drug Treatment Center - Laguna View Detox",
+    "title": "Luxury Drug & Alcohol Rehab, Laguna Beach",
     "metaDescription": "Luxury drug treatment centers go above and beyond what public health and large private facilities can offer. Get in touch with us today!",
     "h1": "Luxury Drug and Alcohol Treatment Centers",
     "heroSubtitle": "Over the last year of quarantine, many lives have changed for the better and more frequently, the worse. Isolation, anxiety, and stress have caused addiction rates to skyrocket in 2021. With the lack of available in-person support and the new ever-changing landscape of digital careers, many people have turned to substances to help them cope.",
@@ -957,7 +964,7 @@
     "title": "Drug Rehab for Professionals - Laguna View Detox",
     "metaDescription": "Laguna View Detox offers a luxury executive rehab program in Orange County, CA, designed to help working professionals and executives overcome drug and alcohol addiction while continuing their responsibilities.",
     "h1": "Addiction Treatment for Professionals",
-    "heroSubtitle": "When people think of someone with a substance use disorder, the first image that comes to mind is generally not that of a working professional or corporate executive. The stigma that typically surrounds drug and alcohol addiction also applies to the presumption that people with drug and alcohol addictions fall into a particular demographic. The truth is that addiction can affect anyone, regardless of background, job title, or income bracket.",
+    "heroSubtitle": "Discreet, flexible treatment built around the realities of a demanding career.",
     "sections": [
       {
         "heading": "Professionals and Addiction",
@@ -1299,7 +1306,7 @@
     "title": "Young Adults Addiction Treatment | Laguna View Detox",
     "metaDescription": "Laguna View Detox is a Los Angeles drug and alcohol rehab center for young adults. Our luxury residential inpatient rehab in Orange County offers a variety of comprehensive treatment options.",
     "h1": "Young Adults Addiction Treatment",
-    "heroSubtitle": "Laguna View Detox is a Los Angeles drug and alcohol rehab center for young adults. Our luxury residential inpatient rehab in Orange County offers a variety of comprehensive treatment options.",
+    "heroSubtitle": "Age-appropriate care that meets young adults where they are, without judgement.",
     "sections": [
       {
         "heading": "Addiction Statistics for Young Adults",
@@ -1681,7 +1688,7 @@
     "metaDescription": "Meet Karen Pettit, Program Director at Laguna View Detox, a dedicated advocate for mental health and substance abuse treatment with an SUDCC II credential.",
     "h1": "Karen Pettit, CADII",
     "teamRole": "Program Director",
-    "heroSubtitle": "As a passionate advocate for mental health and substance abuse treatment, I have dedicated my career to helping those in need. My journey began with personal experiences of loss and witnessing the struggles of loved ones who faced mental health challenges and substance abuse. This profound understanding ignited a desire within me to make a meaningful impact in the lives of others.",
+    "heroSubtitle": "Program Director at Laguna View Detox.",
     "sections": [
       {
         "heading": "About Karen Pettit",
@@ -1833,7 +1840,7 @@
     "title": "Nicole Burson - Laguna View Detox",
     "metaDescription": "Nicole Burson is a digital marketing professional specializing in substance abuse and behavioral healthcare who has contributed numerous topics for Laguna View Detox.",
     "h1": "Nicole Burson",
-    "heroSubtitle": "Nicole Burson is a digital marketing professional who specializes in substance abuse and behavioral healthcare. With years of experience, Nicole has contributed numerous topics for Laguna View Detox.",
+    "heroSubtitle": "Part of the Laguna View Detox team.",
     "teamRole": "Digital Marketing Professional specializing in substance abuse and behavioral healthcare",
     "sections": [
       {
@@ -1844,33 +1851,33 @@
   },
   "connecticare": {
     "slug": "connecticare",
-    "title": "Connecticare Substance Abuse Coverage | Laguna View Detox",
-    "metaDescription": "Laguna View Detox is a luxury Connecticare drug and alcohol rehab in Laguna Beach, CA. Learn how Connecticare covers detox and inpatient addiction treatment and how to verify your benefits.",
-    "h1": "Connecticare Substance Abuse Coverage",
+    "title": "ConnectiCare Substance Abuse Coverage | Laguna View Detox",
+    "metaDescription": "Laguna View Detox is a luxury ConnectiCare drug and alcohol rehab in Laguna Beach, CA. Learn how ConnectiCare covers detox and inpatient addiction treatment and how to verify your benefits.",
+    "h1": "ConnectiCare Substance Abuse Coverage",
     "heroSubtitle": "Similar to other mental health concerns, addiction is a disease that can look different for everyone. With individual experiences, you can experience a range of consequences from your use that differ from another individual's experience. You may have been able to conceal your use, whereas others were showing signs of abuse from the beginning.",
     "sections": [
       {
-        "heading": "What is Connecticare?",
-        "body": "Connecticare is a private health insurance provider that has been in business for over 40 years, serving Connecticut residents. Connecticare offers insurance plans for businesses, families, and individuals. While there are differences among the different plans offered, each plan includes free preventative care, extended coverage when traveling, and access to telemedicine.\nLaguna View Detox is a Connecticare drug rehab that offers holistic addiction treatment programming. Our treatment program is designed to provide support for the different areas of your life that have been impacted by your substance abuse. To learn more about how Laguna View Detox can provide you with the support you need in your recovery, call (866) 932-3206 today!"
+        "heading": "What is ConnectiCare?",
+        "body": "ConnectiCare is a private health insurance provider that has been in business for over 40 years, serving Connecticut residents. ConnectiCare offers insurance plans for businesses, families, and individuals. While there are differences among the different plans offered, each plan includes free preventative care, extended coverage when traveling, and access to telemedicine.\nLaguna View Detox is a ConnectiCare drug rehab that offers holistic addiction treatment programming. Our treatment program is designed to provide support for the different areas of your life that have been impacted by your substance abuse. To learn more about how Laguna View Detox can provide you with the support you need in your recovery, call (866) 932-3206 today!"
       },
       {
-        "heading": "Does Connecticare Cover Drug and Alcohol Rehab?",
-        "body": "Individuals who have Connecticare insurance coverage have access to mental health and substance abuse treatment coverage. This includes detoxification, inpatient treatment programming, outpatient programming, and medication-assisted treatment when appropriate.\nIf you are in need of a Connecticare drug rehab, Laguna View Detox can provide you with inpatient addiction programming. We offer a variety of alternative treatment approaches, including yoga, anger management, art therapy, meditation, and stress reduction education."
+        "heading": "Does ConnectiCare Cover Drug and Alcohol Rehab?",
+        "body": "Individuals who have ConnectiCare insurance coverage have access to mental health and substance abuse treatment coverage. This includes detoxification, inpatient treatment programming, outpatient programming, and medication-assisted treatment when appropriate.\nIf you are in need of a ConnectiCare drug rehab, Laguna View Detox can provide you with inpatient addiction programming. We offer a variety of alternative treatment approaches, including yoga, anger management, art therapy, meditation, and stress reduction education."
       },
       {
-        "heading": "How Long Will Connecticare Cover Drug Rehab?",
-        "body": "The length of time that you receive coverage will be dependent on your specific concerns. This includes the severity of your addiction and any other health concerns you may have. Your plan details may also provide guidance for the coverage you receive.\nIt is important to note that there are differences among the different levels of care and the duration of treatment. As an example, detoxification programs can range from 5 to 12 days, whereas inpatient rehab programming can range from 30 to 120 days, depending on your needs.\nLaguna View Detox is a Connecticare drug rehab center in Laguna Beach, CA. We utilize a combination of traditional addiction treatment approaches, including group therapy, individual therapy, and educational sessions. Additional support is available for individuals who are living with another mental health concern in addition to their substance abuse."
+        "heading": "How Long Will ConnectiCare Cover Drug Rehab?",
+        "body": "The length of time that you receive coverage will be dependent on your specific concerns. This includes the severity of your addiction and any other health concerns you may have. Your plan details may also provide guidance for the coverage you receive.\nIt is important to note that there are differences among the different levels of care and the duration of treatment. As an example, detoxification programs can range from 5 to 12 days, whereas inpatient rehab programming can range from 30 to 120 days, depending on your needs.\nLaguna View Detox is a ConnectiCare drug rehab center in Laguna Beach, CA. We utilize a combination of traditional addiction treatment approaches, including group therapy, individual therapy, and educational sessions. Additional support is available for individuals who are living with another mental health concern in addition to their substance abuse."
       },
       {
-        "heading": "How to Verify Connecticare Addiction Treatment Coverage",
-        "body": "The simplest way to verify your Connecticare addiction treatment coverage is to speak with a Connecticare representative. The simplest way to do this is to contact Connecticare directly by calling (860)674-5757. You may also log into your patient portal and review relevant healthcare documents.\nConnecticare does require prior authorization from the Behavioral Health Program, which can be reached by calling 1(800)349-5365. Individuals who have self-funded plans may need to speak with a different representative based on their healthcare plan.\nStruggling with substance abuse can have a significant impact on your life. Laguna View Detox is a Connecticare rehab center in Orange County that offers detoxification and inpatient rehab programming. Our staff will work with you to customize your treatment plan to ensure that you receive the support that you need for a successful and lasting recovery."
+        "heading": "How to Verify ConnectiCare Addiction Treatment Coverage",
+        "body": "The simplest way to verify your ConnectiCare addiction treatment coverage is to speak with a ConnectiCare representative. The simplest way to do this is to contact ConnectiCare directly by calling (860)674-5757. You may also log into your patient portal and review relevant healthcare documents.\nConnectiCare does require prior authorization from the Behavioral Health Program, which can be reached by calling 1(800)349-5365. Individuals who have self-funded plans may need to speak with a different representative based on their healthcare plan.\nStruggling with substance abuse can have a significant impact on your life. Laguna View Detox is a ConnectiCare rehab center in Orange County that offers detoxification and inpatient rehab programming. Our staff will work with you to customize your treatment plan to ensure that you receive the support that you need for a successful and lasting recovery."
       },
       {
-        "heading": "Why Find an In-Network Connecticare Drug Rehab Center",
-        "body": "When you choose to use a Connecticare drug rehab center, you can have peace of mind that you're receiving quality care. Connecticare has high expectations and strict requirements for its in-network providers to ensure that its members have access to ideal addiction treatment programs.\nAdditionally, choosing to attend an in-network rehab means that you will likely have reduced financial responsibility. Depending on your healthcare plan, Connecticare can provide coverage for some of the addiction treatment that you need at this time. For many, the high costs often associated with addiction treatment can be overwhelming and concerning. Because of this, many choose to utilize in-network providers.\nLaguna View Detox is a Connecticare drug rehab center in Laguna Beach, CA. Our luxurious treatment facility uses a whole-body wellness approach in our work rather than focusing solely on your substance abuse. We feel that this can better prepare you for navigating your recovery in your home environment."
+        "heading": "Why Find an In-Network ConnectiCare Drug Rehab Center",
+        "body": "When you choose to use a ConnectiCare drug rehab center, you can have peace of mind that you're receiving quality care. ConnectiCare has high expectations and strict requirements for its in-network providers to ensure that its members have access to ideal addiction treatment programs.\nAdditionally, choosing to attend an in-network rehab means that you will likely have reduced financial responsibility. Depending on your healthcare plan, ConnectiCare can provide coverage for some of the addiction treatment that you need at this time. For many, the high costs often associated with addiction treatment can be overwhelming and concerning. Because of this, many choose to utilize in-network providers.\nLaguna View Detox is a ConnectiCare drug rehab center in Laguna Beach, CA. Our luxurious treatment facility uses a whole-body wellness approach in our work rather than focusing solely on your substance abuse. We feel that this can better prepare you for navigating your recovery in your home environment."
       },
       {
-        "heading": "Laguna View Detox is a Los Angeles Drug Rehab That Accepts Connecticare",
+        "heading": "Laguna View Detox is a Los Angeles Drug Rehab That Accepts ConnectiCare",
         "body": "Struggling with substance abuse can create a sense of isolation within your life. This can make reaching out for help challenging and scary. If you are thinking about getting help for your substance abuse, take a moment to recognize the progress you have already made. You have survived active addiction and are open to receiving the care and support you deserve. Asking for help takes courage, and we commend those who are able to take a step toward a healthier life.\nLaguna View Detox is an inpatient treatment facility that offers detoxification and inpatient rehab programming in Orange County, CA. Many of the individuals that we work with require time to detox. The use of drugs and alcohol can change the way our body functions day-to-day, which takes time to bounce back when you stop using. Depending on the substance that you are abusing, detoxing may be dangerous, which is why we advise you to seek professional support.\nIn our luxurious treatment facility, you will have access to a variety of alternative treatment approaches in addition to traditional treatment approaches, including group and individual therapy. Examples of our alternative treatment options include art therapy, meditation, and stress reduction.\nResearch has shown us that approximately 37.9% of individuals living with a substance abuse disorder are struggling with an additional mental health concern. Laguna View Detox offers dual diagnosis treatment for those who are struggling with additional mental health concerns such as anxiety, depression, bipolar disorder, and trauma-related concerns. For some, medication-assisted treatment can be used to promote mental health wellness.\nBefore you complete your treatment at Laguna View Detox, our staff will work with you to develop a personalized relapse prevention plan. The purpose of this is to provide you with a resource when you return home. Your plan may include local resources that you can utilize, healthy coping skills, and supportive people in your life.\nLaguna View Detox is the ideal inpatient addiction treatment provider in Orange County, CA. Our staff will provide you with the kindness and compassion you need while you navigate this part of our journey."
       }
     ],
@@ -1879,9 +1886,9 @@
   },
   "alcohol-detox-and-treatment-programs": {
     "slug": "alcohol-detox-and-treatment-programs",
-    "title": "Alcohol Detox and Treatment Programs in Laguna Beach | Laguna View Detox",
+    "title": "Alcohol Detox & Rehab in Laguna Beach",
     "metaDescription": "Laguna View Detox in Laguna Beach, CA offers medically supervised alcohol detox, residential treatment, and outpatient services rooted in evidence-based care.",
-    "h1": "Laguna View Detox",
+    "h1": "Alcohol Detox & Treatment Programs in Laguna Beach",
     "heroSubtitle": "Located in the picturesque surroundings of Laguna Beach, California, Laguna View Recovery offers a beacon of hope for individuals battling alcohol addiction. Our state-of-the-art facility is dedicated to providing compassionate, comprehensive treatment for alcohol use disorders, blending evidence-based practices with the natural serenity of our coastal environment to foster healing and growth.",
     "sections": [
       {
@@ -1906,9 +1913,9 @@
   },
   "luxury-addiction-treatment": {
     "slug": "luxury-addiction-treatment",
-    "title": "Luxury Addiction Treatment | Laguna View Detox",
+    "title": "Luxury Rehab Amenities & Private Care",
     "metaDescription": "Laguna View Detox delivers luxury addiction treatment in Laguna Beach, CA, with personalized detox, residential, and executive outpatient care in an opulent setting.",
-    "h1": "Laguna View Detox",
+    "h1": "Luxury Addiction Treatment in Laguna Beach",
     "heroSubtitle": "Redefining Alcohol and Drug Rehabilitation",
     "sections": [
       {

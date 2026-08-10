@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { site } from "@/lib/site";
 import { detoxTypes, whoWeTreat, locations, carriers, team } from "@/lib/data";
-import { getAllPosts } from "@/lib/blog";
+import { getAllPosts, totalPagesFor, categoryListFor } from "@/lib/blog";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = site.url;
@@ -23,7 +23,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/admissions",
     "/insurance",
     "/contact",
+    "/editorial-policy",
     "/blog",
+    "/faq",
     "/drug-addiction-treatment",
     "/alcohol-detox-and-treatment-programs",
     "/luxury-addiction-treatment",
@@ -46,9 +48,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })
   );
 
-  // Blog posts (local + Clarion) carry their own publish date so search engines
-  // see real freshness.
+  // Local + Clarion, so paginated and category archives below cover both.
   const allPosts = await getAllPosts();
+
+  // Blog posts carry their own publish date so search engines see real freshness.
   const posts: MetadataRoute.Sitemap = allPosts.map((p) => ({
     url: `${base}/blog/${p.slug}`,
     lastModified: p.ts ? new Date(p.ts) : now,
@@ -56,5 +59,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.5,
   }));
 
-  return [...pages, ...posts];
+  // Paginated archives (page 1 is /blog, already in staticPaths) and one
+  // archive per category — the routes that give the post library its
+  // internal link equity.
+  const archives: MetadataRoute.Sitemap = [
+    ...Array.from({ length: Math.max(0, totalPagesFor(allPosts) - 1) }, (_, i) => `/blog/page/${i + 2}`),
+    ...categoryListFor(allPosts).map((c) => `/blog/category/${c.slug}`),
+  ].map((path) => ({
+    url: `${base}${path}`,
+    lastModified: now,
+    changeFrequency: "weekly",
+    priority: 0.4,
+  }));
+
+  return [...pages, ...posts, ...archives];
 }

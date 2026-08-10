@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
 import { site } from "@/lib/site";
@@ -6,6 +7,8 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import Clarion from "@/components/Clarion";
+import Analytics from "@/components/Analytics";
+import StickyCallBar from "@/components/StickyCallBar";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -45,7 +48,7 @@ export const metadata: Metadata = {
     description: site.description,
     url: site.url,
     siteName: site.name,
-    images: [{ url: "/images/lvd-hp-bk-.jpg", width: 1920, height: 1418 }],
+    images: [{ url: "/images/NIK_5883-hero.jpg", width: 1920, height: 1281 }],
   },
   twitter: {
     card: "summary_large_image",
@@ -81,6 +84,7 @@ export default function RootLayout({
     medicalSpecialty: "Addiction Medicine",
     priceRange: "$$$",
     sameAs: [
+      site.social.google,
       site.social.facebook,
       site.social.instagram,
       site.social.youtube,
@@ -142,8 +146,14 @@ export default function RootLayout({
         <main id="main">{children}</main>
         <Footer />
         <Reveal />
+        <StickyCallBar />
         {/* Clarion chat widget + form-capture script, loaded once. */}
         <Clarion />
+        {/* useSearchParams needs a Suspense boundary or it opts the whole
+            route out of static generation. */}
+        <Suspense fallback={null}>
+          <Analytics />
+        </Suspense>
       </body>
     </html>
   );

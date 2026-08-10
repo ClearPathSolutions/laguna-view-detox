@@ -2,10 +2,12 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { getMergedPost, getAllPosts } from "@/lib/blog";
+import { getMergedPost, getAllPosts, categorySlug } from "@/lib/blog";
 import { pageMeta } from "@/lib/seo";
 import { paragraphs } from "@/lib/content";
 import { CtaBand } from "@/components/sections";
+import { blogPostingSchema, breadcrumbSchema } from "@/lib/schema";
+import JsonLd from "@/components/JsonLd";
 import { site } from "@/lib/site";
 import { PhoneIcon, ChevronRightIcon, ArrowRightIcon, ShieldIcon } from "@/components/icons";
 
@@ -42,6 +44,18 @@ export default async function BlogPost({ params }: { params: { slug: string } })
 
   return (
     <>
+      <JsonLd data={blogPostingSchema(post, `/blog/${post.slug}`)} />
+      <JsonLd
+        data={breadcrumbSchema(
+          [
+            { label: "Blog", href: "/blog" },
+            { label: post.category, href: `/blog/category/${categorySlug(post.category)}` },
+            { label: post.title },
+          ],
+          `/blog/${post.slug}`
+        )}
+      />
+
       {/* Header */}
       <section className="relative isolate overflow-hidden bg-navy-950 text-white">
         <Image src={post.image} alt="" fill sizes="100vw" className="object-cover opacity-25" priority unoptimized={post.external} />
@@ -54,7 +68,12 @@ export default async function BlogPost({ params }: { params: { slug: string } })
           </nav>
           <div className="mt-6 max-w-3xl">
             <div className="flex items-center gap-3 text-xs font-semibold uppercase tracking-wider text-gold-300">
-              <span className="rounded-full bg-white/10 px-3 py-1">{post.category}</span>
+              <Link
+                href={`/blog/category/${categorySlug(post.category)}`}
+                className="rounded-full bg-white/10 px-3 py-1 transition-colors hover:bg-white/20"
+              >
+                {post.category}
+              </Link>
               {post.date && <span className="text-white/60">{post.date}</span>}
             </div>
             <h1 className="h-display mt-4 !text-white !text-[clamp(2rem,4.2vw,3.25rem)]">{post.title}</h1>

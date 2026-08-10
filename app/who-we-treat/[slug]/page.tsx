@@ -32,6 +32,7 @@ export default function WhoWeTreatPage({ params }: { params: { slug: string } })
 
   return (
     <ContentPage
+      path={`/who-we-treat/${params.slug}`}
       page={page}
       eyebrow="Who We Treat"
       heroImage={w.image}

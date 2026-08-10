@@ -18,6 +18,7 @@ export default function InsurancePage() {
   return (
     <>
       <PageHero
+        path="/insurance"
         eyebrow="Insurance Verification"
         title="Verify Your Insurance Coverage"
         subtitle="Most major PPO insurance providers will help cover the cost of treatment. Find out your benefits in minutes — free, confidential, and with no obligation."

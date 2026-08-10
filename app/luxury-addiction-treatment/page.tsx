@@ -14,6 +14,7 @@ export default function Page() {
   if (!page) notFound();
   return (
     <ContentPage
+      path={"/luxury-addiction-treatment"}
       page={page}
       eyebrow="Luxury Treatment"
       heroImage="/images/lvd-pool-3.jpg"

@@ -5,6 +5,10 @@ import PageHero from "./PageHero";
 import FaqSection from "./Faq";
 import { CtaBand } from "./sections";
 import { Bullet } from "./ui";
+import TableOfContents, { headingId } from "./TableOfContents";
+import ProgramCards from "./ProgramCards";
+import LeadForm from "./LeadForm";
+import Reviews from "./Reviews";
 import {
   PhoneIcon,
   ShieldIcon,
@@ -21,11 +25,15 @@ function Prose({ page }: { page: PageContent }) {
       {page.sections.map((section, si) => {
         const ps = paragraphs(section.body);
         return (
-          <section key={si} className={si === 0 ? "" : "mt-12"}>
+          <section
+            key={si}
+            id={section.heading?.trim() ? headingId(section.heading, si) : undefined}
+            className={si === 0 ? "scroll-mt-28" : "mt-12 scroll-mt-28"}
+          >
             {section.heading?.trim() && (
               <h2 className="h-card !text-2xl sm:!text-[1.75rem]">{section.heading}</h2>
             )}
-            <div className="mt-4 space-y-4">
+            <div className="mt-5 space-y-6">
               {ps.map((p, pi) => {
                 const { label, text } = splitLabel(p);
                 return (
@@ -73,6 +81,21 @@ function Sidebar({
           <ShieldIcon className="h-4 w-4" />
           Verify Insurance
         </Link>
+      </div>
+
+      {/* Inline capture. Previously the only forms on the site were on
+          /contact and /insurance, so every programme, detox, location and
+          population page asked the reader to navigate away to convert. */}
+      <div className="rounded-2xl bg-sand-50 p-6 ring-1 ring-navy-900/5">
+        <h3 className="font-serif text-lg font-medium text-navy-900">
+          Prefer we call you?
+        </h3>
+        <p className="mt-1.5 text-sm text-navy-900/70">
+          Leave your name and number — we&apos;ll reach out discreetly.
+        </p>
+        <div className="mt-4">
+          <LeadForm variant="callback" />
+        </div>
       </div>
 
       {/* Related links */}
@@ -124,6 +147,8 @@ export default function ContentPage({
   related,
   relatedTitle,
   intro,
+  path,
+  showPrograms = true,
 }: {
   page: PageContent;
   eyebrow?: string;
@@ -132,11 +157,18 @@ export default function ContentPage({
   related?: RelatedLink[];
   relatedTitle?: string;
   intro?: React.ReactNode;
+  /** Current route — feeds the BreadcrumbList's final item. */
+  path?: string;
+  /** Show the program-link widget (T-20). Defaults on for programme pages. */
+  showPrograms?: boolean;
 }) {
-  const shortBullets = (page.bullets || []).filter(
-    (b) => b.length <= 95 && !b.includes(":")
-  );
-  const showBullets = shortBullets.length >= 3;
+  // T-17: "At a Glance" used to be inferred — any page whose `bullets` had 3+
+  // entries under 95 chars and free of colons got the block, which is why the
+  // sheet described it as "randomly populated". It is now opt-in per page via
+  // an explicit `atAGlance` array in pages.raw.json, so it appears only where
+  // someone curated it.
+  const atAGlance = page.atAGlance ?? [];
+  const showBullets = atAGlance.length >= 3;
 
   return (
     <>
@@ -146,6 +178,7 @@ export default function ContentPage({
         subtitle={page.heroSubtitle}
         image={heroImage}
         crumbs={crumbs}
+        path={path}
       />
 
       <section className="section bg-white">
@@ -153,18 +186,22 @@ export default function ContentPage({
           {intro}
           <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_340px] lg:gap-16">
             <div className="reveal">
+              <TableOfContents sections={page.sections} />
+
               <Prose page={page} />
 
               {showBullets && (
                 <div className="mt-12 rounded-2xl bg-sand-50 p-7 ring-1 ring-navy-900/5">
                   <h3 className="h-card !text-xl">At a Glance</h3>
                   <ul className="mt-5 grid gap-3 sm:grid-cols-2">
-                    {shortBullets.slice(0, 10).map((b, i) => (
+                    {atAGlance.slice(0, 10).map((b, i) => (
                       <Bullet key={i}>{b}</Bullet>
                     ))}
                   </ul>
                 </div>
               )}
+
+              {showPrograms && <ProgramCards exclude={path} />}
             </div>
 
             <Sidebar related={related} relatedTitle={relatedTitle} />
@@ -173,6 +210,11 @@ export default function ContentPage({
       </section>
 
       {page.faqs && page.faqs.length > 0 && <FaqSection faqs={page.faqs} />}
+
+      {/* Social proof above the closing CTA — QA rows 1097, 1103, 1244, 1277,
+          1286 asked for this on detox, dual diagnosis, Orange County and the
+          carrier pages, all of which render through here. */}
+      <Reviews bg="bg-sand-50" />
 
       <CtaBand />
     </>

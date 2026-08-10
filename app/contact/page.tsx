@@ -30,11 +30,12 @@ const socials = [
 export default function ContactPage() {
   const mapSrc = `https://maps.google.com/maps?q=${encodeURIComponent(
     site.address.full
-  )}&t=&z=14&ie=UTF8&iwloc=&output=embed`;
+  )}&t=k&z=17&ie=UTF8&iwloc=&output=embed`;
 
   return (
     <>
       <PageHero
+        path="/contact"
         eyebrow="We're Here to Help"
         title="Contact Laguna View Detox"
         subtitle="Our caring, compassionate team is available around the clock, eager to help you begin your path to freedom from addiction — on your terms."

@@ -4,13 +4,9 @@ import { site } from "@/lib/site";
 import {
   PhoneIcon,
   MapPinIcon,
-  FacebookIcon,
-  InstagramIcon,
-  YoutubeIcon,
-  YelpIcon,
-  GoogleIcon,
 } from "./icons";
 import CurrentYear from "./CurrentYear";
+import SocialLinks from "./SocialLinks";
 
 // Link priority is deliberate: the substantial service pages under /treatment
 // come first, and the broader root-level landing pages sit last. They overlap
@@ -56,14 +52,6 @@ const columns = [
       { label: "FAQ", href: "/faq" },
     ],
   },
-];
-
-const socials = [
-  { label: "Google Business Profile", href: site.social.google, Icon: GoogleIcon },
-  { label: "Facebook", href: site.social.facebook, Icon: FacebookIcon },
-  { label: "Instagram", href: site.social.instagram, Icon: InstagramIcon },
-  { label: "YouTube", href: site.social.youtube, Icon: YoutubeIcon },
-  { label: "Yelp", href: site.social.yelp, Icon: YelpIcon },
 ];
 
 export default function Footer() {
@@ -119,19 +107,8 @@ export default function Footer() {
             </p>
           </div>
 
-          <div className="mt-6 flex gap-3">
-            {socials.map(({ label, href, Icon }) => (
-              <a
-                key={label}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={label}
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white/70 transition-all hover:border-gold hover:bg-gold hover:text-navy-900"
-              >
-                <Icon className="h-5 w-5" />
-              </a>
-            ))}
+          <div className="mt-6">
+            <SocialLinks tone="dark" />
           </div>
         </div>
 

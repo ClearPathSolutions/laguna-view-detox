@@ -1,5 +1,7 @@
 import blogData from "@/content/blog.json";
 import { site } from "@/lib/site";
+import { displayAuthor } from "@/lib/authors";
+import { isAllowedImageHost } from "@/lib/image-hosts.mjs";
 
 export type BlogPost = {
   slug: string;
@@ -48,7 +50,9 @@ export const allPosts: BlogPost[] = raw
   .map((p) => ({
     slug: p.slug,
     title: p.title,
-    author: p.author || "Laguna View Detox",
+    // Vetted at the data layer so an unconfirmed name never reaches a page,
+    // a schema block, or the serialized RSC payload. See lib/authors.ts.
+    author: displayAuthor(p.author || site.name),
     date: p.date || "",
     ts: toTs(p.date),
     excerpt: p.excerpt || "",
@@ -120,12 +124,15 @@ function normalizeClarion(p: ClarionPost): BlogPost {
   return {
     slug: p.slug,
     title: p.title || "Untitled",
-    author: p.author_name || "Laguna View Detox",
+    author: displayAuthor(p.author_name || site.name),
     date: fmtDate(p.published_at),
     ts: Number.isNaN(t) ? 0 : t,
     excerpt: p.excerpt || "",
     category: CLARION_CATEGORY,
-    image: p.cover_image_url || DEFAULT_IMAGE,
+    // Only proxy covers from allowlisted hosts. An un-allowlisted URL would
+    // make next/image throw and take the whole page down, so it degrades to
+    // the local fallback instead. See lib/image-hosts.mjs.
+    image: isAllowedImageHost(p.cover_image_url) ? p.cover_image_url! : DEFAULT_IMAGE,
     external: true,
     bodyHtml: typeof p.body_html === "string" ? p.body_html : undefined,
   };

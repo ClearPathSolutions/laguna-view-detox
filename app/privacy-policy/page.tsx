@@ -6,7 +6,6 @@ export const metadata = pageMeta({
   title: "Privacy Policy",
   description: "How Laguna View Detox collects, uses, and protects your personal information.",
   path: "/privacy-policy",
-  noIndex: true,
 });
 
 /**

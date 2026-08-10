@@ -56,7 +56,6 @@ export default async function BlogIndex() {
                   sizes="(min-width: 1024px) 50vw, 100vw"
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                   priority
-                  unoptimized={featured.external}
                 />
               </div>
               <div className="flex flex-col justify-center p-8 lg:p-10">

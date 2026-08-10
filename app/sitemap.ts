@@ -7,8 +7,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = site.url;
   const now = new Date();
 
-  // Public, indexable routes. /privacy-policy is intentionally excluded — it is
-  // marked noindex, so it should not appear in the sitemap.
+  // Public, indexable routes. /privacy-policy is included: it is a trust
+  // signal on a YMYL healthcare site and no longer noindex (T-34).
   const staticPaths = [
     "",
     "/about",
@@ -26,6 +26,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/editorial-policy",
     "/blog",
     "/faq",
+    "/privacy-policy",
     "/drug-addiction-treatment",
     "/alcohol-detox-and-treatment-programs",
     "/luxury-addiction-treatment",

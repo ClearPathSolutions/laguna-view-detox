@@ -1,6 +1,7 @@
 import { site } from "./site";
 import type { Faq } from "./content";
 import type { BlogPost } from "./blog";
+import { VERIFIED_AUTHORS } from "./authors";
 
 /**
  * JSON-LD builders. Each is driven off the same data the page renders, so the
@@ -14,23 +15,6 @@ const ORG = {
   url: site.url,
 } as const;
 
-/**
- * Names we are permitted to publish as a credentialed `Person` in structured
- * data. Confirmed against the QHG staff roster.
- *
- * ⚠️ Everyone else falls back to the organisation as author. `content/blog.json`
- * currently attributes 13 posts to "Kris Brace, CADC II", who is NOT on the
- * current roster — asserting that name with its credential inside machine-
- * readable schema would escalate an unverified human byline into a claim
- * search engines and regulators treat as authoritative. Do not add a name here
- * until HR confirms employment and credential.
- */
-const VERIFIED_AUTHORS: Record<string, { name: string; jobTitle?: string }> = {
-  "Riky Hanaumi, LCSW": {
-    name: "Riky Hanaumi, LCSW",
-    jobTitle: "Clinical Director",
-  },
-};
 
 function authorNode(author: string) {
   const verified = VERIFIED_AUTHORS[author.trim()];

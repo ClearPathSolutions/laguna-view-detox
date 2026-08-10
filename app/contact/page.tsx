@@ -1,17 +1,9 @@
 import PageHero from "@/components/PageHero";
 import LeadForm from "@/components/LeadForm";
+import SocialLinks from "@/components/SocialLinks";
 import { site } from "@/lib/site";
 import { pageMeta } from "@/lib/seo";
-import {
-  PhoneIcon,
-  MailIcon,
-  MapPinIcon,
-  ClockIcon,
-  FacebookIcon,
-  InstagramIcon,
-  YoutubeIcon,
-  YelpIcon,
-} from "@/components/icons";
+import { PhoneIcon, MailIcon, MapPinIcon, ClockIcon } from "@/components/icons";
 
 export const metadata = pageMeta({
   title: "Contact Us",
@@ -19,13 +11,6 @@ export const metadata = pageMeta({
     "Contact Laguna View Detox 24/7. Call our confidential admissions line or request a callback. Located at 31305 Ceanothus Dr, Laguna Beach, CA 92651.",
   path: "/contact",
 });
-
-const socials = [
-  { label: "Facebook", href: site.social.facebook, Icon: FacebookIcon },
-  { label: "Instagram", href: site.social.instagram, Icon: InstagramIcon },
-  { label: "YouTube", href: site.social.youtube, Icon: YoutubeIcon },
-  { label: "Yelp", href: site.social.yelp, Icon: YelpIcon },
-];
 
 export default function ContactPage() {
   const mapSrc = `https://maps.google.com/maps?q=${encodeURIComponent(
@@ -111,19 +96,8 @@ export default function ContactPage() {
 
               <div className="mt-8">
                 <p className="text-sm font-semibold text-navy-900">Follow our community</p>
-                <div className="mt-3 flex gap-3">
-                  {socials.map(({ label, href, Icon }) => (
-                    <a
-                      key={label}
-                      href={href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={label}
-                      className="flex h-11 w-11 items-center justify-center rounded-full border border-navy-900/15 text-navy-900/70 transition-all hover:border-gold hover:bg-gold hover:text-navy-900"
-                    >
-                      <Icon className="h-5 w-5" />
-                    </a>
-                  ))}
+                <div className="mt-3">
+                  <SocialLinks tone="light" />
                 </div>
               </div>
             </div>

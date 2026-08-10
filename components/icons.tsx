@@ -163,11 +163,3 @@ export const GoogleIcon = (p: IconProps) => (
   </svg>
 );
 
-export const YelpIcon = (p: IconProps) => (
-  <svg viewBox="0 0 24 24" fill="currentColor" {...p}>
-    {/* Yelp burst: five strokes radiating from a common origin. The previous
-        path was a mangled set of disconnected shapes that did not read as the
-        Yelp mark at any size (QA row 1089). */}
-    <path d="M10.6 2.2 6.9 3.6c-.6.2-.9.9-.7 1.5l3 7.1c.4.9 1.7.8 2-.1l1.6-8.8c.1-.7-.5-1.3-1.2-1.1zM5.6 9.9 2.8 12c-.5.4-.5 1.2 0 1.6l2.6 1.9c.7.5 1.7-.1 1.6-1l-.4-3.9c-.1-.8-.9-1.2-1.5-.7zm5.9 5.3-2.6 3.1c-.5.6-.2 1.5.6 1.6l3.4.6c.7.1 1.3-.5 1.2-1.2l-.7-3.7c-.2-.9-1.3-1.1-1.9-.4zm4.3-1.6 3.9.6c.8.1 1.2 1 .8 1.7l-1.8 2.9c-.4.7-1.4.7-1.8 0l-2.1-3.5c-.4-.8.1-1.8 1-1.7zm.1-2.5 3.3-2.5c.6-.5 1.5-.1 1.6.7l.4 3.4c.1.8-.7 1.4-1.4 1.1l-3.7-1c-.8-.2-.9-1.3-.2-1.7z" />
-  </svg>
-);

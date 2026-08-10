@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 import { buildRedirects } from "./lib/redirects.mjs";
+import { remoteImagePatterns } from "./lib/image-hosts.mjs";
 
 /**
  * ⚠️ CUTOVER DECISION — BLOCKED ON QHG (sheet V0102, portfolio-wide).
@@ -28,10 +29,10 @@ const TRAILING_SLASH = false;
 //   • Call tracking — script + beacons from *.tctm.co.
 //   • GA4 — inert unless NEXT_PUBLIC_GA_ID is set (see components/Analytics).
 //
-// img-src keeps `https:` because Clarion blog covers come from arbitrary CMS
-// hosts. `remotePatterns` below lets next/image proxy them same-origin, so
-// this can be tightened to 'self' once every remote image renders through
-// next/image rather than a raw <img>.
+// img-src is 'self' only: every remote cover now renders through next/image,
+// which serves it same-origin from /_next/image. lib/image-hosts.mjs holds the
+// allowlist of hosts the optimizer may fetch from, and lib/blog.ts swaps any
+// un-allowlisted cover for a local image, so a raw remote <img> never appears.
 const CLARION_SCRIPT = "https://www.clarionlabs.ai";
 const CLARION_API = "https://api.clarionlabs.ai";
 const CALL_TRACKING = "https://*.tctm.co";
@@ -43,7 +44,7 @@ const csp = [
   "default-src 'self'",
   `script-src 'self' 'unsafe-inline' ${CLARION_SCRIPT} ${CALL_TRACKING} ${GA_SCRIPT}`,
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob: https:",
+  "img-src 'self' data: blob:",
   "font-src 'self' data:",
   "frame-src https://www.google.com https://maps.google.com",
   `connect-src 'self' ${CLARION_API} ${CALL_TRACKING} ${GA_CONNECT} ${GA_SCRIPT}`,
@@ -88,11 +89,12 @@ const nextConfig = {
     // design actually uses so we don't build derivatives nobody requests.
     deviceSizes: [390, 640, 750, 828, 1080, 1200, 1920],
     minimumCacheTTL: 31536000,
-    // Clarion post covers are absolute URLs on arbitrary CMS hosts. Without
-    // this, next/image throws on them now that optimization is enabled.
-    // Routing them through /_next/image also means they are served
-    // same-origin, optimized and cached like everything else.
-    remotePatterns: [{ protocol: "https", hostname: "**" }],
+    // Explicit host allowlist — see lib/image-hosts.mjs. A `hostname: "**"`
+    // wildcard here makes /_next/image an open image proxy on this domain and
+    // is the shape named by the "DoS via Image Optimizer remotePatterns"
+    // advisory. Un-allowlisted covers fall back to a local image in
+    // lib/blog.ts rather than throwing.
+    remotePatterns: remoteImagePatterns,
   },
   async headers() {
     // Static assets under /public are content-addressed by filename here, so

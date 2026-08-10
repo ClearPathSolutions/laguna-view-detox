@@ -10,6 +10,21 @@ import { HeartIcon, SparkleIcon, UsersIcon, LeafIcon, ArrowRightIcon } from "@/c
 import { pageMeta } from "@/lib/seo";
 import { extraStaff } from "@/lib/staff-feed";
 
+/**
+ * Monogram for a team member with no headshot on file. Credentials after a
+ * comma are dropped first, so "Christi Llamas, SUDRC" yields "CL" rather than
+ * "CS", and a single-word name still yields one letter.
+ */
+function initials(name: string): string {
+  return name
+    .replace(/,.*$/, "")
+    .trim()
+    .split(/\s+/)
+    .slice(0, 2)
+    .map((w) => w[0]?.toUpperCase() ?? "")
+    .join("");
+}
+
 const page = getPage("about-us");
 export const metadata = pageMeta({
   title: page?.title ?? "About Us",
@@ -170,14 +185,27 @@ export default async function AboutPage() {
                   {m.image ? (
                     <Image
                       src={m.image}
-                      alt={m.name}
+                      alt={`${m.name}, ${m.role}`}
                       fill
                       sizes="(min-width: 640px) 30vw, 90vw"
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                   ) : (
-                    <div className="flex h-full w-full items-center justify-center bg-navy font-serif text-5xl font-semibold text-gold-300">
-                      {m.name.charAt(0)}
+                    /* No headshot on file for this person. A single letter on a
+                       flat slab sat next to four real portraits and read as a
+                       broken image rather than a deliberate choice, so this is a
+                       typeset monogram instead: both initials, a soft gradient
+                       and a rule. It is decorative — the name and role are in
+                       the heading directly below — hence aria-hidden and no
+                       alt-text equivalent. */
+                    <div
+                      aria-hidden="true"
+                      className="flex h-full w-full flex-col items-center justify-center gap-3 bg-gradient-to-br from-navy-800 via-navy-900 to-navy-950"
+                    >
+                      <span className="font-serif text-4xl font-medium tracking-[0.14em] text-gold-300/85">
+                        {initials(m.name)}
+                      </span>
+                      <span className="h-px w-8 bg-gold-400/40" />
                     </div>
                   )}
                 </div>

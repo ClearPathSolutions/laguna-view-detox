@@ -189,17 +189,31 @@ export async function POST(req: Request) {
   const webhook = process.env.LEAD_WEBHOOK_URL;
 
   if (!webhook) {
-    // No delivery destination is configured, so this lead exists only in the
-    // platform log — which nobody in admissions is watching. The submitter is
-    // about to be told "a member of our admissions team will contact you
-    // shortly", so make the gap impossible to miss in the logs rather than
-    // failing quietly.
+    // FAIL SAFE, NOT FAIL SILENT.
     //
-    // In production this is a launch blocker: set LEAD_WEBHOOK_URL to a
-    // HIPAA-appropriate destination under a signed BAA. See issues.md T-48.
+    // With no delivery destination configured this inquiry reaches nobody in
+    // admissions. Returning `ok` here would show the submitter "a member of
+    // our admissions team will contact you shortly" — a promise the system
+    // cannot keep, made to someone who may be in crisis. That is worse than
+    // an error.
+    //
+    // So: keep the server-side record (the lead is still recoverable from
+    // logs), shout in the logs, and tell the person the truth plus the one
+    // route that definitely works — the 24/7 phone line.
+    //
+    // Setting LEAD_WEBHOOK_URL to a HIPAA-appropriate destination under a
+    // signed BAA restores normal submit-and-confirm behaviour. issues.md T-48.
     console.error(
-      "[lead] CRITICAL: LEAD_WEBHOOK_URL is not set — this inquiry was NOT delivered to admissions and exists only in this log.",
+      "[lead] CRITICAL: LEAD_WEBHOOK_URL is not set — inquiry NOT delivered to admissions. " +
+        "Recovered from this log entry only. Set the env var to restore delivery.",
       { submittedAt: payload.submittedAt, variant: payload.variant }
+    );
+    return NextResponse.json(
+      {
+        ok: false,
+        error: `Our online form is temporarily unavailable. Please call us at ${site.phone} — we're here 24/7 and can help you right now.`,
+      },
+      { status: 503 }
     );
   }
 

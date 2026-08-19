@@ -62,8 +62,7 @@ export default function LeadForm({
     const form = e.currentTarget;
     const fd = new FormData(form);
     const payload = {
-      firstName: fd.get("firstName"),
-      lastName: fd.get("lastName"),
+      name: fd.get("name"),
       phone: fd.get("phone"),
       email: fd.get("email"),
       message: fd.get("message") || undefined,
@@ -184,15 +183,12 @@ export default function LeadForm({
 
       {compact ? (
         <>
-          <Field label="Your name" name="firstName" autoComplete="given-name" required error={fieldErrors.firstName} />
+          <Field label="Your name" name="name" autoComplete="name" required error={fieldErrors.name} />
           <Field label="Phone" name="phone" type="tel" autoComplete="tel" required error={fieldErrors.phone} />
         </>
       ) : (
         <>
-          <div className="grid gap-4 sm:grid-cols-2">
-            <Field label="First name" name="firstName" autoComplete="given-name" required error={fieldErrors.firstName} />
-            <Field label="Last name" name="lastName" autoComplete="family-name" required error={fieldErrors.lastName} />
-          </div>
+          <Field label="Your name" name="name" autoComplete="name" required error={fieldErrors.name} />
           <div className="grid gap-4 sm:grid-cols-2">
             <Field label="Phone" name="phone" type="tel" autoComplete="tel" required error={fieldErrors.phone} />
             <Field label="Email" name="email" type="email" autoComplete="email" required error={fieldErrors.email} />

@@ -5,8 +5,7 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 type LeadPayload = {
-  firstName?: string;
-  lastName?: string;
+  name?: string;
   phone?: string;
   email?: string;
   message?: string;
@@ -135,8 +134,7 @@ export async function POST(req: Request) {
   }
 
   const lead = {
-    firstName: clean(data.firstName, 80),
-    lastName: clean(data.lastName, 80),
+    name: clean(data.name, 160),
     phone: clean(data.phone, 40),
     email: clean(data.email, 160),
     message: clean(data.message, 2000),
@@ -155,7 +153,7 @@ export async function POST(req: Request) {
   // happen here. A malformed phone number is an unreachable person, not just a
   // malformed record.
   const errors: Record<string, string> = {};
-  if (!lead.firstName) errors.firstName = "Please enter your first name.";
+  if (!lead.name) errors.name = "Please enter your name.";
   if (!lead.phone) {
     errors.phone = "Please enter a phone number so we can reach you.";
   } else if (!normalisePhone(lead.phone)) {
@@ -178,15 +176,22 @@ export async function POST(req: Request) {
   }
 
   const normalisedPhone = normalisePhone(lead.phone);
-  const payload = { ...lead, phoneNormalised: normalisedPhone };
+
+  // The form collects one "Your name" field, but most CRMs want the parts
+  // separately. Derive them here so wiring a CRM later needs no form change:
+  // first token is the given name, the remainder the family name.
+  const nameParts = lead.name.split(/\s+/);
+  const firstName = nameParts[0] ?? "";
+  const lastName = nameParts.slice(1).join(" ");
+
+  const payload = { ...lead, firstName, lastName, phoneNormalised: normalisedPhone };
 
   // Safety net: capture enough to act on the lead, without putting the
   // free-text clinical detail into platform logs. See the note above.
   console.log(
     "[lead]",
     JSON.stringify({
-      firstName: lead.firstName,
-      lastName: lead.lastName,
+      name: lead.name,
       phone: normalisedPhone,
       email: lead.email,
       insurer: lead.insurer,

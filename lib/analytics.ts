@@ -12,7 +12,11 @@
  */
 
 export const GA_ID = process.env.NEXT_PUBLIC_GA_ID || "";
-export const analyticsEnabled = Boolean(GA_ID);
+export const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || "";
+export const CTM_ID = process.env.NEXT_PUBLIC_CTM_ID || "";
+
+/** True when any measurement path is active, so listeners are worth attaching. */
+export const analyticsEnabled = Boolean(GA_ID || GTM_ID);
 
 type GtagArgs =
   | ["event", string, Record<string, unknown>?]
@@ -49,8 +53,19 @@ export function track(
   window.gtag?.("event", event, params);
 }
 
-/** Report a client-side pageview. Called by the route-change listener. */
+/**
+ * Report a client-side pageview. Called by the route-change listener.
+ *
+ * App Router transitions are not real navigations, so neither GA4's automatic
+ * pageview nor GTM's History Listener fires reliably. Pushing an explicit
+ * dataLayer event gives GTM a stable trigger, and the gtag config call keeps
+ * a direct GA4 install working if one is configured instead.
+ */
 export function pageview(url: string): void {
-  if (typeof window === "undefined" || !GA_ID) return;
-  window.gtag?.("config", GA_ID, { page_path: url });
+  if (typeof window === "undefined") return;
+  if (GTM_ID) {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event: "page_view_spa", page_path: url });
+  }
+  if (GA_ID) window.gtag?.("config", GA_ID, { page_path: url });
 }

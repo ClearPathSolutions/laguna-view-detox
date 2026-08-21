@@ -27,7 +27,8 @@ const TRAILING_SLASH = false;
 //   • Clarion chat + form-capture — scripts from www.clarionlabs.ai, both
 //     calling api.clarionlabs.ai via fetch from the browser.
 //   • Call tracking — script + beacons from *.tctm.co.
-//   • GA4 — inert unless NEXT_PUBLIC_GA_ID is set (see components/Analytics).
+//   • GTM / GA4 — googletagmanager.com serves both the container and the
+//     gtag library, and also the <noscript> iframe, hence frame-src.
 //
 // img-src is 'self' only: every remote cover now renders through next/image,
 // which serves it same-origin from /_next/image. lib/image-hosts.mjs holds the
@@ -46,7 +47,7 @@ const csp = [
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob:",
   "font-src 'self' data:",
-  "frame-src https://www.google.com https://maps.google.com",
+  `frame-src https://www.google.com https://maps.google.com ${GA_SCRIPT}`,
   `connect-src 'self' ${CLARION_API} ${CALL_TRACKING} ${GA_CONNECT} ${GA_SCRIPT}`,
   "object-src 'none'",
   "base-uri 'self'",

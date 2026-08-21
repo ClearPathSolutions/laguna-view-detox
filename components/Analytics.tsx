@@ -39,7 +39,9 @@ export default function Analytics() {
     return () => document.removeEventListener("click", onClick);
   }, [pathname]);
 
-  if (!analyticsEnabled) return null;
+  // Listeners above run under GTM too; the scripts below are the direct-GA4
+  // path only, and must stay off when GA4 is managed inside GTM.
+  if (!GA_ID) return null;
 
   return (
     <>

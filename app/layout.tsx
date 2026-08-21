@@ -8,6 +8,8 @@ import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import Clarion from "@/components/Clarion";
 import Analytics from "@/components/Analytics";
+import Gtm from "@/components/Gtm";
+import CallTracking from "@/components/CallTracking";
 import StickyCallBar from "@/components/StickyCallBar";
 
 const cormorant = Cormorant_Garamond({
@@ -158,6 +160,8 @@ export default function RootLayout({
         <Suspense fallback={null}>
           <Analytics />
         </Suspense>
+        <Gtm />
+        <CallTracking />
       </body>
     </html>
   );

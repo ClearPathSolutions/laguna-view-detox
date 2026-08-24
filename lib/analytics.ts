@@ -30,6 +30,9 @@ declare global {
 export type ConversionEvent =
   | "lead_submit" // admissions form submitted successfully
   | "lead_error" // submission failed — watch this, it means lost leads
+  // Clarion captured the lead but /api/lead errored. Not a lost lead, so the
+  // submitter still sees the confirmation — but the API needs looking at.
+  | "lead_api_failed_clarion_ok"
   | "phone_click" // any tel: link tapped
   | "insurance_start" // opened insurance verification
   | "review_click"; // clicked through to the Google review composer

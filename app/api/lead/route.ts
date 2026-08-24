@@ -82,14 +82,23 @@ function validEmail(raw: string): boolean {
 /**
  * Lead intake endpoint.
  *
- * Captures a confidential admissions inquiry and forwards it to the CRM / inbox
- * webhook configured via LEAD_WEBHOOK_URL (Vercel → Settings → Environment
- * Variables). A redacted record is also written to the server log so an inquiry
- * is never silently lost, and a timestamped consent record is stored for TCPA.
+ * DELIVERY HAPPENS CLIENT-SIDE, NOT HERE. The browser posts every submission
+ * straight to Clarion via `window.ClarionForms.submit()` (see LeadForm), and
+ * Clarion is the system of record for admissions inquiries. That call also
+ * carries the session envelope this endpoint cannot see — landing page, first
+ * external referrer, utm params, gclid, and the CallTrackingMetrics visitor
+ * session id — which is what ties a submission to the visit that produced it.
  *
- * IMPORTANT: point LEAD_WEBHOOK_URL at a HIPAA-appropriate destination under a
- * signed BAA before going live. Until it is set, leads exist only in the server
- * log.
+ * So this route is a validator and a safety net, not a courier:
+ *   • it enforces the field rules the form's `noValidate` skips,
+ *   • it records a timestamped TCPA consent string, and
+ *   • it writes a redacted log line so a lead is recoverable if Clarion's
+ *     client-side capture was blocked (ad-blocker, script failure).
+ *
+ * LEAD_WEBHOOK_URL is OPTIONAL. Set it to fan a copy out to a CRM or inbox
+ * (use a HIPAA-appropriate destination under a signed BAA); leave it unset and
+ * the route simply skips that step. It is not required for the form to work,
+ * and its absence is no longer an error — Clarion already has the lead.
  *
  * ⚠️ The log line deliberately omits the free-text `message`, which is the
  * field most likely to contain clinical detail about the person or their loved
@@ -190,35 +199,8 @@ export async function POST(req: Request) {
 
   const webhook = process.env.LEAD_WEBHOOK_URL;
 
-  if (!webhook) {
-    // FAIL SAFE, NOT FAIL SILENT.
-    //
-    // With no delivery destination configured this inquiry reaches nobody in
-    // admissions. Returning `ok` here would show the submitter "a member of
-    // our admissions team will contact you shortly" — a promise the system
-    // cannot keep, made to someone who may be in crisis. That is worse than
-    // an error.
-    //
-    // So: keep the server-side record (the lead is still recoverable from
-    // logs), shout in the logs, and tell the person the truth plus the one
-    // route that definitely works — the 24/7 phone line.
-    //
-    // Setting LEAD_WEBHOOK_URL to a HIPAA-appropriate destination under a
-    // signed BAA restores normal submit-and-confirm behaviour. issues.md T-48.
-    console.error(
-      "[lead] CRITICAL: LEAD_WEBHOOK_URL is not set — inquiry NOT delivered to admissions. " +
-        "Recovered from this log entry only. Set the env var to restore delivery.",
-      { submittedAt: payload.submittedAt, variant: payload.variant }
-    );
-    return NextResponse.json(
-      {
-        ok: false,
-        error: `Our online form is temporarily unavailable. Please call us at ${site.phone} — we're here 24/7 and can help you right now.`,
-      },
-      { status: 503 }
-    );
-  }
-
+  // Optional CRM/inbox fan-out. Clarion already has the lead by the time this
+  // runs, so an unset LEAD_WEBHOOK_URL is a normal configuration, not a fault.
   if (webhook) {
     try {
       const res = await fetch(webhook, {
@@ -229,13 +211,12 @@ export async function POST(req: Request) {
       });
       if (!res.ok) throw new Error(`Webhook responded ${res.status}`);
     } catch (err) {
-      console.error("[lead] delivery failed", err);
-      return NextResponse.json(
-        {
-          ok: false,
-          error: `We couldn't submit your request right now. Please call us at ${site.phone} — we're here 24/7.`,
-        },
-        { status: 502 }
+      // A failed fan-out is an ops problem, not the submitter's problem: the
+      // lead is already in Clarion and in the log line above. Telling someone
+      // in crisis to call instead would be wrong — their form did go through.
+      console.error(
+        "[lead] optional webhook fan-out failed (lead still captured by Clarion)",
+        err
       );
     }
   }

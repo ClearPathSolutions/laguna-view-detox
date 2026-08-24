@@ -81,14 +81,25 @@ export default function LeadForm({
     setError("");
     setFieldErrors({});
     try {
-      // Best-effort telemetry to Clarion. Wrapped in its own try/catch so a
-      // Clarion outage can never block the lead from reaching /api/lead.
+      // Clarion is the system of record. Its capture script attaches the
+      // session envelope we cannot see from here — landing page, first external
+      // referrer, utm params, gclid and the CallTrackingMetrics visitor session
+      // id — so this call is what actually attributes the lead to the visit.
+      //
+      // Track whether it landed. `ClarionForms` is undefined when the script is
+      // blocked or still loading, which counts as not delivered.
+      let clarionDelivered = false;
       try {
-        await window.ClarionForms?.submit({
-          form_key: CLARION_FORM_KEY[variant],
-          data: { ...payload, variant },
-        });
-      } catch {}
+        if (window.ClarionForms) {
+          await window.ClarionForms.submit({
+            form_key: CLARION_FORM_KEY[variant],
+            data: { ...payload, variant },
+          });
+          clarionDelivered = true;
+        }
+      } catch {
+        clarionDelivered = false;
+      }
 
       const res = await fetch("/api/lead", {
         method: "POST",
@@ -100,15 +111,26 @@ export default function LeadForm({
         error?: string;
         fields?: Record<string, string>;
       };
+      // Validation errors (400) are the submitter's to fix, so they always
+      // surface. Anything else is an infrastructure failure — and if Clarion
+      // already took the lead, admissions has it and the submission genuinely
+      // succeeded. Showing an error there would send someone to the phone over
+      // a problem that does not affect them.
       if (!res.ok || !json.ok) {
-        if (json.fields) setFieldErrors(json.fields);
-        throw new Error(
-          json.error ||
-            "Something went wrong submitting your request. Please try again."
-        );
+        const isFieldError = res.status === 400;
+        if (isFieldError || !clarionDelivered) {
+          if (json.fields) setFieldErrors(json.fields);
+          throw new Error(
+            json.error ||
+              "Something went wrong submitting your request. Please try again."
+          );
+        }
+        // Delivered to Clarion, but /api/lead failed. Confirm to the user and
+        // record it so the gap is visible in analytics.
+        track("lead_api_failed_clarion_ok", { variant, status: res.status });
       }
       setStatus("success");
-      track("lead_submit", { variant });
+      track("lead_submit", { variant, clarion: clarionDelivered });
     } catch (err) {
       setStatus("error");
       const message =

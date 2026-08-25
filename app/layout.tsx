@@ -120,9 +120,13 @@ export default function RootLayout({
     <html lang="en" className={`${cormorant.variable} ${inter.variable}`}>
       <head>
         {/* Call-tracking pixel (tctm.co) — swaps/tracks phone numbers for
-            attribution. Loads early in <head>. The account ID is per-site. */}
+            attribution. Loads early in <head>. The account ID is per-site.
+
+            Absolute https, not the protocol-relative `//` form: the latter
+            resolves against the page protocol, so it breaks when the page is
+            opened over file:// or previewed over plain http. */}
         {/* eslint-disable-next-line @next/next/no-sync-scripts */}
-        <script async src={`//${site.widgets.callTracking.accountId}.tctm.co/t.js`} />
+        <script async src={`https://${site.widgets.callTracking.accountId}.tctm.co/t.js`} />
       </head>
       <body>
         {/* Mark JS as available before paint so scroll-reveal can hide/animate

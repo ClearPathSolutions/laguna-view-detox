@@ -26,7 +26,6 @@ export const STAFF_HEADSHOTS: Record<string, string> = {
   "monica olivares": "/images/team/team-monica-olivares.jpg",
   "jacob cameron": "/images/team/team-jacob-cameron.jpg",
   "justin white": "/images/team/team-justin-white.jpg",
-  "elizabeth wald": "/images/team/team-elizabeth-wald.jpg",
   "jeremiah ross": "/images/team/team-jeremiah-ross.jpg",
   "alanna mcmurtrey": "/images/team/team-alanna-mcmurtrey.jpg",
   "pamela tambini": "/images/team/team-pamela-tambini.jpg",

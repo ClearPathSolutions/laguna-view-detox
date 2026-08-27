@@ -241,13 +241,6 @@ export const team: TeamMember[] = [
     contentSlug: "justin-white",
   },
   {
-    slug: "elizabeth-wald",
-    name: "Elizabeth Wald",
-    role: "Program Director",
-    image: "/images/team-elizabeth-wald.jpg",
-    contentSlug: "elizabeth-wald",
-  },
-  {
     slug: "jeremiah-ross",
     name: "Jeremiah Ross",
     role: "Nursing Supervisor",

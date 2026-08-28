@@ -10,6 +10,10 @@ import { PhoneIcon, ChevronRightIcon } from "@/components/icons";
 import { site } from "@/lib/site";
 import { pageMeta } from "@/lib/seo";
 
+const CANONICAL_AT_PARENT: Record<string, string> = {
+  "pamela-tambini": "https://www.quadranthealthgroup.com/team/pamela-tambini/",
+};
+
 export function generateStaticParams() {
   return team.map((m) => ({ member: m.slug }));
 }
@@ -18,12 +22,17 @@ export function generateMetadata({ params }: { params: { member: string } }): Me
   const m = team.find((x) => x.slug === params.member);
   const page = m && getPage(m.contentSlug);
   if (!m) return {};
-  return pageMeta({
+  const meta = pageMeta({
     title: `${m.name} — ${m.role}`,
     description: page?.metaDescription || `Meet ${m.name}, ${m.role} at Laguna View Detox.`,
     path: `/about/${m.slug}`,
     image: m.image,
   });
+  // Network-wide staff: this exact bio is published on quadranthealthgroup.com
+  // and on every other Quadrant facility site, so the page points at the parent
+  // rather than competing with it as a near-duplicate.
+  const parent = CANONICAL_AT_PARENT[m.slug];
+  return parent ? { ...meta, alternates: { canonical: parent } } : meta;
 }
 
 export default function TeamMemberPage({ params }: { params: { member: string } }) {

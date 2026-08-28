@@ -199,6 +199,13 @@ export type TeamMember = {
 
 export const team: TeamMember[] = [
   {
+    slug: "pamela-tambini",
+    name: "Dr. Pamela Tambini",
+    role: "Medical Oversight",
+    image: "/images/team-pamela-tambini.jpg",
+    contentSlug: "pamela-tambini",
+  },
+  {
     slug: "shawn-young",
     name: "Shawn Young",
     role: "Executive Director",

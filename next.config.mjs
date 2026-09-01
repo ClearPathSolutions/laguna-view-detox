@@ -30,10 +30,12 @@ const TRAILING_SLASH = false;
 //   • GTM / GA4 — googletagmanager.com serves both the container and the
 //     gtag library, and also the <noscript> iframe, hence frame-src.
 //
-// img-src is 'self' only: every remote cover now renders through next/image,
-// which serves it same-origin from /_next/image. lib/image-hosts.mjs holds the
-// allowlist of hosts the optimizer may fetch from, and lib/blog.ts swaps any
-// un-allowlisted cover for a local image, so a raw remote <img> never appears.
+// img-src allows api.clarionlabs.ai alongside 'self': Clarion-hosted images
+// load straight from the API host, which is directly cacheable and drops the
+// round trip the embed fallback costs. Every other remote cover still renders
+// through next/image, served same-origin from /_next/image — lib/image-hosts.mjs
+// holds the allowlist of hosts the optimizer may fetch from, and lib/blog.ts
+// swaps any un-allowlisted cover for a local image.
 const CLARION_SCRIPT = "https://www.clarionlabs.ai";
 const CLARION_API = "https://api.clarionlabs.ai";
 const CALL_TRACKING = "https://*.tctm.co";
@@ -45,7 +47,7 @@ const csp = [
   "default-src 'self'",
   `script-src 'self' 'unsafe-inline' ${CLARION_SCRIPT} ${CALL_TRACKING} ${GA_SCRIPT}`,
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob:",
+  `img-src 'self' data: blob: ${CLARION_API}`,
   "font-src 'self' data:",
   `frame-src https://www.google.com https://maps.google.com ${GA_SCRIPT}`,
   `connect-src 'self' ${CLARION_API} ${CALL_TRACKING} ${GA_CONNECT} ${GA_SCRIPT}`,

@@ -36,8 +36,18 @@ const TRAILING_SLASH = false;
 // through next/image, served same-origin from /_next/image — lib/image-hosts.mjs
 // holds the allowlist of hosts the optimizer may fetch from, and lib/blog.ts
 // swaps any un-allowlisted cover for a local image.
+//
+// The S3 bucket must be listed too. Inline images inside a Clarion post's
+// body_html point at api.clarionlabs.ai/blog/public/image/..., but that URL
+// 302s to a presigned clarion-meta-ads-media.s3.amazonaws.com link. CSP is
+// re-checked against the *redirect target*, so with only the API host allowed
+// the browser blocks the hop and every in-body image renders as a broken box.
+// (Cover images escape this because next/image follows the redirect
+// server-side and re-serves the bytes from /_next/image.)
 const CLARION_SCRIPT = "https://www.clarionlabs.ai";
 const CLARION_API = "https://api.clarionlabs.ai";
+// Where api.clarionlabs.ai/blog/public/image/* redirects to (presigned S3).
+const CLARION_MEDIA = "https://clarion-meta-ads-media.s3.amazonaws.com";
 const CALL_TRACKING = "https://*.tctm.co";
 const GA_SCRIPT = "https://www.googletagmanager.com";
 const GA_CONNECT =
@@ -47,7 +57,7 @@ const csp = [
   "default-src 'self'",
   `script-src 'self' 'unsafe-inline' ${CLARION_SCRIPT} ${CALL_TRACKING} ${GA_SCRIPT}`,
   "style-src 'self' 'unsafe-inline'",
-  `img-src 'self' data: blob: ${CLARION_API}`,
+  `img-src 'self' data: blob: ${CLARION_API} ${CLARION_MEDIA}`,
   "font-src 'self' data:",
   `frame-src https://www.google.com https://maps.google.com ${GA_SCRIPT}`,
   `connect-src 'self' ${CLARION_API} ${CALL_TRACKING} ${GA_CONNECT} ${GA_SCRIPT}`,

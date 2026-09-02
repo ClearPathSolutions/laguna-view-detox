@@ -119,6 +119,20 @@ function fmtDate(iso?: string): string {
   });
 }
 
+/**
+ * Inline <img> tags in Clarion body_html carry only a src — no loading or
+ * decoding hints — and each one is a full-resolution original. Without this
+ * every in-body image blocks alongside the cover. Width is constrained in CSS
+ * (.blog-html img); this only adds the hints, and skips any tag that already
+ * sets `loading` so a future CMS change wins over us.
+ */
+function tuneInlineImages(html: string): string {
+  return html.replace(/<img\b(?![^>]*\bloading=)([^>]*?)\s*\/?>/gi, (_m, attrs) => {
+    const decoding = /\bdecoding=/i.test(attrs) ? "" : ' decoding="async"';
+    return `<img${attrs} loading="lazy"${decoding}>`;
+  });
+}
+
 function normalizeClarion(p: ClarionPost): BlogPost {
   const t = p.published_at ? Date.parse(p.published_at) : NaN;
   return {
@@ -134,7 +148,8 @@ function normalizeClarion(p: ClarionPost): BlogPost {
     // the local fallback instead. See lib/image-hosts.mjs.
     image: isAllowedImageHost(p.cover_image_url) ? p.cover_image_url! : DEFAULT_IMAGE,
     external: true,
-    bodyHtml: typeof p.body_html === "string" ? p.body_html : undefined,
+    bodyHtml:
+      typeof p.body_html === "string" ? tuneInlineImages(p.body_html) : undefined,
   };
 }
 

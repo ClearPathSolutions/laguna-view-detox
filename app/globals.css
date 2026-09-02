@@ -105,8 +105,12 @@
   .blog-html a {
     @apply font-medium text-gold-700 underline;
   }
+  /* Inline images arrive from Clarion as bare <img> with no width/height and
+     at full natural resolution, so they must be constrained here or they
+     overflow the prose column. `lazy` + async decoding keeps them off the
+     critical path; the cover above is the only eager image on the page. */
   .blog-html img {
-    @apply my-6 rounded-2xl;
+    @apply my-6 h-auto w-full rounded-2xl;
   }
   .blog-html blockquote {
     @apply my-6 border-l border-navy-900/15 pl-5 italic text-navy-900/70;

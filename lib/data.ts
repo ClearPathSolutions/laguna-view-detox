@@ -222,23 +222,9 @@ export const team: TeamMember[] = [
   {
     slug: "riky-hanaumi",
     name: "Riky Hanaumi, LCSW",
-    role: "LCSW · Clinical Director",
+    role: "Clinical Director",
     image: "/images/team-riky-hanaumi.jpg",
     contentSlug: "riky-hanaumi",
-  },
-  {
-    slug: "monica-olivares",
-    name: "Monica Olivares",
-    role: "Clinical Supervisor",
-    image: "/images/team-monica-olivares.jpg",
-    contentSlug: "monica-olivares",
-  },
-  {
-    slug: "jacob-cameron",
-    name: "Jacob Cameron",
-    role: "Client Care Director",
-    image: "/images/team-jacob-cameron.jpg",
-    contentSlug: "jacob-cameron",
   },
   {
     slug: "justin-white",
@@ -248,11 +234,32 @@ export const team: TeamMember[] = [
     contentSlug: "justin-white",
   },
   {
+    slug: "jacob-cameron",
+    name: "Jacob Cameron",
+    role: "Client Care Director",
+    image: "/images/team-jacob-cameron.jpg",
+    contentSlug: "jacob-cameron",
+  },
+  {
     slug: "jeremiah-ross",
     name: "Jeremiah Ross",
     role: "Nursing Supervisor",
     image: "/images/team-jeremiah-ross.jpg",
     contentSlug: "jeremiah-ross",
+  },
+  {
+    slug: "monica-olivares",
+    name: "Monica Olivares",
+    role: "Clinical Supervisor",
+    image: "/images/team-monica-olivares.jpg",
+    contentSlug: "monica-olivares",
+  },
+  {
+    slug: "lamont-damon",
+    name: "Lamont Damon, AMFT",
+    role: "Therapist",
+    image: "/images/team-lamont-damon.jpg",
+    contentSlug: "lamont-damon",
   },
   {
     slug: "alanna-mcmurtrey",
@@ -262,16 +269,9 @@ export const team: TeamMember[] = [
     contentSlug: "alanna-mcmurtrey",
   },
   {
-    slug: "lamont-damon",
-    name: "Lamont Damon, AMFT",
-    role: "AMFT · Therapist",
-    image: "/images/team-lamont-damon.jpg",
-    contentSlug: "lamont-damon",
-  },
-  {
     slug: "christi-llamas",
     name: "Christi Llamas, SUDRC",
-    role: "SUDRC · Case Manager",
+    role: "Case Manager",
     image: "/images/team-christi-llamas.jpg",
     contentSlug: "christi-llamas",
   },
@@ -279,6 +279,7 @@ export const team: TeamMember[] = [
     slug: "bj-thome",
     name: "BJ Thome",
     role: "Alumni Coordinator",
+    image: "/images/team-bj-thome.jpg",
     contentSlug: "bj-thome",
   },
 ];

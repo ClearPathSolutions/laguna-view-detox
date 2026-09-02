@@ -2087,11 +2087,15 @@
   "bj-thome": {
     "slug": "bj-thome",
     "title": "BJ Thome — Alumni Coordinator",
-    "metaDescription": "Meet BJ Thome, Alumni Coordinator at Laguna View Detox — a luxury drug and alcohol detox centre in Laguna Beach, California.",
+    "metaDescription": "Meet BJ Thome, Alumni Coordinator for Quadrant Health Group's California facilities, supporting Laguna View Detox alumni long after treatment ends.",
     "h1": "BJ Thome",
-    "teamRole": "Alumni Coordinator",
-    "heroSubtitle": "Alumni Coordinator at Laguna View Detox.",
-    "sections": []
+    "heroSubtitle": "Alumni Coordinator for Quadrant Health Group's California facilities, working to make sure no one walks the road of recovery alone.",
+    "sections": [
+      {
+        "heading": "About BJ",
+        "body": "BJ Thome serves as the Alumni Coordinator for Quadrant Health Group’s California facilities, where his purpose is to ensure that no one feels they have to walk the road of recovery alone. His passion for this work is deeply personal. Having experienced the struggles of addiction firsthand, BJ understands both the courage it takes to begin recovery and the importance of continued support long after treatment ends.\nBJ focuses on building genuine, trusting relationships with clients while they are still in treatment, helping establish a sense of connection and community before they transition back into everyday life. He believes recovery does not end at discharge—and neither should the support. His goal is for every client to know they have somewhere to turn, people who understand, and a community that continues to stand behind them.\nDrawing from his own lived experience, BJ is passionate about meeting people where they are without judgment and reminding them that their story does not have to end where addiction once took them. He strives to make every person he encounters feel seen, heard, valued, and welcomed. For BJ, alumni coordination is about more than building a program. It is about creating lasting connection, belonging, and purpose while helping individuals stay engaged in a recovery community that genuinely wants to see them succeed."
+      }
+    ]
   },
   "pamela-tambini": {
     "slug": "pamela-tambini",

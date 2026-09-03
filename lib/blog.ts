@@ -133,6 +133,85 @@ function tuneInlineImages(html: string): string {
   });
 }
 
+/**
+ * Clarion body_html ships a "Table of Contents" whose links point at
+ * `#slug` anchors, but none of the headings carry an `id` — so every entry is
+ * a dead link and clicking one does nothing at all. Same for the `[1]`/`[2]`
+ * citations, which target `#ref1`/`#ref2` that likewise do not exist.
+ *
+ * This gives every heading an id derived from its own text, then repairs any
+ * in-body anchor that still points nowhere.
+ *
+ * The repair matches on the link's TEXT rather than its href, because the
+ * hrefs cannot be trusted: these posts are templated across the fleet, and a
+ * rebrand updates the visible text but not the slug baked into the href. A
+ * real example from this site — the link reads "How Laguna View Detox can
+ * support your recovery" while its href is still
+ * `#how-dallas-detox-center-can-support-your-recovery`. Slugifying the
+ * heading alone would leave that entry broken; matching the text fixes it.
+ */
+function anchorizeHeadings(html: string): string {
+  const slugify = (text: string): string =>
+    text
+      .replace(/<[^>]+>/g, " ")
+      .replace(/&amp;/g, "&")
+      .replace(/&nbsp;/g, " ")
+      .toLowerCase()
+      .replace(/&/g, " and ")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+
+  // 1. Give each heading an id from its text, keeping any id already present
+  //    and de-duplicating so two identically-worded headings stay distinct.
+  const used = new Set<string>();
+  let out = html.replace(
+    /<(h[23])\b([^>]*)>([\s\S]*?)<\/\1>/gi,
+    (whole, tag: string, attrs: string, inner: string) => {
+      const existing = attrs.match(/\bid="([^"]*)"/i)?.[1];
+      if (existing) {
+        used.add(existing);
+        return whole;
+      }
+      const base = slugify(inner);
+      if (!base) return whole; // an empty heading has nothing to anchor to
+      let id = base;
+      for (let n = 2; used.has(id); n++) id = `${base}-${n}`;
+      used.add(id);
+      return `<${tag}${attrs} id="${id}">${inner}</${tag}>`;
+    },
+  );
+
+  // 2. Number the References list items so `#ref1`-style citations resolve.
+  //    Only touches the <ol> that directly follows the References heading.
+  if (/href="#ref\d+"/i.test(out)) {
+    out = out.replace(
+      /(<h[23][^>]*>\s*References\s*<\/h[23]>\s*<ol[^>]*>)([\s\S]*?)<\/ol>/i,
+      (_whole, head: string, body: string) => {
+        let n = 0;
+        const numbered = body.replace(/<li\b([^>]*)>/gi, (li, liAttrs: string) => {
+          n += 1;
+          return /\bid=/i.test(liAttrs) ? li : `<li${liAttrs} id="ref${n}">`;
+        });
+        return `${head}${numbered}</ol>`;
+      },
+    );
+  }
+
+  // 3. Repoint any anchor that still leads nowhere, using its own link text.
+  const ids = new Set<string>();
+  for (const m of out.matchAll(/\bid="([^"]+)"/gi)) ids.add(m[1]);
+
+  return out.replace(
+    /<a\b([^>]*?)href="#([^"]*)"([^>]*)>([\s\S]*?)<\/a>/gi,
+    (whole, pre: string, target: string, post: string, text: string) => {
+      if (!target || ids.has(target)) return whole;
+      const fromText = slugify(text);
+      if (!fromText || !ids.has(fromText)) return whole;
+      return `<a${pre}href="#${fromText}"${post}>${text}</a>`;
+    },
+  );
+}
+
 function normalizeClarion(p: ClarionPost): BlogPost {
   const t = p.published_at ? Date.parse(p.published_at) : NaN;
   return {
@@ -149,7 +228,9 @@ function normalizeClarion(p: ClarionPost): BlogPost {
     image: isAllowedImageHost(p.cover_image_url) ? p.cover_image_url! : DEFAULT_IMAGE,
     external: true,
     bodyHtml:
-      typeof p.body_html === "string" ? tuneInlineImages(p.body_html) : undefined,
+      typeof p.body_html === "string"
+        ? anchorizeHeadings(tuneInlineImages(p.body_html))
+        : undefined,
   };
 }
 

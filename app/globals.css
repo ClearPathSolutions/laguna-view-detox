@@ -107,6 +107,13 @@
   .blog-html h3 {
     @apply mb-2 mt-8 font-serif text-xl font-medium text-navy-900;
   }
+  /* Anchor targets inside a post: the table of contents and the [1]-style
+     citations both jump here, so they need the same clearance under the
+     sticky header that the rest of the site's anchors get. */
+  .blog-html :is(h2, h3),
+  .blog-html li[id^="ref"] {
+    scroll-margin-top: calc(var(--header-h) + 1rem);
+  }
   .blog-html ul {
     @apply my-4 list-disc space-y-2 pl-6;
   }

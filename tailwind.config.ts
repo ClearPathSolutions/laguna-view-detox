@@ -65,6 +65,12 @@ const config: Config = {
       letterSpacing: {
         eyebrow: "0.22em",
       },
+      scrollMargin: {
+        // Clears the sticky header when jumping to an in-page anchor, plus a
+        // little breathing room. Tracks --header-h so it stays correct at
+        // every breakpoint rather than guessing a single fixed offset.
+        header: "calc(var(--header-h) + 1rem)",
+      },
       keyframes: {
         "fade-up": {
           "0%": { opacity: "0", transform: "translateY(16px)" },

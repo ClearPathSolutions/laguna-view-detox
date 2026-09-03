@@ -166,7 +166,7 @@ export default async function AboutPage() {
       </section>
 
       {/* Team */}
-      <section id="team" className="section bg-white scroll-mt-28">
+      <section id="team" className="section bg-white scroll-mt-header">
         <div className="container-x">
           <SectionHeading
             eyebrow="Experienced Professionals"

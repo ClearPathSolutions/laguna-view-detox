@@ -57,7 +57,7 @@ export default function FaqPage() {
                 should be readable (and indexable) without interaction. */}
             <div className="space-y-14">
               {faqGroups.map((g) => (
-                <section key={g.id} id={g.id} className="scroll-mt-28">
+                <section key={g.id} id={g.id} className="scroll-mt-header">
                   <div className="flex flex-wrap items-baseline justify-between gap-3">
                     <h2 className="h-card !text-2xl">{g.title}</h2>
                     <Link

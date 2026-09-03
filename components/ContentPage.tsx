@@ -28,7 +28,7 @@ function Prose({ page }: { page: PageContent }) {
           <section
             key={si}
             id={section.heading?.trim() ? headingId(section.heading, si) : undefined}
-            className={si === 0 ? "scroll-mt-28" : "mt-12 scroll-mt-28"}
+            className={si === 0 ? "scroll-mt-header" : "mt-12 scroll-mt-header"}
           >
             {section.heading?.trim() && (
               <h2 className="h-card !text-2xl sm:!text-[1.75rem]">{section.heading}</h2>

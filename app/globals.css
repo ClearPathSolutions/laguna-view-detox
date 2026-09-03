@@ -4,7 +4,18 @@
 
 @layer base {
   :root {
-    --header-h: 76px;
+    /* Real rendered height of the sticky <header>, used for anchor offsets.
+       Mobile: 68px main bar + 1px border. From lg the utility bar (h-10)
+       appears and the main bar grows to 84px: 40 + 84 + 1 = 125px.
+       Keep these in sync with components/Header.tsx — a stale value here puts
+       every in-page anchor under the header or short of it. */
+    --header-h: 69px;
+  }
+
+  @media (min-width: 1024px) {
+    :root {
+      --header-h: 125px;
+    }
   }
 
   html {

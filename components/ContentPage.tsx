@@ -175,7 +175,17 @@ export default function ContentPage({
         <div className="container-x">
           {intro}
           <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_340px] lg:gap-16">
-            <div className="reveal">
+            {/* Deliberately NOT a `.reveal`. Reveal is for decorative
+                below-the-fold blocks; this wrapper is the page's primary
+                content — the table of contents plus the whole article, ~4300px
+                tall. Two things broke when it was one reveal target:
+                the observer's `threshold: 0.08` is a proportion of the
+                element, so ~348px had to scroll in before the column
+                un-hid, leaving the TOC blank after it was already on screen;
+                and the `translateY(22px)` meant any in-page anchor activated
+                before the 0.7s transition settled resolved against shifted
+                content and landed 22px short, under the sticky header. */}
+            <div>
               <TableOfContents sections={page.sections} />
 
               <Prose page={page} />

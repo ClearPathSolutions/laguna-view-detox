@@ -90,7 +90,7 @@ export default function RootLayout({
       site.social.facebook,
       site.social.instagram,
       site.social.youtube,
-      site.social.yelp,
+      site.social.linkedin,
     ],
     openingHoursSpecification: {
       "@type": "OpeningHoursSpecification",

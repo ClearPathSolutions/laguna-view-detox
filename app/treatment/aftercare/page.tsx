@@ -18,7 +18,7 @@ export default function Page() {
       path={"/treatment/aftercare"}
       page={page}
       eyebrow="Levels of Care"
-      heroImage="/images/lvd-tour-22.jpg"
+      heroImage="/images/20230113-03-31305ceanothusdr-lagunabeach-ca-004-Small.jpg"
       crumbs={[{ label: "Treatment", href: "/treatment" }, { label: "Aftercare & Alumni" }]}
       related={relatedPrograms("/treatment/aftercare")}
       relatedTitle="Our Programs"

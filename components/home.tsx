@@ -13,8 +13,8 @@ export function IntroSection() {
           <div className="reveal relative">
             <div className="relative overflow-hidden rounded-3xl shadow-card">
               <Image
-                src="/images/NIK_9847-scaled.jpg"
-                alt="Bright, comfortable guest bedroom at Laguna View Detox"
+                src="/images/NIK_5715-intro.jpg"
+                alt="Dining room at Laguna View Detox wrapped in floor-to-ceiling windows overlooking the Pacific"
                 width={1200}
                 height={800}
                 sizes="(min-width: 1024px) 45vw, 100vw"
@@ -148,7 +148,7 @@ export function FacilityFeature() {
               <span className="h-px w-6 bg-gold-400" />
               Comfortable &amp; Safe
             </p>
-            <h2 className="h-section mt-4 !text-white">The Laguna Recovery Center</h2>
+            <h2 className="h-section mt-4 !text-white">The Laguna View Way</h2>
             <div className="mt-6 space-y-4 text-white/75">
               <p className="leading-[1.8]">
                 Our luxury drug rehab in Laguna Beach provides medication-assisted detox services to

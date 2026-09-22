@@ -297,5 +297,4 @@ export const gallery: { src: string; alt: string }[] = [
   { src: "/images/20230113-03-31305ceanothusdr-lagunabeach-ca-009-Small.jpg", alt: "Serene treatment room" },
   { src: "/images/20230113-03-31305ceanothusdr-lagunabeach-ca-021-Small.jpg", alt: "Comfortable furnishings" },
   { src: "/images/20230113-03-31305ceanothusdr-lagunabeach-ca-023-Small.jpg", alt: "Relaxing common area" },
-  { src: "/images/Facility-4-1024x683-1.jpg", alt: "Facility exterior in Laguna Beach" },
 ];

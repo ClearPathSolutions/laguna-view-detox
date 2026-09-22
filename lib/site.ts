@@ -81,7 +81,7 @@ export const nav: NavItem[] = [
           { label: "Our Team", href: "/about#team" },
           { label: "Tour the Facility", href: "/tour" },
           { label: "The Luxury Experience", href: "/luxury-rehab" },
-          { label: "Admissions", href: "/admissions" },
+          { label: "Latest Articles", href: "/blog" },
         ],
       },
     ],
@@ -187,7 +187,7 @@ export const nav: NavItem[] = [
       },
     ],
   },
-  { label: "Blog", href: "/blog" },
+  { label: "Admissions", href: "/admissions" },
   { label: "Contact", href: "/contact" },
 ];
 

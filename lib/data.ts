@@ -34,7 +34,7 @@ export const programs: Program[] = [
     short: "Dual Diagnosis",
     blurb:
       "We treat the root causes of addiction by addressing both co-occurring mental health disorders and substance use together.",
-    image: "/images/20230113-03-31305ceanothusdr-lagunabeach-ca-004-Small.jpg",
+    image: "/images/lvd-tour-22.jpg",
     href: "/treatment/dual-diagnosis",
   },
   {
@@ -43,7 +43,7 @@ export const programs: Program[] = [
     short: "Aftercare",
     blurb:
       "Thorough aftercare planning and alumni programming keep clients connected to the recovery community long after they leave.",
-    image: "/images/lvd-tour-22.jpg",
+    image: "/images/20230113-03-31305ceanothusdr-lagunabeach-ca-004-Small.jpg",
     href: "/treatment/aftercare",
   },
 ];
@@ -297,5 +297,4 @@ export const gallery: { src: string; alt: string }[] = [
   { src: "/images/20230113-03-31305ceanothusdr-lagunabeach-ca-009-Small.jpg", alt: "Serene treatment room" },
   { src: "/images/20230113-03-31305ceanothusdr-lagunabeach-ca-021-Small.jpg", alt: "Comfortable furnishings" },
   { src: "/images/20230113-03-31305ceanothusdr-lagunabeach-ca-023-Small.jpg", alt: "Relaxing common area" },
-  { src: "/images/Facility-4-1024x683-1.jpg", alt: "Facility exterior in Laguna Beach" },
 ];

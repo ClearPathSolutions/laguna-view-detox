@@ -18,7 +18,7 @@ export default function Page() {
       path={"/treatment/dual-diagnosis"}
       page={page}
       eyebrow="Levels of Care"
-      heroImage="/images/20230113-03-31305ceanothusdr-lagunabeach-ca-004-Small.jpg"
+      heroImage="/images/lvd-tour-22.jpg"
       crumbs={[{ label: "Treatment", href: "/treatment" }, { label: "Dual Diagnosis" }]}
       related={relatedPrograms("/treatment/dual-diagnosis")}
       relatedTitle="Our Programs"

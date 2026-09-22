@@ -163,7 +163,7 @@ export default function LeadForm({
           We&apos;ve received your request and a member of our admissions team will contact you
           shortly — your information is kept strictly confidential. Need to talk right now?
         </p>
-        <a href={site.phoneHref} className="btn-gold mt-6">
+        <a href={site.phoneHref} className="btn-gold mt-6" suppressHydrationWarning>
           <PhoneIcon className="h-4 w-4" />
           Call {site.phone}
         </a>
@@ -174,7 +174,7 @@ export default function LeadForm({
   const submitting = status === "submitting";
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4" noValidate>
+    <form onSubmit={handleSubmit} className="space-y-4" noValidate suppressHydrationWarning>
       {/* Honeypot — hidden from real users; bots that fill it are dropped. */}
       <div className="absolute left-[-9999px] top-[-9999px] h-0 w-0 overflow-hidden" aria-hidden="true">
         <label htmlFor="company">Company</label>

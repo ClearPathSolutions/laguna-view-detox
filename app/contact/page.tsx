@@ -47,14 +47,14 @@ export default function ContactPage() {
               <div className="mt-9 space-y-4">
                 <a
                   href={site.phoneHref}
-                  className="flex items-center gap-4 rounded-2xl border border-navy-900/10 p-5 transition-colors hover:border-gold hover:bg-gold/5"
+                  className="flex items-center gap-4 rounded-2xl border border-navy-900/10 p-5 transition-colors hover:border-gold hover:bg-gold/5" suppressHydrationWarning
                 >
                   <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-navy text-gold-300">
                     <PhoneIcon className="h-5 w-5" />
                   </span>
                   <span>
                     <span className="block text-sm text-navy-900/60">Confidential 24/7 admissions</span>
-                    <span className="font-serif text-xl font-semibold text-navy-900">
+                    <span className="font-serif text-xl font-semibold text-navy-900" suppressHydrationWarning>
                       {site.phone}
                     </span>
                   </span>

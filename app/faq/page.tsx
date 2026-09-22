@@ -89,7 +89,7 @@ export default function FaqPage() {
               Our admissions team answers the phone around the clock — no cost, no obligation, and
               completely confidential.
             </p>
-            <a href={site.phoneHref} className="btn-gold mt-6">
+            <a href={site.phoneHref} className="btn-gold mt-6" suppressHydrationWarning>
               <PhoneIcon className="h-4 w-4" />
               Call {site.phone}
             </a>

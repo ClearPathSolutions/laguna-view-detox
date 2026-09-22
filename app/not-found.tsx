@@ -18,7 +18,7 @@ export default function NotFound() {
           <Link href="/" className="btn-gold">
             Return Home
           </Link>
-          <a href={site.phoneHref} className="btn-outline">
+          <a href={site.phoneHref} className="btn-outline" suppressHydrationWarning>
             <PhoneIcon className="h-4 w-4" />
             Call {site.phone}
           </a>

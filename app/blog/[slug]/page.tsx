@@ -136,7 +136,7 @@ export default async function BlogPost({ params }: { params: { slug: string } })
                 <p className="mt-2 text-sm text-white/70">
                   Our admissions team is here 24/7 — free and confidential.
                 </p>
-                <a href={site.phoneHref} className="btn-gold mt-5 w-full">
+                <a href={site.phoneHref} className="btn-gold mt-5 w-full" suppressHydrationWarning>
                   <PhoneIcon className="h-4 w-4" /> {site.phone}
                 </a>
                 <Link href="/insurance" className="btn-outline mt-2.5 w-full">

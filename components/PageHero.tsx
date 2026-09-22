@@ -83,7 +83,7 @@ export default function PageHero({
               align === "center" ? "sm:justify-center" : ""
             }`}
           >
-            <a href={site.phoneHref} className="btn-gold">
+            <a href={site.phoneHref} className="btn-gold" suppressHydrationWarning>
               <PhoneIcon className="h-4 w-4" />
               Call {site.phone}
             </a>

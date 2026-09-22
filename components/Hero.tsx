@@ -47,7 +47,7 @@ export default function Hero() {
             className="mt-9 flex animate-fade-up flex-col gap-3 sm:flex-row"
             style={{ animationDelay: "0.2s" }}
           >
-            <a href={site.phoneHref} className="btn-gold text-base">
+            <a href={site.phoneHref} className="btn-gold text-base" suppressHydrationWarning>
               <PhoneIcon className="h-5 w-5" />
               Call {site.phone}
             </a>

@@ -83,7 +83,7 @@ export default function EditorialPolicyPage() {
           <div className="rounded-2xl bg-sand-50 p-6 ring-1 ring-navy-900/5">
             <p className="text-sm leading-relaxed text-navy-900/75">
               Questions or a correction? Call{" "}
-              <a href={site.phoneHref} className="font-semibold text-gold-700 underline">
+              <a href={site.phoneHref} className="font-semibold text-gold-700 underline" suppressHydrationWarning>
                 {site.phone}
               </a>{" "}
               or email{" "}

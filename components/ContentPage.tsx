@@ -63,7 +63,7 @@ function Sidebar({
           We&apos;ve been in your shoes. Call now for a free, confidential conversation — no cost,
           no obligation.
         </p>
-        <a href={site.phoneHref} className="btn-gold mt-5 w-full">
+        <a href={site.phoneHref} className="btn-gold mt-5 w-full" suppressHydrationWarning>
           <PhoneIcon className="h-4 w-4" />
           {site.phone}
         </a>

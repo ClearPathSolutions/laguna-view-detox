@@ -61,7 +61,7 @@ export default function StickyCallBar() {
         <a
           href={site.phoneHref}
           onClick={() => track("phone_click", { location: "sticky_bar" })}
-          className="btn-gold flex-1 py-3 text-sm"
+          className="btn-gold flex-1 py-3 text-sm" suppressHydrationWarning
         >
           <PhoneIcon className="h-4 w-4" />
           Call {site.phone}

@@ -69,7 +69,7 @@ export default function TeamMemberPage({ params }: { params: { member: string } 
               </p>
               <h1 className="h-display mt-3 !text-white">{m.name}</h1>
               <p className="lead mt-4 !text-white/80 max-w-xl">{page.heroSubtitle}</p>
-              <a href={site.phoneHref} className="btn-gold mt-7">
+              <a href={site.phoneHref} className="btn-gold mt-7" suppressHydrationWarning>
                 <PhoneIcon className="h-4 w-4" />
                 Speak With Our Team
               </a>

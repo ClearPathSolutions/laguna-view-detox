@@ -135,7 +135,7 @@ export default function Header() {
             <span className="text-white/60">{site.address.full}</span>
             <a
               href={site.phoneHref}
-              className="flex items-center gap-1.5 font-semibold text-gold-300 transition-colors hover:text-gold-200"
+              className="flex items-center gap-1.5 font-semibold text-gold-300 transition-colors hover:text-gold-200" suppressHydrationWarning
             >
               <PhoneIcon className="h-3.5 w-3.5" />
               {site.phone}
@@ -297,7 +297,7 @@ export default function Header() {
               <ShieldIcon className="h-4 w-4" />
               Verify Insurance
             </Link>
-            <a href={site.phoneHref} className="btn-gold px-5 py-2.5 text-[13px]">
+            <a href={site.phoneHref} className="btn-gold px-5 py-2.5 text-[13px]" suppressHydrationWarning>
               <PhoneIcon className="h-4 w-4" />
               Call Now
             </a>
@@ -308,7 +308,7 @@ export default function Header() {
             <a
               href={site.phoneHref}
               className="flex h-11 items-center gap-1.5 rounded-full bg-gold px-4 text-sm font-semibold text-navy-900"
-              aria-label={`Call ${site.phone}`}
+              aria-label={`Call ${site.phone}`} suppressHydrationWarning
             >
               <PhoneIcon className="h-4 w-4" />
               Call
@@ -524,7 +524,7 @@ function MobileDrawer({
         </nav>
 
         <div className="space-y-2.5 border-t border-navy-900/10 bg-sand-50 px-5 py-4">
-          <a href={site.phoneHref} className="btn-gold w-full">
+          <a href={site.phoneHref} className="btn-gold w-full" suppressHydrationWarning>
             <PhoneIcon className="h-4 w-4" />
             Call {site.phone}
           </a>

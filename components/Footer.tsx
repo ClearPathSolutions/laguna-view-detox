@@ -67,7 +67,7 @@ export default function Footer() {
             </h2>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row">
-            <a href={site.phoneHref} className="btn-gold">
+            <a href={site.phoneHref} className="btn-gold" suppressHydrationWarning>
               <PhoneIcon className="h-4 w-4" />
               Call {site.phone}
             </a>
@@ -97,7 +97,7 @@ export default function Footer() {
           </p>
 
           <div className="mt-6 space-y-3 text-sm">
-            <a href={site.phoneHref} className="flex items-center gap-3 transition-colors hover:text-white">
+            <a href={site.phoneHref} className="flex items-center gap-3 transition-colors hover:text-white" suppressHydrationWarning>
               <PhoneIcon className="h-4 w-4 text-gold-300" />
               {site.phone}
             </a>

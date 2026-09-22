@@ -33,7 +33,7 @@ export function CtaBand({
           <h2 className="h-section mt-4 !text-white">{title}</h2>
           <p className="lead mt-5 !text-white/80">{text}</p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <a href={site.phoneHref} className="btn-gold">
+            <a href={site.phoneHref} className="btn-gold" suppressHydrationWarning>
               <PhoneIcon className="h-4 w-4" />
               Call {site.phone}
             </a>
@@ -81,7 +81,7 @@ export function InsuranceBand() {
                 <ShieldIcon className="h-4 w-4" />
                 Verify Your Insurance
               </Link>
-              <a href={site.phoneHref} className="btn-outline-navy">
+              <a href={site.phoneHref} className="btn-outline-navy" suppressHydrationWarning>
                 <PhoneIcon className="h-4 w-4" />
                 {site.phone}
               </a>
@@ -149,7 +149,7 @@ export function AdmissionsSteps({ withBg = true }: { withBg?: boolean }) {
           ))}
         </div>
         <div className="mt-12 flex justify-center">
-          <a href={site.phoneHref} className="btn-navy">
+          <a href={site.phoneHref} className="btn-navy" suppressHydrationWarning>
             <PhoneIcon className="h-4 w-4" />
             Ready to Get Started? Call {site.phone}
           </a>

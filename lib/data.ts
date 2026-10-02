@@ -236,7 +236,7 @@ export const team: TeamMember[] = [
   {
     slug: "jacob-cameron",
     name: "Jacob Cameron",
-    role: "Client Care Director",
+    role: "Program Director",
     image: "/images/team-jacob-cameron.jpg",
     contentSlug: "jacob-cameron",
   },

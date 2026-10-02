@@ -39,7 +39,7 @@ fault.
 | team-michael-mcarthur.jpg | Michael McArthur | Nursing Director |
 | team-riky-hanaumi.jpg | Riky Hanaumi, LCSW | Clinical Director |
 | team-monica-olivares.jpg | Monica Olivares | Clinical Operations Director |
-| team-jacob-cameron.jpg | Jacob Cameron | Client Care Director |
+| team-jacob-cameron.jpg | Jacob Cameron | Program Director |
 | team-justin-white.jpg | Justin White | Program Director |
 | team-elizabeth-wald.jpg | Elizabeth Wald | Program Director |
 | team-jeremiah-ross.jpg | Jeremiah Ross | Nursing Supervisor |

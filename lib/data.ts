@@ -250,7 +250,7 @@ export const team: TeamMember[] = [
   {
     slug: "monica-olivares",
     name: "Monica Olivares",
-    role: "Clinical Supervisor",
+    role: "Clinical Operations Director",
     image: "/images/team-monica-olivares.jpg",
     contentSlug: "monica-olivares",
   },

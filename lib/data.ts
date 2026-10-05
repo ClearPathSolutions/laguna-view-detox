@@ -262,13 +262,6 @@ export const team: TeamMember[] = [
     contentSlug: "lamont-damon",
   },
   {
-    slug: "alanna-mcmurtrey",
-    name: "Alanna McMurtrey",
-    role: "Lead Case Manager",
-    image: "/images/team-alanna-mcmurtrey.jpg",
-    contentSlug: "alanna-mcmurtrey",
-  },
-  {
     slug: "christi-llamas",
     name: "Christi Llamas, SUDRC",
     role: "Case Manager",

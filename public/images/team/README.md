@@ -43,7 +43,6 @@ fault.
 | team-justin-white.jpg | Justin White | Program Director |
 | team-elizabeth-wald.jpg | Elizabeth Wald | Program Director |
 | team-jeremiah-ross.jpg | Jeremiah Ross | Nursing Supervisor |
-| team-alanna-mcmurtrey.jpg | Alanna McMurtrey | Lead Case Manager |
 | team-lamont-damon.jpg | Lamont Damon, AMFT | Therapist — LVD site |
 | team-christi-llamas.jpg | Christi Llamas, SUDRC | Case Manager — LVD site |
 | team-pamela-tambini.jpg | Dr. Pamela Tambini | Medical Oversight (T-43 reviewer) |

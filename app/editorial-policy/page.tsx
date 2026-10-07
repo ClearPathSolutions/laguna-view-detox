@@ -97,6 +97,10 @@ export default function EditorialPolicyPage() {
               .
             </p>
           </div>
+
+          <p className="mt-6 text-sm italic text-navy-900/60">
+            This policy was last reviewed October 7, 2026.
+          </p>
         </div>
       </section>
 

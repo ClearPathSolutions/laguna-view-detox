@@ -4,6 +4,21 @@ import { useEffect, useState, useCallback } from "react";
 import Image from "next/image";
 import { CloseIcon, ChevronRightIcon } from "./icons";
 
+/**
+ * Column span for photo `i` of `n` (1 column on mobile, 2 from sm, a 6-track
+ * grid from lg). From lg, photos run three to a row; a remainder of one turns
+ * the last four into two pairs, a remainder of two turns the last two into a
+ * pair, so every row is full. At sm, an odd count makes the first photo
+ * full-width.
+ */
+function tileSpan(i: number, n: number): string {
+  const sm = n % 2 === 1 && i === 0 ? "sm:col-span-2" : "sm:col-span-1";
+  if (n === 1) return `${sm} lg:col-span-6`;
+  const pairs = n % 3 === 1 ? 4 : n % 3 === 2 ? 2 : 0;
+  const lg = i >= n - pairs ? "lg:col-span-3" : "lg:col-span-2";
+  return `${sm} ${lg}`;
+}
+
 export default function Gallery({ items }: { items: { src: string; alt: string }[] }) {
   const [active, setActive] = useState<number | null>(null);
 
@@ -34,21 +49,23 @@ export default function Gallery({ items }: { items: { src: string; alt: string }
 
   return (
     <>
-      <div className="columns-1 gap-4 sm:columns-2 lg:columns-3 [&>*]:mb-4">
+      {/* Uniform 3:2 cards on a grid, sized by tileSpan so no row is left
+          ragged. The masonry columns this replaced mixed 3:2 and 4:3 photos
+          and ended the columns at different heights. */}
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-6">
         {items.map((it, i) => (
           <button
             key={it.src}
             onClick={() => setActive(i)}
-            className="group relative block w-full overflow-hidden rounded-2xl reveal"
+            className={`${tileSpan(i, items.length)} group relative block aspect-[3/2] w-full overflow-hidden rounded-2xl reveal`}
             aria-label={`View ${it.alt}`}
           >
             <Image
               src={it.src}
               alt={it.alt}
-              width={800}
-              height={600}
+              fill
               sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 100vw"
-              className="h-auto w-full object-cover transition-transform duration-500 group-hover:scale-105"
+              className="object-cover transition-transform duration-500 group-hover:scale-105"
             />
             <span className="absolute inset-0 bg-navy-950/0 transition-colors group-hover:bg-navy-950/20" />
           </button>

@@ -290,4 +290,12 @@ export const gallery: { src: string; alt: string }[] = [
   { src: "/images/20230113-03-31305ceanothusdr-lagunabeach-ca-009-Small.jpg", alt: "Serene treatment room" },
   { src: "/images/20230113-03-31305ceanothusdr-lagunabeach-ca-021-Small.jpg", alt: "Comfortable furnishings" },
   { src: "/images/20230113-03-31305ceanothusdr-lagunabeach-ca-023-Small.jpg", alt: "Relaxing common area" },
+  { src: "/images/lvd-tour-bathroom.jpg", alt: "Bright bathroom with double vanity and soaking tub" },
+  { src: "/images/NIK_9818-scaled.jpg", alt: "Quiet sitting room with armchairs and desk" },
+  { src: "/images/NIK_9853-scaled.jpg", alt: "Open living area with staircase and artwork" },
+  { src: "/images/NIK_9820-scaled.jpg", alt: "Sunlit upstairs lounge with large windows" },
+  { src: "/images/lvd-tour-dining-ocean.jpg", alt: "Dining table beside floor-to-ceiling ocean-view windows" },
+  { src: "/images/lvd-tour-balcony-ocean.jpg", alt: "Private balcony with wicker chairs overlooking the coastline" },
+  { src: "/images/lvd-tour-balcony-coast.jpg", alt: "Balcony seating with views of the beach and hillside homes" },
+  { src: "/images/lvd-tour-dining-kitchen.jpg", alt: "Sunlit dining area open to the kitchen and living room" },
 ];

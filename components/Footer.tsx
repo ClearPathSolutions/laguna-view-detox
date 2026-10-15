@@ -137,25 +137,24 @@ export default function Footer() {
           <p className="text-sm font-semibold uppercase tracking-eyebrow text-gold-300">
             Licensed & Accredited
           </p>
-          <div className="mt-4 flex items-center gap-4 rounded-2xl bg-white/5 p-5 ring-1 ring-white/10">
-            <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl bg-white p-2">
-              <Image
-                src="/logos/joint-commission.png"
-                alt="Joint Commission Accredited"
-                width={64}
-                height={64}
-                className="h-full w-full object-contain"
-              />
-            </div>
-            <div className="flex h-16 items-center justify-center rounded-xl bg-white px-3 py-2">
-              <Image
-                src="/logos/dhcs.png"
-                alt="California DHCS Licensed"
-                width={110}
-                height={54}
-                className="h-full w-auto object-contain"
-              />
-            </div>
+          {/* Logos sit directly on the footer, no tiles. The DHCS mark is the
+              reversed (white-text) variant: the standard one is navy text,
+              which disappears on navy-950. */}
+          <div className="mt-4 flex items-center gap-5">
+            <Image
+              src="/logos/joint-commission.png"
+              alt="Joint Commission Accredited"
+              width={64}
+              height={64}
+              className="h-16 w-16 shrink-0 object-contain"
+            />
+            <Image
+              src="/logos/dhcs-reverse.png"
+              alt="California DHCS Licensed"
+              width={110}
+              height={54}
+              className="h-14 w-auto object-contain"
+            />
           </div>
           <p className="mt-4 text-xs leading-relaxed text-white/50">
             Accredited by The Joint Commission. Licensed by the State of California Department of

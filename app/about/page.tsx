@@ -69,15 +69,19 @@ function CardShell({
   delay: number;
   children: React.ReactNode;
 }) {
+  // Three across from sm, as a fixed width rather than grid tracks, so the
+  // centred flex row below keeps a short last row centred instead of
+  // left-aligned with an empty slot.
+  const width = "w-full sm:w-[calc((100%-4rem)/3)]";
   if (!slug) {
     return (
-      <div className="text-center reveal" data-delay={delay}>
+      <div className={`${width} text-center reveal`} data-delay={delay}>
         {children}
       </div>
     );
   }
   return (
-    <Link href={`/about/${slug}`} className="group text-center reveal" data-delay={delay}>
+    <Link href={`/about/${slug}`} className={`${width} group text-center reveal`} data-delay={delay}>
       {children}
     </Link>
   );
@@ -174,7 +178,9 @@ export default async function AboutPage() {
             lead="Our team is made up of experienced professionals wholly dedicated to your recovery."
             align="center"
           />
-          <div className="mx-auto mt-14 grid max-w-4xl gap-8 sm:grid-cols-3">
+          {/* The roster length depends on the portal feed, so the last row is
+              often short; flex-wrap + justify-center centres it. */}
+          <div className="mx-auto mt-14 flex max-w-4xl flex-wrap justify-center gap-8">
             {roster.map((m, i) => (
               <CardShell
                 key={m.slug || m.name}

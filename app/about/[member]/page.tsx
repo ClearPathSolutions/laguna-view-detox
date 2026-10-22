@@ -4,15 +4,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { getPage } from "@/lib/content";
 import SectionBody from "@/components/SectionBody";
-import { team } from "@/lib/data";
+import { team, CANONICAL_AT_PARENT } from "@/lib/data";
 import { CtaBand } from "@/components/sections";
 import { PhoneIcon, ChevronRightIcon } from "@/components/icons";
 import { site } from "@/lib/site";
 import { pageMeta } from "@/lib/seo";
-
-const CANONICAL_AT_PARENT: Record<string, string> = {
-  "pamela-tambini": "https://www.quadranthealthgroup.com/team/pamela-tambini/",
-};
 
 export function generateStaticParams() {
   return team.map((m) => ({ member: m.slug }));
@@ -39,6 +35,9 @@ export default function TeamMemberPage({ params }: { params: { member: string } 
   const m = team.find((x) => x.slug === params.member);
   const page = m && getPage(m.contentSlug);
   if (!m || !page) notFound();
+  // Cross-links between bios, so each bio is reachable from more than the
+  // single card on /about.
+  const others = team.filter((x) => x.slug !== m.slug);
 
   return (
     <>
@@ -86,6 +85,22 @@ export default function TeamMemberPage({ params }: { params: { member: string } 
               <SectionBody body={s.body} className="mt-4" />
             </div>
           ))}
+
+          {others.length > 0 && (
+            <div className="mt-12 border-t border-navy-900/10 pt-8">
+              <h2 className="h-card !text-xl">Meet the rest of the team</h2>
+              <ul className="mt-4 grid gap-2 sm:grid-cols-2">
+                {others.map((o) => (
+                  <li key={o.slug}>
+                    <Link href={`/about/${o.slug}`} className="text-sm font-semibold text-navy-900 hover:text-gold-700">
+                      {o.name}
+                    </Link>
+                    <span className="block text-xs text-navy-900/60">{o.role}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
           <div className="mt-12 border-t border-navy-900/10 pt-8">
             <Link href="/about#team" className="link-underline group">

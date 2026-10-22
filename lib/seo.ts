@@ -22,6 +22,14 @@ const DEFAULT_OG_IMAGE = "/images/NIK_5883-hero.jpg";
 /* the visible excerpt are untouched — only the meta tags are trimmed.  */
 /* ------------------------------------------------------------------ */
 const MAX_TITLE = 62;
+/**
+ * The brand suffix is allowed to run a branded title up to 70 chars (the
+ * site-audit limit). If the suffix were only kept under the 62-char budget, a
+ * 43-62 char title shipped unbranded and identical to the page's <h1>, which
+ * audits flag as duplicate h1/title. When a suffix overruns ~62 it is the
+ * brand that truncates in the SERP, never the descriptive part.
+ */
+const MAX_BRANDED_TITLE = 70;
 const MAX_DESC = 160;
 const BRAND_SUFFIX = ` | ${site.name}`;
 
@@ -73,9 +81,9 @@ export function clampTitle(text: string, max = MAX_TITLE): string {
  */
 function checkSourceLengths(path: string, rawTitle: string, rawDescription: string) {
   const problems: string[] = [];
-  const branded = stripBrand(rawTitle).length + BRAND_SUFFIX.length;
-  if (branded > MAX_TITLE) {
-    problems.push(`title would render ${branded} chars (limit ${MAX_TITLE}) — clamped`);
+  const bare = stripBrand(rawTitle).length;
+  if (bare > MAX_TITLE) {
+    problems.push(`title is ${bare} chars without the brand (limit ${MAX_TITLE}) — clamped`);
   }
   if (rawDescription.trim().length > MAX_DESC) {
     problems.push(
@@ -120,12 +128,12 @@ export function pageMeta({
   const canonical = path === "" ? "/" : path;
   const desc = clampDescription(description);
 
-  // Keep the brand suffix when it fits inside the 62-char budget; otherwise
+  // Keep the brand suffix when it fits inside 70 chars; otherwise
   // spend the budget on the descriptive part. The root layout appends the
   // suffix via title.template, so anything that must not receive it has to be
   // emitted as `absolute`.
   const withBrand = clean + BRAND_SUFFIX;
-  const brandFits = withBrand.length <= MAX_TITLE;
+  const brandFits = withBrand.length <= MAX_BRANDED_TITLE;
   const renderedTitle = brandFits ? withBrand : clampTitle(clean);
   const ogTitle = renderedTitle;
 

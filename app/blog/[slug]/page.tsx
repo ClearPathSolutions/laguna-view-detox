@@ -40,8 +40,13 @@ export default async function BlogPost({ params }: { params: { slug: string } })
   if (!post) notFound();
 
   const all = await getAllPosts();
-  const more = all.filter((p) => p.slug !== post.slug && p.category === post.category);
-  const related = (more.length >= 3 ? more : all.filter((p) => p.slug !== post.slug)).slice(0, 3);
+  // Rotate from this post's position rather than always taking the newest
+  // three, so every post is linked from the posts just before it. Taking the
+  // top three everywhere left most older posts with a single internal link.
+  const idx = all.findIndex((p) => p.slug === post.slug);
+  const ordered = idx >= 0 ? [...all.slice(idx + 1), ...all.slice(0, idx)] : all;
+  const sameCategory = ordered.filter((p) => p.category === post.category);
+  const related = (sameCategory.length >= 3 ? sameCategory : ordered).slice(0, 3);
 
   return (
     <>

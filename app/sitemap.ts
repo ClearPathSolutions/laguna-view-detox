@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { site } from "@/lib/site";
-import { detoxTypes, whoWeTreat, locations, carriers, team } from "@/lib/data";
+import { detoxTypes, whoWeTreat, locations, carriers, team, CANONICAL_AT_PARENT } from "@/lib/data";
 import { getAllPosts, totalPagesFor, categoryListFor } from "@/lib/blog";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -37,7 +37,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...whoWeTreat.map((w) => `/who-we-treat/${w.slug}`),
     ...locations.map((l) => `/locations/${l.slug}`),
     ...carriers.map((c) => `/insurance/${c.slug}`),
-    ...team.map((t) => `/about/${t.slug}`),
+    // Bios canonicalised to the parent site are not this site's pages to list.
+    ...team.filter((t) => !CANONICAL_AT_PARENT[t.slug]).map((t) => `/about/${t.slug}`),
   ];
 
   const pages: MetadataRoute.Sitemap = [...staticPaths, ...dynamicPaths].map(

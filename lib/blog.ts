@@ -2,6 +2,7 @@ import blogData from "@/content/blog.json";
 import { site } from "@/lib/site";
 import { displayAuthor } from "@/lib/authors";
 import { isAllowedImageHost } from "@/lib/image-hosts.mjs";
+import { cleanClarionHtml } from "@/lib/clarionHtml";
 
 export type BlogPost = {
   slug: string;
@@ -275,7 +276,21 @@ export async function getMergedPost(slug: string): Promise<BlogPost | undefined>
     if (!res.ok) return undefined;
     const p = (await res.json()) as ClarionPost;
     if (!p || !p.title) return undefined;
-    return normalizeClarion({ ...p, slug });
+    const post = normalizeClarion({ ...p, slug });
+    if (post.bodyHtml) {
+      // Known slugs come from the same (cached) feed the blog index uses, so a
+      // link to a post that only exists on a sister site falls back to /blog
+      // instead of 404ing.
+      const known = new Set((await getAllPosts()).map((x) => `/blog/${x.slug}`));
+      known.add(`/blog/${slug}`);
+      post.bodyHtml = cleanClarionHtml(post.bodyHtml, {
+        origin: site.url,
+        trailingSlash: false,
+        knownBlogPaths: known,
+        fallbackAlt: post.title,
+      });
+    }
+    return post;
   } catch {
     return undefined;
   }

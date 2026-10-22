@@ -197,6 +197,16 @@ export type TeamMember = {
   contentSlug: string;
 };
 
+/**
+ * Network-wide staff whose bio is canonical on the parent site. Their local
+ * bio page points its canonical there, so it must also stay out of this
+ * site's sitemap (a sitemap entry whose canonical is another URL is flagged
+ * as an incorrect sitemap page).
+ */
+export const CANONICAL_AT_PARENT: Record<string, string> = {
+  "pamela-tambini": "https://www.quadranthealthgroup.com/team/pamela-tambini/",
+};
+
 export const team: TeamMember[] = [
   {
     slug: "pamela-tambini",

@@ -4,7 +4,7 @@ export const site = {
   tagline: "World-Class Luxury Drug Rehab in Laguna Beach",
   description:
     "Escape drug & alcohol addiction at a luxury rehab in Laguna Beach that offers evidence-based detox and residential treatment that works. Get help today.",
-  url: "https://lagunaviewdetox.com",
+  url: "https://www.lagunaviewdetox.com",
   phone: "(866) 932-3206",
   phoneHref: "tel:+18669323206",
   phoneRaw: "1-866-932-3206",
@@ -23,8 +23,13 @@ export const site = {
    * licence number to link to the state's register so the claim is verifiable
    * rather than asserted.
    */
+  //
+  // Points at DHCS's licensed & certified facility listings rather than the
+  // ArcGIS GeoHub explorer: the GeoHub app answers crawlers with a 404 (it only
+  // renders client-side), so audits reported it as a broken external link on
+  // every page.
   licenseVerifyUrl:
-    "https://geohub-cadhcs.hub.arcgis.com/datasets/63459617d2604decab840bd2ca047ee2_11/explore",
+    "https://www.dhcs.ca.gov/provgovpart/Pages/Facility_Listings_Licensed_Certified_Facilities.aspx",
   social: {
     facebook: "https://www.facebook.com/lagunaViewDetox/",
     instagram: "https://www.instagram.com/lagunaviewdetox/",

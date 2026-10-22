@@ -70,7 +70,10 @@ export default function RootLayout({
 }) {
   const orgJsonLd = {
     "@context": "https://schema.org",
-    "@type": "MedicalBusiness",
+    // MedicalClinic (a MedicalBusiness subtype that is also a
+    // MedicalOrganization) is what makes `medicalSpecialty` a valid property
+    // here; on a plain MedicalBusiness validators flag it as a markup error.
+    "@type": ["MedicalBusiness", "MedicalClinic"],
     name: site.name,
     url: site.url,
     telephone: site.phoneRaw,

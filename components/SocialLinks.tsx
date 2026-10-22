@@ -41,7 +41,10 @@ export default function SocialLinks({ tone = "dark" }: { tone?: "dark" | "light"
           aria-label={label}
           className={`flex h-11 w-11 items-center justify-center rounded-full border transition-all ${chip}`}
         >
-          <Icon className="h-5 w-5" />
+          <Icon className="h-5 w-5" aria-hidden="true" />
+          {/* Visible-to-crawlers anchor text; the icon alone reads as an
+              empty link in site audits. */}
+          <span className="sr-only">{label}</span>
         </a>
       ))}
     </div>

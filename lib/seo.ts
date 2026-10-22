@@ -32,6 +32,8 @@ const MAX_TITLE = 62;
 const MAX_BRANDED_TITLE = 70;
 const MAX_DESC = 160;
 const BRAND_SUFFIX = ` | ${site.name}`;
+/** Used when the full suffix would overflow, so <title> still differs from <h1>. */
+const SHORT_BRAND_SUFFIX = " | Laguna View";
 
 /** Trim to `max` at a word boundary, without leaving dangling punctuation. */
 function clampWords(text: string, max: number): string {
@@ -134,7 +136,12 @@ export function pageMeta({
   // emitted as `absolute`.
   const withBrand = clean + BRAND_SUFFIX;
   const brandFits = withBrand.length <= MAX_BRANDED_TITLE;
-  const renderedTitle = brandFits ? withBrand : clampTitle(clean);
+  const withShortBrand = clean + SHORT_BRAND_SUFFIX;
+  const renderedTitle = brandFits
+    ? withBrand
+    : withShortBrand.length <= MAX_BRANDED_TITLE
+      ? withShortBrand
+      : clampTitle(clean);
   const ogTitle = renderedTitle;
 
   checkSourceLengths(canonical, title, description);

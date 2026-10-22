@@ -16,6 +16,8 @@ export type BlogPost = {
   sections?: { heading: string; body: string }[];
   external?: boolean; // true for posts sourced from Clarion (not local markdown)
   bodyHtml?: string; // rendered post HTML (Clarion posts only, on the detail page)
+  /** Clarion's purpose-written SEO title — shorter than, and distinct from, the H1. */
+  seoTitle?: string;
 };
 
 type RawPost = {
@@ -102,6 +104,7 @@ type ClarionPost = {
   author_name?: string;
   published_at?: string;
   body_html?: string;
+  meta_title?: string;
 };
 
 function clarionApi(): string | null {
@@ -228,6 +231,7 @@ function normalizeClarion(p: ClarionPost): BlogPost {
     // the local fallback instead. See lib/image-hosts.mjs.
     image: isAllowedImageHost(p.cover_image_url) ? p.cover_image_url! : DEFAULT_IMAGE,
     external: true,
+    seoTitle: typeof p.meta_title === "string" && p.meta_title.trim() ? p.meta_title.trim() : undefined,
     bodyHtml:
       typeof p.body_html === "string"
         ? anchorizeHeadings(tuneInlineImages(p.body_html))

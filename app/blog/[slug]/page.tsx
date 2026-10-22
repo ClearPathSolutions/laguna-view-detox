@@ -28,7 +28,9 @@ export async function generateMetadata({
   const post = await getMergedPost(params.slug);
   if (!post) return {};
   return pageMeta({
-    title: post.title,
+    // Clarion posts carry an SEO title written for the SERP; using it keeps
+    // the <title> within length and distinct from the on-page <h1>.
+    title: post.seoTitle || post.title,
     description: post.excerpt,
     path: `/blog/${post.slug}`,
     image: post.image,

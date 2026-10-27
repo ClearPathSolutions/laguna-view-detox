@@ -16,20 +16,13 @@ export const site = {
     zip: "92651",
     full: "31305 Ceanothus Dr, Laguna Beach, CA 92651",
   },
+  // DHCS BHIN 22-022: license number, expiry, and a link to the DHCS page that
+  // lists both must be shown on the site. The GIS Data Hub table is DHCS's
+  // public register of licensed SUD facilities (number + expiration columns).
   license: "DHCS License #300024AP",
-  licenseExpiry: "01/31/2028",
-  /**
-   * California DHCS public licence record. QA row 1090 asked for the footer
-   * licence number to link to the state's register so the claim is verifiable
-   * rather than asserted.
-   */
-  //
-  // Points at DHCS's licensed & certified facility listings rather than the
-  // ArcGIS GeoHub explorer: the GeoHub app answers crawlers with a 404 (it only
-  // renders client-side), so audits reported it as a broken external link on
-  // every page.
+  licenseExpires: "1/31/2028",
   licenseVerifyUrl:
-    "https://www.dhcs.ca.gov/provgovpart/Pages/Facility_Listings_Licensed_Certified_Facilities.aspx",
+    "https://gis.dhcs.ca.gov/datasets/CADHCS::sud-recovery-treatment-facilities/explore?showTable=true",
   social: {
     facebook: "https://www.facebook.com/lagunaViewDetox/",
     instagram: "https://www.instagram.com/lagunaviewdetox/",

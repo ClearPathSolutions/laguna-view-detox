@@ -38,6 +38,8 @@ const escapeHtml = (s: string) =>
 
 const fields: Record<string, string> = {
   FACILITY_NAME: escapeHtml(site.name),
+  // The terms of service's ALL-CAPS paragraphs take the name upper-cased.
+  FACILITY_NAME_CAPS: escapeHtml(site.name.toUpperCase()),
   DOMAIN: "lagunaviewdetox.com",
   LEGAL_ENTITY_LINE: "",
   STATE_NAME: "California",

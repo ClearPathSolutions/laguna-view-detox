@@ -3,7 +3,7 @@ import { legalBody, type LegalDoc } from "@/lib/legal";
 
 /**
  * Shell for the standard legal pages (privacy policy, notice of privacy
- * practices, SMS terms): the hero and prose column the privacy policy has
+ * practices, SMS terms, terms of service): the hero and prose column the privacy policy has
  * always used. The body is template HTML, so it takes the site's HTML prose
  * styles (.blog-html) for its headings, lists and links.
  */

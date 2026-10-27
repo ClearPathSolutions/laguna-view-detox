@@ -187,6 +187,9 @@ export default function Footer() {
             <Link href="/editorial-policy" className="transition-colors hover:text-white">
               Editorial Policy
             </Link>
+            <Link href={LEGAL_PATHS.terms} className="transition-colors hover:text-white">
+              Terms of Service
+            </Link>
             <Link href="/contact" className="transition-colors hover:text-white">
               Contact
             </Link>

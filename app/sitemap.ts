@@ -29,6 +29,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/privacy-policy",
     "/notice-of-privacy-practices",
     "/sms-terms",
+    "/terms-of-service",
     "/drug-addiction-treatment",
     "/alcohol-detox-and-treatment-programs",
     "/luxury-addiction-treatment",

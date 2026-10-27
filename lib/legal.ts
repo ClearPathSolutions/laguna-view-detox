@@ -43,6 +43,7 @@ const fields: Record<string, string> = {
   DOMAIN: "lagunaviewdetox.com",
   LEGAL_ENTITY_LINE: "",
   STATE_NAME: "California",
+  STATE_NAME_CAPS: "CALIFORNIA",
   STREET_ADDRESS: escapeHtml(site.address.full),
   PHONE: `<a href="${escapeHtml(site.phoneHref)}">${escapeHtml(site.phone)}</a>`,
   PRIVACY_EMAIL: `<a href="mailto:${escapeHtml(site.email)}">${escapeHtml(site.email)}</a>`,

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { site } from "@/lib/site";
+import { LEGAL_PATHS } from "@/lib/legal";
 import {
   PhoneIcon,
   MapPinIcon,
@@ -173,9 +174,15 @@ export default function Footer() {
           <p>
             © <CurrentYear /> Laguna View Detox. All Rights Reserved.
           </p>
-          <div className="flex gap-5">
-            <Link href="/privacy-policy" className="transition-colors hover:text-white">
+          <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
+            <Link href={LEGAL_PATHS.privacy} className="transition-colors hover:text-white">
               Privacy Policy
+            </Link>
+            <Link href={LEGAL_PATHS.npp} className="transition-colors hover:text-white">
+              Notice of Privacy Practices
+            </Link>
+            <Link href={LEGAL_PATHS.sms} className="transition-colors hover:text-white">
+              SMS Terms
             </Link>
             <Link href="/editorial-policy" className="transition-colors hover:text-white">
               Editorial Policy

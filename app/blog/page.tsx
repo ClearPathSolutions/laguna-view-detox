@@ -48,7 +48,7 @@ export default async function BlogIndex() {
               href={`/blog/${featured.slug}`}
               className="group grid gap-8 overflow-hidden rounded-3xl bg-sand-50 shadow-soft ring-1 ring-navy-900/5 lg:grid-cols-2"
             >
-              <div className="relative aspect-[16/10] overflow-hidden lg:aspect-auto">
+              <div className="relative aspect-[1200/630] self-center overflow-hidden">
                 <Image
                   src={featured.image}
                   alt={featured.title}

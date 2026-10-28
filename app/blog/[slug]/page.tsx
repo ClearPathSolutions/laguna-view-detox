@@ -95,7 +95,7 @@ export default async function BlogPost({ params }: { params: { slug: string } })
         <div className="container-x">
           <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-16">
             <article className="reveal max-w-prose">
-              <div className="relative mb-10 aspect-[16/9] overflow-hidden rounded-2xl shadow-soft">
+              <div className="relative mb-10 aspect-[1200/630] overflow-hidden rounded-2xl shadow-soft">
                 <Image src={post.image} alt={post.title} fill sizes="(min-width:1024px) 60vw, 100vw" className="object-cover" />
               </div>
 
@@ -162,7 +162,7 @@ export default async function BlogPost({ params }: { params: { slug: string } })
           <div className="mt-8 grid gap-7 sm:grid-cols-3">
             {related.map((p) => (
               <Link key={p.slug} href={`/blog/${p.slug}`} className="group flex flex-col">
-                <div className="relative aspect-[16/10] overflow-hidden rounded-2xl shadow-soft">
+                <div className="relative aspect-[1200/630] overflow-hidden rounded-2xl shadow-soft">
                   <Image src={p.image} alt={p.title} fill sizes="30vw" className="object-cover transition-transform duration-500 group-hover:scale-105" />
                 </div>
                 <h3 className="mt-4 font-serif text-lg font-medium leading-snug text-navy-900 group-hover:text-gold-700">

@@ -28,7 +28,7 @@ export default function BlogPreview() {
               className="group flex flex-col reveal"
               data-delay={i * 90}
             >
-              <div className="relative aspect-[16/10] overflow-hidden rounded-2xl shadow-soft">
+              <div className="relative aspect-[1200/630] overflow-hidden rounded-2xl shadow-soft">
                 <Image
                   src={post.image}
                   alt={post.title}

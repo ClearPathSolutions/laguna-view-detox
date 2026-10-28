@@ -53,7 +53,7 @@ export default function BlogArchive({
       <div className="mt-8 grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
         {shown.map((post) => (
           <Link key={post.slug} href={`/blog/${post.slug}`} className="group flex flex-col">
-            <div className="relative aspect-[16/10] overflow-hidden rounded-2xl shadow-soft">
+            <div className="relative aspect-[1200/630] overflow-hidden rounded-2xl shadow-soft">
               <Image
                 src={post.image}
                 alt={post.title}

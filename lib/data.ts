@@ -205,6 +205,7 @@ export type TeamMember = {
  */
 export const CANONICAL_AT_PARENT: Record<string, string> = {
   "pamela-tambini": "https://www.quadranthealthgroup.com/team/pamela-tambini/",
+  "casey-hyatt": "https://www.quadranthealthgroup.com/team/casey-hyatt/",
 };
 
 export const team: TeamMember[] = [
@@ -214,6 +215,13 @@ export const team: TeamMember[] = [
     role: "Medical Oversight",
     image: "/images/team-pamela-tambini.jpg",
     contentSlug: "pamela-tambini",
+  },
+  {
+    slug: "casey-hyatt",
+    name: "Casey Hyatt",
+    role: "Director of Family Services",
+    image: "/images/team-casey-hyatt.jpg",
+    contentSlug: "casey-hyatt",
   },
   {
     slug: "shawn-young",

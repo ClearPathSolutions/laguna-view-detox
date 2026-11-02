@@ -29,6 +29,7 @@ export const STAFF_HEADSHOTS: Record<string, string> = {
   "jeremiah ross": "/images/team/team-jeremiah-ross.jpg",
   "pamela tambini": "/images/team/team-pamela-tambini.jpg",
   "bj thome": "/images/team/team-bj-thome.jpg",
+  "casey hyatt": "/images/team/team-casey-hyatt.jpg",
 };
 
 /** Must match nameKey() in lib/staff-feed.ts so lookups line up. */

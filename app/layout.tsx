@@ -61,6 +61,9 @@ export const metadata: Metadata = {
   // applies to every page and would make all interior pages look like
   // duplicates of one URL. Each page sets its own self-referential canonical
   // via lib/seo.ts → pageMeta().
+  verification: {
+    google: "F6ucj8zmW75VBb5iX5Yh1IDf8-5mTXRIQ5U3HQuR9WY",
+  },
 };
 
 export default function RootLayout({

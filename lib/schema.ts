@@ -1,6 +1,6 @@
 import { site } from "./site";
 import type { Faq } from "./content";
-import type { BlogPost } from "./blog";
+import { reviewerLink, type BlogPost } from "./blog";
 import { VERIFIED_AUTHORS } from "./authors";
 
 /**
@@ -42,27 +42,53 @@ export function faqPageSchema(faqs: Faq[]) {
   };
 }
 
+/**
+ * A MedicalWebPage carrying the medical review, with the BlogPosting as its
+ * main entity. reviewedBy is always present (every post has a reviewer, see
+ * resolveReviewer in lib/blog.ts); lastReviewed is omitted because no source
+ * supplies a real review date.
+ */
 export function blogPostingSchema(post: BlogPost, url: string) {
+  const pageUrl = `${site.url}${url}`;
+  const reviewerUrl = reviewerLink(post.reviewer).schemaUrl;
   return {
     "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    headline: post.title.slice(0, 110),
-    description: post.excerpt || undefined,
-    image: post.image ? `${site.url}${post.image}` : undefined,
-    mainEntityOfPage: { "@type": "WebPage", "@id": `${site.url}${url}` },
-    // Only emitted when the source carries a parseable date — no invented dates.
-    datePublished: post.ts ? new Date(post.ts).toISOString() : undefined,
-    author: authorNode(post.author),
-    publisher: {
-      "@type": "Organization",
-      name: site.name,
-      url: site.url,
-      logo: {
-        "@type": "ImageObject",
-        url: `${site.url}/logos/logo-color.png`,
+    "@graph": [
+      {
+        "@type": "MedicalWebPage",
+        "@id": `${pageUrl}#webpage`,
+        url: pageUrl,
+        name: post.title,
+        reviewedBy: {
+          "@type": "Person",
+          "@id": `${reviewerUrl}#person`,
+          url: reviewerUrl,
+          name: post.reviewer.name,
+          honorificSuffix: post.reviewer.credentials,
+        },
       },
-    },
-    articleSection: post.category || undefined,
+      {
+        "@type": "BlogPosting",
+        "@id": `${pageUrl}#article`,
+        headline: post.title.slice(0, 110),
+        description: post.excerpt || undefined,
+        image: post.image ? `${site.url}${post.image}` : undefined,
+        mainEntityOfPage: { "@id": `${pageUrl}#webpage` },
+        // Only emitted when the source carries a parseable date — no invented dates.
+        datePublished: post.ts ? new Date(post.ts).toISOString() : undefined,
+        author: authorNode(post.author),
+        publisher: {
+          "@type": "Organization",
+          name: site.name,
+          url: site.url,
+          logo: {
+            "@type": "ImageObject",
+            url: `${site.url}/logos/logo-color.png`,
+          },
+        },
+        articleSection: post.category || undefined,
+      },
+    ],
   };
 }
 

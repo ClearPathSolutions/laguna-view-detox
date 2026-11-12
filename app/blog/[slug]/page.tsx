@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { getMergedPost, getAllPosts, categorySlug } from "@/lib/blog";
+import { getMergedPost, getAllPosts, categorySlug, reviewerLink } from "@/lib/blog";
 import { pageMeta } from "@/lib/seo";
 import { displayAuthor } from "@/lib/authors";
 import { paragraphs } from "@/lib/content";
@@ -40,6 +40,8 @@ export async function generateMetadata({
 export default async function BlogPost({ params }: { params: { slug: string } }) {
   const post = await getMergedPost(params.slug);
   if (!post) notFound();
+
+  const reviewer = reviewerLink(post.reviewer);
 
   const all = await getAllPosts();
   // Rotate from this post's position rather than always taking the newest
@@ -85,7 +87,25 @@ export default async function BlogPost({ params }: { params: { slug: string } })
               {post.date && <span className="text-white/60">{post.date}</span>}
             </div>
             <h1 className="h-display mt-4 !text-white !text-[clamp(2rem,4.2vw,3.25rem)]">{post.title}</h1>
-            <p className="mt-4 text-white/70">By {displayAuthor(post.author)}</p>
+            <p className="mt-4 flex flex-wrap gap-x-5 gap-y-1 text-white/70">
+              <span>By {displayAuthor(post.author)}</span>
+              <span>
+                Medically reviewed by{" "}
+                {reviewer.path ? (
+                  <Link href={reviewer.path} className="underline hover:text-gold-300">
+                    {post.reviewer.name}
+                  </Link>
+                ) : (
+                  <a href={reviewer.href} target="_blank" rel="noopener noreferrer" className="underline hover:text-gold-300">
+                    {post.reviewer.name}
+                  </a>
+                )}
+                {post.reviewer.credentials ? `, ${post.reviewer.credentials}` : ""}
+              </span>
+              <Link href="/editorial-policy" className="underline hover:text-gold-300">
+                Editorial policy
+              </Link>
+            </p>
           </div>
         </div>
       </section>

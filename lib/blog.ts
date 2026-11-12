@@ -18,7 +18,65 @@ export type BlogPost = {
   bodyHtml?: string; // rendered post HTML (Clarion posts only, on the detail page)
   /** Clarion's purpose-written SEO title — shorter than, and distinct from, the H1. */
   seoTitle?: string;
+  /** Medical reviewer. Always set — see resolveReviewer(). */
+  reviewer: Reviewer;
 };
+
+/* ------------------------------------------------------------------ *
+ * Medical reviewer
+ *
+ * Every post, from every source, carries a medical reviewer (client
+ * instruction, 2026-11-12). Clarion's single-post API returns
+ * medically_reviewed_by / _credentials / _url: each populated field is kept,
+ * and each missing one is filled individually from the site default below.
+ * Posts from content/blog.json (the WordPress import) and Clarion feed entries
+ * (which carry no reviewer fields) get the default outright, so new posts are
+ * covered with no per-post action.
+ * ------------------------------------------------------------------ */
+
+export type Reviewer = { name: string; credentials: string; url: string };
+
+export const DEFAULT_REVIEWER: Reviewer = {
+  name: "Dr. Pamela Tambini",
+  credentials: "M.D.",
+  url: `${site.url}/about/pamela-tambini`,
+};
+
+export function resolveReviewer(raw?: {
+  medically_reviewed_by?: string | null;
+  medically_reviewed_by_credentials?: string | null;
+  medically_reviewed_by_url?: string | null;
+}): Reviewer {
+  const pick = (v: string | null | undefined, d: string) =>
+    typeof v === "string" && v.trim() ? v.trim() : d;
+  return {
+    name: pick(raw?.medically_reviewed_by, DEFAULT_REVIEWER.name),
+    credentials: pick(raw?.medically_reviewed_by_credentials, DEFAULT_REVIEWER.credentials),
+    url: pick(raw?.medically_reviewed_by_url, DEFAULT_REVIEWER.url),
+  };
+}
+
+/**
+ * Where the reviewer link points. A profile on this site (Clarion stores it on
+ * the bare host) becomes a same-tab internal path, and its schema URL is put on
+ * site.url's host without a trailing slash (trailingSlash is off), so neither
+ * the link nor the @id goes through a redirect.
+ */
+export function reviewerLink(r: Reviewer): { path: string | null; href: string; schemaUrl: string } {
+  let abs: URL;
+  try {
+    abs = new URL(r.url, site.url);
+  } catch {
+    abs = new URL(DEFAULT_REVIEWER.url);
+  }
+  const host = (h: string) => h.replace(/^www\./, "");
+  if (host(abs.hostname) === host(new URL(site.url).hostname)) {
+    const path = abs.pathname.replace(/\/+$/, "") || "/";
+    return { path, href: path, schemaUrl: `${site.url}${path}` };
+  }
+  const href = abs.href.replace(/\/$/, "");
+  return { path: null, href, schemaUrl: href };
+}
 
 type RawPost = {
   slug: string;
@@ -62,6 +120,7 @@ export const allPosts: BlogPost[] = raw
     category: p.category || "Recovery",
     image: p.image || DEFAULT_IMAGE,
     sections: p.sections,
+    reviewer: DEFAULT_REVIEWER,
   }))
   .sort((a, b) => b.ts - a.ts);
 
@@ -105,6 +164,10 @@ type ClarionPost = {
   published_at?: string;
   body_html?: string;
   meta_title?: string;
+  // Only on the single-post endpoint; the feed omits them.
+  medically_reviewed_by?: string | null;
+  medically_reviewed_by_credentials?: string | null;
+  medically_reviewed_by_url?: string | null;
 };
 
 function clarionApi(): string | null {
@@ -236,6 +299,7 @@ function normalizeClarion(p: ClarionPost): BlogPost {
       typeof p.body_html === "string"
         ? anchorizeHeadings(tuneInlineImages(p.body_html))
         : undefined,
+    reviewer: resolveReviewer(p),
   };
 }
 

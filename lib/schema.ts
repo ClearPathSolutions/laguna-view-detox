@@ -72,7 +72,7 @@ export function blogPostingSchema(post: BlogPost, url: string) {
         "@id": `${pageUrl}#article`,
         headline: post.title.slice(0, 110),
         description: post.excerpt || undefined,
-        image: post.image ? `${site.url}${post.image}` : undefined,
+        image: post.image ? (/^https?:\/\//.test(post.image) ? post.image : `${site.url}${post.image}`) : undefined,
         mainEntityOfPage: { "@id": `${pageUrl}#webpage` },
         // Only emitted when the source carries a parseable date — no invented dates.
         datePublished: post.ts ? new Date(post.ts).toISOString() : undefined,

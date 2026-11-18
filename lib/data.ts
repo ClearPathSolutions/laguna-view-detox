@@ -201,10 +201,11 @@ export type TeamMember = {
  * Network-wide staff whose bio is canonical on the parent site. Their local
  * bio page points its canonical there, so it must also stay out of this
  * site's sitemap (a sitemap entry whose canonical is another URL is flagged
- * as an incorrect sitemap page).
+ * as an incorrect sitemap page). Dr. Pamela Tambini is deliberately not here:
+ * every blog post's medical-reviewer byline links to her bio, so it must be
+ * self-canonical and indexable on this domain.
  */
 export const CANONICAL_AT_PARENT: Record<string, string> = {
-  "pamela-tambini": "https://www.quadranthealthgroup.com/team/pamela-tambini/",
   "casey-hyatt": "https://www.quadranthealthgroup.com/team/casey-hyatt/",
 };
 

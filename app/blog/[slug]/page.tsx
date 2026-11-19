@@ -68,7 +68,7 @@ export default async function BlogPost({ params }: { params: { slug: string } })
 
       {/* Header */}
       <section className="relative isolate overflow-hidden bg-navy-950 text-white">
-        <Image src={post.image} alt="" fill sizes="100vw" className="object-cover opacity-25" priority />
+        <Image src={post.image} alt={post.imageAlt} aria-hidden="true" fill sizes="100vw" className="object-cover opacity-25" priority />
         <div className="absolute inset-0 bg-gradient-to-b from-navy-950/80 to-navy-950/95" />
         <div className="container-x relative py-14 lg:py-20">
           <nav className="flex items-center gap-1.5 text-xs text-white/60" aria-label="Breadcrumb">
@@ -116,7 +116,7 @@ export default async function BlogPost({ params }: { params: { slug: string } })
           <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-16">
             <article className="reveal max-w-prose">
               <div className="relative mb-10 aspect-[1200/630] overflow-hidden rounded-2xl shadow-soft">
-                <Image src={post.image} alt={post.title} fill sizes="(min-width:1024px) 60vw, 100vw" className="object-cover" />
+                <Image src={post.image} alt={post.imageAlt} fill sizes="(min-width:1024px) 60vw, 100vw" className="object-cover" />
               </div>
 
               {post.external && post.bodyHtml ? (
@@ -183,7 +183,7 @@ export default async function BlogPost({ params }: { params: { slug: string } })
             {related.map((p) => (
               <Link key={p.slug} href={`/blog/${p.slug}`} className="group flex flex-col">
                 <div className="relative aspect-[1200/630] overflow-hidden rounded-2xl shadow-soft">
-                  <Image src={p.image} alt={p.title} fill sizes="30vw" className="object-cover transition-transform duration-500 group-hover:scale-105" />
+                  <Image src={p.image} alt={p.imageAlt} fill sizes="30vw" className="object-cover transition-transform duration-500 group-hover:scale-105" />
                 </div>
                 <h3 className="mt-4 font-serif text-lg font-medium leading-snug text-navy-900 group-hover:text-gold-700">
                   {p.title}

@@ -92,6 +92,18 @@ const nextConfig = {
   async redirects() {
     return buildRedirects();
   },
+  // Blog images: Clarion stores them, this site serves them, so their address
+  // (and image-search credit) is this domain's. lib/blog.ts points every Clarion
+  // image at /blog-images/; this proxies it to Clarion's bytes route, which
+  // answers with the image itself (never a redirect to Clarion).
+  async rewrites() {
+    return [
+      {
+        source: "/blog-images/:path*",
+        destination: "https://api.clarionlabs.ai/blog/public/image-inline/:path*",
+      },
+    ];
+  },
   images: {
     // AVIF/WebP + responsive srcset. This was previously `unoptimized: true`,
     // which made every `sizes` prop in the codebase inert and shipped the same

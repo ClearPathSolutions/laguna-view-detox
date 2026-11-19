@@ -56,7 +56,7 @@ export default function BlogArchive({
             <div className="relative aspect-[1200/630] overflow-hidden rounded-2xl shadow-soft">
               <Image
                 src={post.image}
-                alt={post.title}
+                alt={post.imageAlt}
                 fill
                 sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 100vw"
                 className="object-cover transition-transform duration-500 group-hover:scale-105"

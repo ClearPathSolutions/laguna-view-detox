@@ -31,7 +31,7 @@ export default function BlogPreview() {
               <div className="relative aspect-[1200/630] overflow-hidden rounded-2xl shadow-soft">
                 <Image
                   src={post.image}
-                  alt={post.title}
+                  alt={post.imageAlt}
                   fill
                   sizes="(min-width: 768px) 30vw, 100vw"
                   className="object-cover transition-transform duration-500 group-hover:scale-105"

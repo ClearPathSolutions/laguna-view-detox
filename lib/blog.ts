@@ -16,6 +16,8 @@ export type BlogPost = {
   sections?: { heading: string; body: string }[];
   external?: boolean; // true for posts sourced from Clarion (not local markdown)
   bodyHtml?: string; // rendered post HTML (Clarion posts only, on the detail page)
+  /** Alt text for `image`: the Clarion author's, else the title. Never empty. */
+  imageAlt: string;
   /** Clarion's purpose-written SEO title — shorter than, and distinct from, the H1. */
   seoTitle?: string;
   /** Medical reviewer. Always set — see resolveReviewer(). */
@@ -119,6 +121,8 @@ export const allPosts: BlogPost[] = raw
     excerpt: p.excerpt || "",
     category: p.category || "Recovery",
     image: p.image || DEFAULT_IMAGE,
+    // Legacy posts carry no alt of their own; the title describes the cover.
+    imageAlt: p.title,
     sections: p.sections,
     reviewer: DEFAULT_REVIEWER,
   }))
@@ -160,6 +164,7 @@ type ClarionPost = {
   title: string;
   excerpt?: string;
   cover_image_url?: string;
+  cover_image_alt?: string | null;
   author_name?: string;
   published_at?: string;
   body_html?: string;
@@ -169,6 +174,29 @@ type ClarionPost = {
   medically_reviewed_by_credentials?: string | null;
   medically_reviewed_by_url?: string | null;
 };
+
+/**
+ * Blog images on this site's own domain. Clarion hands out
+ * `https://api.clarionlabs.ai/blog/public/image/<key>` (or, once it is told this
+ * site proxies images, `https://www.lagunaviewdetox.com/blog-images/<key>`); both
+ * become `/blog-images/<key>`, which next.config.mjs rewrites to Clarion's bytes
+ * route. The address a visitor, Google Images or a social card sees is this
+ * site's, and the bytes are the same with no redirect.
+ */
+const IMAGE_PATH = "/blog-images";
+const CLARION_IMAGE = "https://api.clarionlabs.ai/blog/public/image/";
+const OWN_IMAGE = new RegExp(
+  `^https://(?:www\\.)?${new URL(site.url).hostname.replace(/^www\./, "").replace(/\./g, "\\.")}(?=${IMAGE_PATH}/)`,
+);
+
+export function onSiteImage(src: string): string {
+  if (src.startsWith(CLARION_IMAGE)) return `${IMAGE_PATH}/${src.slice(CLARION_IMAGE.length)}`;
+  return src.replace(OWN_IMAGE, "");
+}
+
+function onSiteImages(html: string): string {
+  return html.split(CLARION_IMAGE).join(`${IMAGE_PATH}/`);
+}
 
 function clarionApi(): string | null {
   if (!clarion?.siteKey || !clarion?.api) return null;
@@ -279,6 +307,12 @@ function anchorizeHeadings(html: string): string {
   );
 }
 
+function coverImage(url?: string): string {
+  if (!url) return DEFAULT_IMAGE;
+  const src = onSiteImage(url);
+  return src.startsWith("/") || isAllowedImageHost(src) ? src : DEFAULT_IMAGE;
+}
+
 function normalizeClarion(p: ClarionPost): BlogPost {
   const t = p.published_at ? Date.parse(p.published_at) : NaN;
   return {
@@ -292,12 +326,13 @@ function normalizeClarion(p: ClarionPost): BlogPost {
     // Only proxy covers from allowlisted hosts. An un-allowlisted URL would
     // make next/image throw and take the whole page down, so it degrades to
     // the local fallback instead. See lib/image-hosts.mjs.
-    image: isAllowedImageHost(p.cover_image_url) ? p.cover_image_url! : DEFAULT_IMAGE,
+    image: coverImage(p.cover_image_url),
+    imageAlt: p.cover_image_alt?.trim() || p.title || "Untitled",
     external: true,
     seoTitle: typeof p.meta_title === "string" && p.meta_title.trim() ? p.meta_title.trim() : undefined,
     bodyHtml:
       typeof p.body_html === "string"
-        ? anchorizeHeadings(tuneInlineImages(p.body_html))
+        ? anchorizeHeadings(tuneInlineImages(onSiteImages(p.body_html)))
         : undefined,
     reviewer: resolveReviewer(p),
   };

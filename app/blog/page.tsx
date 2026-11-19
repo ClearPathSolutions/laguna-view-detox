@@ -51,7 +51,7 @@ export default async function BlogIndex() {
               <div className="relative aspect-[1200/630] self-center overflow-hidden">
                 <Image
                   src={featured.image}
-                  alt={featured.title}
+                  alt={featured.imageAlt}
                   fill
                   sizes="(min-width: 1024px) 50vw, 100vw"
                   className="object-cover transition-transform duration-500 group-hover:scale-105"

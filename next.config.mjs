@@ -1,18 +1,10 @@
 /** @type {import('next').NextConfig} */
-import { buildRedirects } from "./lib/redirects.mjs";
 import { remoteImagePatterns } from "./lib/image-hosts.mjs";
 
 /**
- * ⚠️ CUTOVER DECISION — BLOCKED ON QHG (sheet V0102, portfolio-wide).
- *
- * Production (`lagunaviewdetox.com`) is slash-canonical: it 301s the slashless
- * form of every URL. This build serves slashless. Until this matches
- * production, every canonical this site emits points at a URL that redirects,
- * which discounts it — measured live 2026-08-07: of 9 sampled routes, 8 either
- * 301 or 404 and only `/` resolves cleanly.
- *
- * Set this to `true` the moment QHG confirms the convention, and ship it in the
- * SAME deploy as the redirect map below. Two passes produce chains.
+ * Canonical URLs have no trailing slash (except "/"), on
+ * https://www.lagunaviewdetox.com. middleware.ts strips the slash itself, in
+ * the same 301 as any host or legacy-path fix (ClickUp 1dfjb8tm472).
  */
 const TRAILING_SLASH = false;
 
@@ -87,11 +79,11 @@ const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   trailingSlash: TRAILING_SLASH,
-  // 185 pairs: every URL live on production today -> its address here.
-  // Enumerated from production's sitemaps; see lib/redirects.mjs.
-  async redirects() {
-    return buildRedirects();
-  },
+  // Redirects live in middleware.ts, not here: config redirects() and Next's
+  // automatic trailing-slash 308 each fire as their own hop BEFORE middleware,
+  // which is how legacy URLs ended up 2-4 hops deep. middleware.ts resolves
+  // host + slash + legacy map together and answers with one 301.
+  skipTrailingSlashRedirect: true,
   // Blog images: Clarion stores them, this site serves them, so their address
   // (and image-search credit) is this domain's. lib/blog.ts points every Clarion
   // image at /blog-images/; this proxies it to Clarion's bytes route, which

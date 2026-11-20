@@ -4,9 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node scripts/redirects/generate.mjs",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "redirects:generate": "node scripts/redirects/generate.mjs",
+    "test": "node --test tests/redirects.test.mjs",
+    "redirects:audit": "node scripts/redirects/audit.mjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",
